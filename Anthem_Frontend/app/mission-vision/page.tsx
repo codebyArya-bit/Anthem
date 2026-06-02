@@ -1,183 +1,338 @@
 "use client"
-import { Footer } from "@/components/Footer";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Home, ChevronRight, Target, Eye, ShieldCheck, HeartHandshake, Compass } from "lucide-react"
+import React, { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Compass, Eye, HeartHandshake, Lightbulb, ShieldCheck, Target, Network, ChevronRight, Award, ChevronLeft } from "lucide-react"
+import { Footer } from "@/components/Footer"
+import { PageHero } from "@/components/corporate/PageHero"
+import { SectionHeading } from "@/components/corporate/SectionHeading"
+import { InfoCard } from "@/components/corporate/InfoCard"
+import { SideNavLayout } from "@/components/corporate/SideNavLayout"
 import { Card, CardContent } from "@/components/ui/card"
+import { ShinyText } from "@/components/reactbits/ShinyText"
+import { TiltedCard } from "@/components/reactbits/TiltedCard"
+import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
+import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
+import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
+import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
+import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
 
-const visionPoints = [
-  "Services to every human being through our innovation.",
-  "Responsible, Ethical & Professional towards the stakeholders.",
-  "To maintain Dedication, Integrity and Honesty towards our valuable clients.",
-  "To make our presence felt all over the world.",
-  "To maximize value for our customers.",
-  "To be recognized globally for Products, Services & Cost Competitiveness."
+const navItems = [
+  { href: "#vision", label: "Vision" },
+  { href: "#mission", label: "Mission" },
+  { href: "#journey", label: "Our Journey" },
+  { href: "#values", label: "Operating Values" },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+const values = [
+  { 
+    title: "Integrity", 
+    description: "Transparent execution, accountable teams, and responsible handling of critical client data.", 
+    icon: ShieldCheck 
   },
-}
+  { 
+    title: "Innovation", 
+    description: "Practical AI, scanning, workflow, and software systems built for measurable public value.", 
+    icon: Lightbulb 
+  },
+  { 
+    title: "Intelligence", 
+    description: "Data-driven systems that make records, exams, and workflows searchable, secure, and actionable.", 
+    icon: Compass 
+  },
+]
 
-const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-}
+const journeyEvents = [
+  {
+    year: "2009",
+    title: "Company Foundation",
+    description: "Anthem Global commenced operations in Bhubaneswar, Odisha, with a focus on core software applications and high-fidelity digitisation."
+  },
+  {
+    year: "2013",
+    title: "E-Governance Expansion",
+    description: "Secured empanelment for high-volume document scanning, paperless court record systems, and public records workflows."
+  },
+  {
+    year: "2018",
+    title: "LiDAR & Advanced Spatial Division",
+    description: "Launched state-of-the-art corridor mapping, MLS points vectorisation, and global spatial outsourcing divisions."
+  },
+  {
+    year: "2026",
+    title: "AI-Powered Workflows & National Scale",
+    description: "Pioneered OCR pipelines, biometric verification, secure proctoring solutions, and multi-state judicial modernisations."
+  }
+]
+
+const visionPoints = [
+  { text: "Services to every human being through innovation.", icon: Lightbulb },
+  { text: "Responsible, ethical, and professional towards stakeholders.", icon: ShieldCheck },
+  { text: "Dedication, integrity, and honesty towards valuable clients.", icon: Compass },
+  { text: "Make Anthem Global's presence felt across markets.", icon: Eye },
+  { text: "Maximize value for customers through disciplined execution.", icon: Network },
+  { text: "Be recognized globally for products, services, and cost competitiveness.", icon: Award },
+]
 
 export default function MissionVisionPage() {
+  const [activeMilestone, setActiveMilestone] = useState(0)
+
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-background">
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.08),transparent_50%)]">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/Anthem%20Assests/images_ban-mission-vision.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
-        
-        {/* Glow Spheres */}
-        <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-anthem-lightBlue/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+      <PageHero
+        title="Vision & Mission"
+        description="Anthem Global's vision is to deliver technology services with responsibility, ethics, and professional discipline while maximizing value for clients and building globally recognized products."
+        image="/Anthem Assests/images_ban-mission-vision.jpg"
+        video="/videos/data-flow.mp4"
+        icon={Eye}
+        stats={[
+          { value: "Global", label: "Technology outlook" },
+          { value: "Client", label: "Value-led delivery" },
+        ]}
+        darkTheme={true}
+      />
 
-        <div className="container px-4 md:px-6 relative z-10 mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Home className="size-3.5" /> Home
-            </Link>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">Who We Are</span>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-primary font-medium">Mission & Vision</span>
-          </div>
+      <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
+        {/* Soft background watermarks */}
+        <SectionWatermark className="top-[10%] right-[5%] opacity-[0.015]" size={420} />
+        <SectionWatermark className="bottom-[15%] left-[2%] opacity-[0.02]" size={360} />
 
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-anthem-blue to-anthem-darkBlue bg-clip-text text-transparent">
-                Mission & Vision
-              </h1>
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                The core pillars of our company guide our decisions, inspire our technological innovation, and define our commitment to our stakeholders and global clients.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Grid Content */}
-      <section className="pb-24 relative">
-        <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+        <SideNavLayout items={navItems}>
+          
+          {/* Vision Section */}
+          <motion.section 
+            id="vision" 
+            className="scroll-mt-28 mb-20 relative"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <SectionHeading
+              eyebrow="Our Vision"
+              title="Technology services that reach people through useful innovation"
+              description="Our vision is not only to build software, but to create dependable systems that help institutions serve people with speed, transparency, and security."
+            />
             
-            {/* Vision Panel */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Card className="border border-border/40 bg-card/65 backdrop-blur-md shadow-lg overflow-hidden h-full">
-                <div className="relative h-3 bg-gradient-to-r from-blue-500 to-cyan-500" />
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="size-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500">
-                      <Eye className="size-6" />
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-foreground">Our Vision</h2>
-                  </div>
-
-                  <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="space-y-4"
-                  >
-                    {visionPoints.map((point, index) => (
-                      <motion.div
-                        key={index}
-                        variants={itemVariants}
-                        className="flex gap-3.5 items-start p-3 bg-muted/20 border border-border/10 rounded-xl hover:bg-muted/40 hover:border-blue-500/20 transition-all duration-300"
-                      >
-                        <div className="size-6 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 font-semibold text-xs shrink-0 mt-0.5">
-                          {index + 1}
+            <Card className="border-slate-200/80 shadow-md overflow-hidden relative bg-white group rounded-2xl">
+              <CardCornerMark position="top-right" />
+              <CardCornerMark position="bottom-left" />
+              <div className="h-1.5 bg-gradient-to-r from-[#00232A] via-[#00FFE4] to-[#FDCD03]" />
+              <CardContent className="grid gap-4 p-6 md:grid-cols-2 md:p-8 bg-white/70 backdrop-blur-sm">
+                {visionPoints.map((point, index) => {
+                  const Icon = point.icon
+                  return (
+                    <motion.div 
+                      key={point.text} 
+                      className="group/item flex gap-4 rounded-xl border border-slate-200/60 bg-white p-5 shadow-sm hover:border-[#00FFE4]/50 hover:shadow-md transition-all duration-300 relative overflow-hidden"
+                      whileHover={{ y: -3, scale: 1.01 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    >
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#00232A] to-[#017ACA] text-white shadow-sm">
+                        <Icon className="size-5" />
+                      </div>
+                      <div className="flex flex-col justify-between flex-1">
+                        <p className="text-sm font-bold text-slate-700 leading-relaxed">{point.text}</p>
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#00FFE4] bg-[#00232A] px-2.5 py-0.5 rounded-full mt-3 w-fit opacity-0 group-hover/item:opacity-100 transition-opacity">
+                          <span>Anthem Vision</span>
+                          <ArrowAccent size={8} direction="right" className="text-[#FDCD03]" />
                         </div>
-                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                          {point}
-                        </p>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </CardContent>
+            </Card>
+          </motion.section>
+
+          <DataLineDivider className="my-16" />
+
+          {/* Mission Section */}
+          <motion.section 
+            id="mission" 
+            className="scroll-mt-28 mb-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <SectionHeading
+              eyebrow="Our Mission"
+              title="Design, develop, and deliver high-fidelity digital systems"
+              description="Anthem combines techno-commercial experience with custom software, GIS, document processing, and AI-enabled execution to solve real operational problems for institutions."
+            />
+            
+            <div className="grid gap-6 lg:grid-cols-3">
+              <TiltedCard className="h-full" scale={1.02} maxRotate={3}>
+                <div className="relative h-full group">
+                  <CardCornerMark position="top-right" />
+                  <InfoCard
+                    icon={Target}
+                    title="Mission-Critical Delivery"
+                    description="Execute public, judiciary, and enterprise systems with clear outcomes, controlled delivery, and measurable impact."
+                    className="h-full border-slate-200/80 bg-white"
+                  />
+                </div>
+              </TiltedCard>
+              <TiltedCard className="h-full" scale={1.02} maxRotate={3}>
+                <div className="relative h-full group">
+                  <CardCornerMark position="top-right" />
+                  <InfoCard
+                    icon={ShieldCheck}
+                    title="Compliance & Security"
+                    description="Maintain strong quality, data protection, and statutory alignment across domestic and international assignments."
+                    className="h-full border-slate-200/80 bg-white"
+                  />
+                </div>
+              </TiltedCard>
+              <TiltedCard className="h-full" scale={1.02} maxRotate={3}>
+                <div className="relative h-full group">
+                  <CardCornerMark position="top-right" />
+                  <InfoCard
+                    icon={HeartHandshake}
+                    title="Long-Term Partnerships"
+                    description="Build relationships through reliable service, practical engineering, honest communication, and sustained support."
+                    className="h-full border-slate-200/80 bg-white"
+                  />
+                </div>
+              </TiltedCard>
+            </div>
+          </motion.section>
+
+          <DataLineDivider className="my-16" />
+
+          {/* Journey Section */}
+          <motion.section 
+            id="journey" 
+            className="scroll-mt-28 mb-20 relative"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <SectionHeading
+              eyebrow="Chronicle of Growth"
+              title="Our Journey Through Time"
+              description="From trusted digitisation beginnings to national-scale digital transformation — every milestone reflects our commitment to Integrity, Innovation, and Intelligence."
+            />
+            
+            {/* Interactive Timeline layout */}
+            <div className="max-w-4xl mx-auto mt-10">
+              {/* Horizontal Timeline Track */}
+              <div className="relative flex justify-between items-center mb-10 px-4">
+                <div className="absolute left-0 right-0 h-0.5 bg-slate-200 top-1/2 -translate-y-1/2 z-0" />
+                
+                {journeyEvents.map((evt, idx) => (
+                  <button
+                    key={evt.year}
+                    onClick={() => setActiveMilestone(idx)}
+                    className="relative z-10 flex flex-col items-center focus:outline-none group"
+                  >
+                    <motion.div 
+                      className={`size-10 rounded-full border-2 flex items-center justify-center font-bold text-xs shadow-md transition-all ${
+                        activeMilestone === idx
+                          ? "bg-[#00232A] border-[#00FFE4] text-[#00FFE4]"
+                          : "bg-white border-slate-300 text-slate-600 hover:border-[#017ACA]"
+                      }`}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {evt.year}
+                    </motion.div>
+                    <span className={`text-[10px] font-bold mt-2 uppercase tracking-wider hidden sm:block ${
+                      activeMilestone === idx ? "text-[#017ACA]" : "text-slate-400 group-hover:text-slate-600"
+                    }`}>
+                      {evt.title.split(" ")[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Milestone Details Card */}
+              <div className="relative min-h-[180px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeMilestone}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Card className="border border-slate-200 shadow-md bg-white relative overflow-hidden rounded-2xl">
+                      <CardCornerMark position="top-right" />
+                      <CardContent className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                        <div className="size-16 rounded-2xl bg-gradient-to-br from-[#00232A] to-[#017ACA] text-[#00FFE4] font-black text-2xl flex items-center justify-center shadow shrink-0">
+                          {journeyEvents[activeMilestone].year}
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] uppercase tracking-wider font-bold text-[#017ACA] bg-blue-50 border border-blue-100 px-3 py-1 rounded-full">
+                              Milestone
+                            </span>
+                          </div>
+                          <h4 className="text-xl font-extrabold text-slate-800 tracking-tight">
+                            {journeyEvents[activeMilestone].title}
+                          </h4>
+                          <p className="text-sm leading-relaxed text-slate-600 font-medium">
+                            {journeyEvents[activeMilestone].description}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
-                </CardContent>
-              </Card>
-            </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.section>
 
-            {/* Mission Panel */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Card className="border border-border/40 bg-card/65 backdrop-blur-md shadow-lg overflow-hidden h-full">
-                <div className="relative h-3 bg-gradient-to-r from-anthem-blue to-anthem-lightBlue" />
-                <CardContent className="p-8 flex flex-col gap-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="size-12 rounded-xl bg-anthem-blue/10 border border-anthem-blue/20 flex items-center justify-center text-anthem-blue">
-                      <Target className="size-6" />
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-foreground">Our Mission</h2>
+          <DataLineDivider className="my-16" />
+
+          {/* Values Section */}
+          <motion.section 
+            id="values" 
+            className="scroll-mt-28"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="mb-10 relative">
+              <div className="mb-3 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                <span className="h-px w-10 bg-[#FDCD03]" />
+                Operating Values
+                <span className="h-px w-10 bg-[#FDCD03]" />
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-800 md:text-4xl mb-4">
+                <ShinyText className="font-extrabold text-3xl md:text-4xl bg-gradient-to-r from-slate-900 via-[#017ACA] to-slate-900">
+                  Integrity · Innovation · Intelligence
+                </ShinyText>
+              </h2>
+              <p className="text-sm leading-6 text-slate-500 max-w-2xl font-medium">
+                Our organization aligns operational execution, technical choices, and public program deployments with these three core anchors.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {values.map((value) => (
+                <TiltedCard key={value.title} className="h-full" scale={1.02} maxRotate={3}>
+                  <div className="relative h-full group">
+                    <CardCornerMark position="top-right" />
+                    <InfoCard icon={value.icon} title={value.title} description={value.description} className="h-full border-slate-200/80 bg-white" />
                   </div>
+                </TiltedCard>
+              ))}
+            </div>
+          </motion.section>
+        </SideNavLayout>
 
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed text-justify">
-                    At Anthem Global, our mission is to design, develop, and deliver high-fidelity digital solutions that solve real-world problems. We strive to merge techno-commercial expertise in Custom Software, GIS & LiDAR, and Document Processing with clean execution strategies that exceed client expectations.
-                  </p>
+        <BrandCTA 
+          className="mt-24"
+          title="Aligning Security and Public Value"
+          description="Let us help you implement secure records modernisation and digital operations backed by empanelled quality standard guidelines."
+          buttonText="Partner With Us"
+          href="/contact"
+        />
+      </main>
 
-                  <div className="space-y-4 mt-2">
-                    <div className="flex items-start gap-4 p-4 rounded-xl border border-border/10 bg-muted/25">
-                      <ShieldCheck className="size-6 text-anthem-blue shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-foreground block text-sm mb-0.5">Absolute Compliance</span>
-                        <span className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                          We execute all domestic and international assignments under strict regulatory compliance and the highest quality standards.
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 p-4 rounded-xl border border-border/10 bg-muted/25">
-                      <HeartHandshake className="size-6 text-anthem-blue shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-foreground block text-sm mb-0.5">Values-Driven Delivery</span>
-                        <span className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                          We believe that integrity, honesty, and responsible stewardship are the foundation of any lasting business partnership.
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 p-4 rounded-xl border border-border/10 bg-muted/25">
-                      <Compass className="size-6 text-anthem-blue shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-foreground block text-sm mb-0.5">Global Incubation</span>
-                        <span className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                          Fostering local entrepreneurship, technical training, and dynamic youth employment to secure a robust future.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
       <Footer />
     </div>
   )

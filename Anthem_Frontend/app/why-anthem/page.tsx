@@ -1,130 +1,401 @@
 "use client"
-import { Footer } from "@/components/Footer";
 
+import React from "react"
 import { motion } from "framer-motion"
-import Link from "next/link"
-import { Home, ChevronRight, CheckCircle2, Clock, Zap, Target, Sliders, ShieldCheck, Compass, HeartHandshake, Layers } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Brain, CheckCircle2, Clock, Database, Landmark, Leaf, Network, ShieldCheck, ChevronRight, XCircle } from "lucide-react"
+import { Footer } from "@/components/Footer"
+import { PageHero } from "@/components/corporate/PageHero"
+import { SectionHeading } from "@/components/corporate/SectionHeading"
+import { StatsStrip } from "@/components/corporate/StatsStrip"
+import { InfoCard } from "@/components/corporate/InfoCard"
+import { TiltedCard } from "@/components/reactbits/TiltedCard"
+import { LogoLoop } from "@/components/reactbits/LogoLoop"
+import { LogoOrbitPattern } from "@/components/corporate/brand-patterns/LogoOrbitPattern"
+import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
+import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
+import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
+import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
+import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
+import { CountUpStat } from "@/components/corporate/CountUpStat"
 
-const advantages = [
+const reasons = [
   {
-    title: "Competitive Pricing",
-    description: "Offering premium quality tech and GIS services with excellent cost-competitiveness to maximize business ROI.",
-    icon: <Zap className="size-6 text-primary" />,
+    title: "Trusted by Judiciary",
+    description: "Long-running paperless court and records modernisation work across Orissa High Court and district court environments.",
+    icon: Landmark,
+    tag: "310 courts",
   },
   {
-    title: "Fast Turnaround Time",
-    description: "Streamlined operational workflows and dedicated engineering squads ensure rapid deployment and timely project deliveries.",
-    icon: <Clock className="size-6 text-primary" />,
+    title: "Large-Scale Digitisation",
+    description: "High-volume scanning, OCR, metadata indexing, and DMS workflows for secure handling of sensitive public records.",
+    icon: Database,
+    tag: "50 Cr+ pages",
   },
   {
-    title: "Right Mission and Vision",
-    description: "Guided by strong principles centered around absolute dedication, stakeholder integrity, and social empowerment.",
-    icon: <Compass className="size-6 text-primary" />,
+    title: "AI-First Approach",
+    description: "ExamFlow-style AI extraction, intelligent retrieval, face recognition, proctoring, and document analysis capabilities.",
+    icon: Brain,
+    tag: "60s extraction",
   },
   {
-    title: "Reusable Methodology",
-    description: "Leveraging structured software frameworks and proven operational protocols to minimize overhead and build modular systems.",
-    icon: <Layers className="size-6 text-primary" />,
+    title: "Security Track Record",
+    description: "Secure archival, access control, audit trails, confidentiality-first exam operations, and controlled data transfer.",
+    icon: ShieldCheck,
+    tag: "Sensitive records",
   },
   {
-    title: "High Quality Solutions",
-    description: "Rigorous quality compliance checking protocols and modern tech stacks deliver bulletproof, future-ready results.",
-    icon: <ShieldCheck className="size-6 text-primary" />,
+    title: "Own Infrastructure",
+    description: "State-of-the-art examination infrastructure in Bhubaneswar with large-scale capacity and local delivery teams.",
+    icon: Network,
+    tag: "20,000+ sq ft",
   },
   {
-    title: "Flexible Solutions",
-    description: "Dynamic development models that seamlessly scale and adapt to client requirements, changes, and constraints.",
-    icon: <Sliders className="size-6 text-primary" />,
+    title: "Sustainability Focus",
+    description: "Digitisation reduces physical paper movement for courts, government departments, and academic institutions.",
+    icon: Leaf,
+    tag: "Paperless workflows",
+  },
+]
+
+const comparisonData = [
+  {
+    feature: "Government & Judicial Scale",
+    anthem: "25 Cr+ Pages Digitised across 310 Courts & 30 Districts",
+    others: "Limited to small-scale departments",
   },
   {
-    title: "Reliable Technologies & Tools",
-    description: "Utilizing highly secure enterprise tools, CISCO net configurations, and reliable GIS classified point systems.",
-    icon: <Target className="size-6 text-primary" />,
+    feature: "Authorized Assessment Hub",
+    anthem: "TCS iON Authorized Hub (550+ Seats, 20k Sq Ft)",
+    others: "Third-party rented spaces only",
   },
   {
-    title: "Complete Customer Satisfaction",
-    description: "Maintaining a client-centric environment where long-term customer partnerships and trust are our ultimate standard.",
-    icon: <HeartHandshake className="size-6 text-primary" />,
+    feature: "E-Governance Compliance",
+    anthem: "Empanelled with Webel & CMGI for public consultancies",
+    others: "Independent, non-empanelled status",
   },
   {
-    title: "Choice of Delivery Models",
-    description: "Providing versatile Software Delivery Models (SDMs) custom-tailored to local, national, and international frameworks.",
-    icon: <CheckCircle2 className="size-6 text-primary" />,
+    feature: "Data Security History",
+    anthem: "Zero data leaks across 30,000+ examinee sessions",
+    others: "Vulnerable to generic hosting gaps",
+  },
+  {
+    feature: "Automation Extraction",
+    anthem: "Applied AI models (60-second metadata extraction)",
+    others: "Manual indexing and slower turnaround",
   },
 ]
 
 export default function WhyAnthemPage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  }
+
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-background">
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.08),transparent_50%)]">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/Anthem%20Assests/images_ban-whyanthem.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
-        
-        {/* Decorative Glowing Elements */}
-        <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-anthem-lightBlue/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+      <PageHero
+        title="Why Anthem Global"
+        description="Choose Anthem for proven public-sector execution, secure document transformation, AI-enabled workflows, and national-scale experience across judiciary, government, assessment, and enterprise programmes."
+        image="/Anthem Assests/images_ban-whyanthem.jpg"
+        video="/videos/office-tour.mp4"
+        icon={CheckCircle2}
+        stats={[
+          { value: "99.9%", label: "Platform uptime SLA" },
+          { value: "10,000+", label: "Exams conducted" },
+        ]}
+        darkTheme={true}
+      />
 
-        <div className="container px-4 md:px-6 relative z-10 mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Home className="size-3.5" /> Home
-            </Link>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">Who We Are</span>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-primary font-medium">Why Anthem Global</span>
-          </div>
+      <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
+        {/* Subtle background watermarks */}
+        <SectionWatermark className="top-[12%] left-[3%] opacity-[0.015]" size={390} />
+        <SectionWatermark className="bottom-[8%] right-[2%] opacity-[0.02]" size={420} />
 
-          <div className="max-w-4xl">
+        {/* Brand Pillars Showcase in Hero Stagger */}
+        <motion.div 
+          className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto mb-16 relative z-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {[
+            {
+              title: "Integrity",
+              description: "Transparent execution, data confidentiality, and secure delivery pathways for all judicial and public datasets.",
+              border: "border-l-4 border-l-[#017ACA]"
+            },
+            {
+              title: "Innovation",
+              description: "Empowering state departments with advanced GIS/LiDAR systems, e-office systems, and AI proctoring engines.",
+              border: "border-l-4 border-l-[#00FFE4]"
+            },
+            {
+              title: "Intelligence",
+              description: "Transforming paper archives into structured, fully searchable repositories with dynamic automated OCR.",
+              border: "border-l-4 border-l-[#FDCD03]"
+            }
+          ].map((pillar, idx) => (
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              key={pillar.title}
+              variants={itemVariants}
+              className={`p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm relative overflow-hidden group ${pillar.border}`}
+              whileHover={{ y: -4, scale: 1.01 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-anthem-blue to-anthem-darkBlue bg-clip-text text-transparent">
-                Why Anthem Global
-              </h1>
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                We combine industry-leading delivery methods, dynamic skill competencies, and deep commitment to quality to help our clients automate, innovate, and thrive.
-              </p>
+              <CardCornerMark position="top-right" />
+              <span className="text-[10px] font-bold text-[#017ACA] uppercase tracking-wider font-mono">Pillar 0{idx + 1}</span>
+              <h3 className="text-xl font-extrabold text-slate-800 mt-2 mb-3 tracking-tight">{pillar.title}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed font-medium">{pillar.description}</p>
             </motion.div>
-          </div>
+          ))}
+        </motion.div>
+
+        {/* Statistics highlights backed by custom orbit lines */}
+        <div className="relative mb-20 max-w-6xl mx-auto rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-sm p-1">
+          <LogoOrbitPattern opacity={0.15} />
+          <StatsStrip
+            className="border-0 bg-transparent relative z-10"
+            stats={[
+              { value: "25 Cr+", label: "Judiciary pages", detail: "Digitised for court record modernisation" },
+              { value: "30", label: "Districts covered", detail: "Court and government programmes" },
+              { value: "550", label: "Exam seats", detail: "Own campus examination capacity" },
+              { value: "300+", label: "Professionals", detail: "Delivery and technology teams" },
+            ]}
+          />
         </div>
-      </section>
 
-      {/* Grid Content */}
-      <section className="pb-24 relative">
-        <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advantages.map((adv, index) => (
-              <motion.div
-                key={adv.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-              >
-                <Card className="h-full border border-border/40 bg-card/65 backdrop-blur-md shadow hover:shadow-lg hover:border-primary/20 transition-all duration-300 overflow-hidden flex flex-col group p-6">
-                  <div className="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300">
-                    {adv.icon}
-                  </div>
+        {/* Challenge to Proof to Impact Progress Track */}
+        <motion.section 
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeading
+            eyebrow="Progressive Transformation"
+            title="Our Delivery Journey Flow"
+            description="How Anthem bridges high-stakes requirements with reliable, long-term public scale."
+            align="center"
+          />
+          
+          <div className="grid gap-6 md:grid-cols-5 max-w-5xl mx-auto items-center mt-10">
+            
+            {/* Step 1 */}
+            <motion.div 
+              className="md:col-span-1 flex flex-col items-center text-center p-5 rounded-2xl border border-slate-200/80 bg-white shadow-sm relative group"
+              whileHover={{ scale: 1.03 }}
+            >
+              <CardCornerMark position="top-right" />
+              <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">01. Public Challenge</span>
+              <h4 className="mt-2 text-sm font-extrabold text-slate-800 tracking-tight">Outdated Records</h4>
+              <p className="mt-1.5 text-xs text-slate-500 leading-relaxed font-medium">Insecure paper systems and manual examination overheads.</p>
+            </motion.div>
 
-                  <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {adv.title}
-                  </h3>
-                  
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    {adv.description}
-                  </p>
-                </Card>
-              </motion.div>
+            {/* Divider Arrow */}
+            <div className="md:col-span-1 flex items-center justify-center text-[#FDCD03] py-2">
+              <ArrowAccent size={22} direction="right" className="hidden md:block" />
+              <ArrowAccent size={22} direction="down" className="block md:hidden" />
+            </div>
+
+            {/* Step 2 */}
+            <motion.div 
+              className="md:col-span-1 flex flex-col items-center text-center p-5 rounded-2xl border border-slate-200/80 bg-white shadow-sm relative group"
+              whileHover={{ scale: 1.03 }}
+            >
+              <CardCornerMark position="top-right" />
+              <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">02. Anthem Solution</span>
+              <h4 className="mt-2 text-sm font-extrabold text-slate-800 tracking-tight">Secure Operations</h4>
+              <p className="mt-1.5 text-xs text-slate-500 leading-relaxed font-medium">High-volume industrial digitisation & smart CBT center deployment.</p>
+            </motion.div>
+
+            {/* Divider Arrow */}
+            <div className="md:col-span-1 flex items-center justify-center text-[#FDCD03] py-2">
+              <ArrowAccent size={22} direction="right" className="hidden md:block" />
+              <ArrowAccent size={22} direction="down" className="block md:hidden" />
+            </div>
+
+            {/* Step 3 */}
+            <motion.div 
+              className="md:col-span-1 flex flex-col items-center text-center p-5 rounded-2xl border border-slate-200/80 bg-white shadow-sm relative group"
+              whileHover={{ scale: 1.03 }}
+            >
+              <CardCornerMark position="top-right" />
+              <span className="text-[10px] uppercase font-bold text-[#017ACA] font-mono">03. High Impact</span>
+              <h4 className="mt-2 text-sm font-extrabold text-slate-800 tracking-tight">Enterprise Success</h4>
+              <p className="mt-1.5 text-xs text-slate-500 leading-relaxed font-medium">25 Cr+ pages catalogued, empanelled trust and certified scale.</p>
+            </motion.div>
+
+          </div>
+        </motion.section>
+
+        <DataLineDivider className="my-16" />
+
+        {/* Compare Table comparing Anthem vs competitors */}
+        <motion.section 
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeading
+            eyebrow="Comparative Analysis"
+            title="Anthem Capability Redefining Security"
+            description="Unlike standard agencies, Anthem integrates security, infrastructure, and compliance directly."
+            align="center"
+          />
+
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden relative group">
+            <CardCornerMark position="top-right" />
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs md:text-sm">
+                <thead>
+                  <tr className="bg-[#00232A] text-white border-b border-[#00FFE4]/15">
+                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px]">Capabilities Matrix</th>
+                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-[#00FFE4]">Anthem Global</th>
+                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-slate-400">Typical Vendors</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-medium">
+                  {comparisonData.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="p-4 md:p-5 text-slate-800 font-extrabold">{row.feature}</td>
+                      <td className="p-4 md:p-5 text-[#017ACA] font-bold flex items-center gap-2">
+                        <CheckCircle2 className="size-4 text-[#00FFE4] shrink-0 fill-[#00232A]" />
+                        <span>{row.anthem}</span>
+                      </td>
+                      <td className="p-4 md:p-5 text-slate-400 font-medium">{row.others}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </motion.section>
+
+        <DataLineDivider className="my-16" />
+
+        {/* Reasons Grid with Corner Marks */}
+        <motion.section 
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeading
+            eyebrow="Proof-Led Advantages"
+            title="Reasons institutions rely on Anthem"
+            description="Each reason is tied to a concrete delivery area from our company profile rather than generic claims."
+            align="center"
+          />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+            {reasons.map((reason) => (
+              <TiltedCard key={reason.title} className="h-full" scale={1.01} maxRotate={3}>
+                <div className="relative h-full group">
+                  <CardCornerMark position="top-right" />
+                  <InfoCard
+                    icon={reason.icon}
+                    title={reason.title}
+                    description={reason.description}
+                    tag={reason.tag}
+                    className="h-full border-slate-200/80 bg-white"
+                  />
+                </div>
+              </TiltedCard>
             ))}
           </div>
-        </div>
-      </section>
+        </motion.section>
+
+        <DataLineDivider className="my-16" />
+
+        {/* Logo Loop Showcase section with corner pattern highlights */}
+        <motion.section 
+          className="mb-20 pt-8 relative"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeading
+            eyebrow="Ecosystem of Excellence"
+            title="Trusted by Leading Organizations"
+            description="Our technological solutions are backed by alignments with key public bodies and technology enablers."
+            align="center"
+          />
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm max-w-6xl mx-auto relative group">
+            <CardCornerMark position="top-right" />
+            <CardCornerMark position="bottom-left" />
+            <LogoLoop speed={25} pauseOnHover={true}>
+              {[
+                { name: "Orissa High Court", label: "Judicial Client" },
+                { name: "East Coast Railway", label: "Central Government" },
+                { name: "TCS iON", label: "Technology Partner" },
+                { name: "OCAC Empanelment", label: "Government Partner" },
+                { name: "MSME", label: "MSME Registered" },
+                { name: "CMGI", label: "E-Governance Partner" },
+                { name: "STPI", label: "Technology Sponsor" },
+              ].map((partner, idx) => (
+                <div 
+                  key={idx} 
+                  className="flex h-16 w-52 items-center justify-center rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-center text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group"
+                >
+                  <span className="shrink-0 size-1.5 rounded-full bg-primary/70 mr-2" />
+                  {partner.name}
+                </div>
+              ))}
+            </LogoLoop>
+          </div>
+        </motion.section>
+
+        {/* Execution Model Card with Watermark */}
+        <motion.section 
+          className="max-w-6xl mx-auto rounded-2xl border border-slate-200 bg-white p-8 shadow-sm md:p-12 relative overflow-hidden group mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionWatermark className="bottom-[-30px] right-[-30px] opacity-[0.02]" size={300} />
+          <CardCornerMark position="top-right" />
+          <div className="grid gap-8 md:grid-cols-[1fr_300px] md:items-center relative z-10">
+            <div>
+              <h2 className="text-2xl font-black text-slate-800 md:text-3xl tracking-tight">Execution model built for high-stakes work</h2>
+              <p className="mt-4 text-sm leading-relaxed text-slate-500 font-medium">
+                Anthem&apos;s strongest differentiation is the combination of technology development, operations infrastructure, scanning workflows, and secure delivery teams under one execution model.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {["Secure by design", "Operational continuity", "Customisable workflows", "Long-term support"].map((item) => (
+                <div key={item} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-xs font-extrabold text-slate-700 shadow-sm hover:border-[#00FFE4]/20 hover:bg-white transition-all">
+                  <Clock className="size-4 text-primary shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <BrandCTA 
+          className="mt-20"
+          title="Ready to modernise your operations?"
+          description="Explore our empanelment guidelines, high-volume operational centers, and compliant service levels."
+          buttonText="Contact Our Experts"
+          buttonHref="/contact"
+        />
+      </main>
+
       <Footer />
     </div>
   )

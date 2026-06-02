@@ -59,6 +59,11 @@ module.exports = {
           darkBlue: "#005A96",
           textDark: "#0F172A",
           bgLight: "#F8FBFF",
+          deepTeal: "#00232A",
+          cyan: "#00FFE4",
+          lightText: "#F4FBFC",
+          mutedText: "#A9C1C7",
+          lightBg: "#F7FAFB",
         },
       },
       borderRadius: {

@@ -63,7 +63,7 @@ interface Testimonial {
 export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [activeTab, setActiveTab] = useState("ai");
+  const [activeTab, setActiveTab] = useState("scanning");
   const [activeCert, setActiveCert] = useState<number | null>(null);
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
 
@@ -183,43 +183,6 @@ export default function LandingPage() {
 
   const certifications = [
     {
-      name: "StartUp India",
-      logo: "/certifications/start-up-india.png",
-      certificateNo: "DIPP116981",
-      issuedBy: "Government of India",
-      validity: "2022-2032",
-      description: "Recognized by Startup India Initiative",
-    },
-    {
-      name: "Start-Up Odisha",
-      logo: "/certifications/startup-odisha.png",
-      certificateNo: "OSP/SP/01569",
-      issuedBy: "IED Odisha",
-      validity: "2022-2029",
-      description: "Odisha State Startup Recognition",
-    },
-    {
-      name: "MSME",
-      logo: "/certifications/MSME.png",
-      certificateNo: "UDYAM-OD-19-0100961",
-      issuedBy: "Ministry of MSME",
-      validity: "Lifetime",
-      description: "Registered Micro, Small & Medium Enterprise",
-    },
-    {
-      name: "Certificate Of Incorporation",
-      logo: "/certifications/incorporation.png",
-      certificateNo: "U72900OR2022PTC039682",
-      issuedBy: "Ministry of Corporate Affairs",
-      validity: "Permanent",
-      description: "Legal Entity Registration Certificate",
-    },
-    {
-      name: "GEM",
-      logo: "/certifications/gem.png",
-      description: "Registered Government Vendor",
-    },
-    {
       name: "ISO 9001:2015",
       logo: "/certifications/iso.png",
       certificateNo: "INQ/AN-19004/126054/0325",
@@ -228,12 +191,51 @@ export default function LandingPage() {
       description: "Quality Management System Certified",
     },
     {
-      name: "GST",
+      name: "CMMI Level 3",
+      issuedBy: "CMMI Institute",
+      validity: "Active",
+      description: "Capability Maturity Model Integration - Process Maturity",
+    },
+    {
+      name: "ISO/IEC 27001:2013",
+      issuedBy: "International Standards Organization",
+      validity: "Active",
+      description: "Information Security Management Certified",
+    },
+    {
+      name: "MSME / Udyam Registered",
+      logo: "/certifications/MSME.png",
+      certificateNo: "UDYAM-OD-19-0100961",
+      issuedBy: "Ministry of MSME",
+      validity: "Lifetime",
+      description: "Government of India MSME Registration",
+    },
+    {
+      name: "Certificate of Incorporation",
+      logo: "/certifications/incorporation.png",
+      certificateNo: "U72900OR2022PTC039682",
+      issuedBy: "Ministry of Corporate Affairs",
+      validity: "Permanent",
+      description: "Registered Private Limited Company",
+    },
+    {
+      name: "OCAC Empanelment",
+      issuedBy: "Odisha Computer Application Centre",
+      validity: "Active",
+      description: "Government Empanelled Technology Agency",
+    },
+    {
+      name: "GeM Registered",
+      logo: "/certifications/gem.png",
+      description: "Government e-Marketplace Public Procurement",
+    },
+    {
+      name: "GST Registered",
       logo: "/certifications/gst.jpeg",
       certificateNo: "21AAJCD2715R1ZH",
       issuedBy: "GST Council of India",
       validity: "Active",
-      description: "GST Registered Business Entity",
+      description: "Goods & Services Tax Registration",
     },
   ];
 
@@ -325,6 +327,13 @@ export default function LandingPage() {
   ];
 
   const services = {
+    scanning: [
+      "High-Speed Document Scanning",
+      "OCR & Intelligent Data Extraction",
+      "DSpace-Based Document Management System",
+      "Secure Multi-Layer Encrypted Archival",
+      "Large-Scale Paperless Court Implementation",
+    ],
     ai: [
       "Machine Learning Models",
       "AI-Powered Chatbots & Assistants",
@@ -912,14 +921,14 @@ export default function LandingPage() {
               </motion.div>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 inline-block bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-              Recognized Excellence
+              Recognized Excellence & Compliance
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Our commitment to quality is validated through prestigious certifications
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+              Certifications, registrations, and empanelments that reflect Anthem’s quality, security, statutory compliance, and government-ready delivery standards.
             </p>
           </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6 relative z-30 overflow-visible">
+ 
+          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4 md:gap-6 relative z-30 overflow-visible">
             {certifications.map((cert, i) => (
               <motion.div
                 key={i}
@@ -942,7 +951,7 @@ export default function LandingPage() {
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300"></div>
-
+ 
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
@@ -952,11 +961,11 @@ export default function LandingPage() {
                   >
                     <Check className="size-4 md:size-5" />
                   </motion.div>
-
-                  <p className="font-medium text-sm md:text-base relative z-10 leading-tight">
+ 
+                  <p className="font-medium text-xs md:text-sm relative z-10 leading-tight">
                     {cert.name}
                   </p>
-
+ 
                   <motion.div
                     className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-blue-500 rounded-full"
                     initial={{ width: 0 }}
@@ -965,7 +974,7 @@ export default function LandingPage() {
                     transition={{ duration: 0.6, delay: i * 0.05 + 0.3 }}
                   />
                 </div>
-
+ 
                 <AnimatePresence>
                   {activeCert === i && (
                     <>
@@ -991,26 +1000,29 @@ export default function LandingPage() {
                           ...(typeof window !== "undefined" && window.innerWidth > 430 && {
                             left: "50%",
                             transform: "translateX(-50%)",
-                            ...(i % 7 >= 5 && { left: "auto", right: "0", transform: "none" }),
-                            ...(i % 7 <= 1 && { left: "0", transform: "none" }),
+                            ...(i % 8 >= 6 && { left: "auto", right: "0", transform: "none" }),
+                            ...(i % 8 <= 1 && { left: "0", transform: "none" }),
                           }),
                         }}
                       >
-                        <div className="relative h-40 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
-                          <Image
-                            src={cert.logo}
-                            alt={`${cert.name} Logo`}
-                            fill
-                            className="object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = "none";
-                              const parent = target.parentElement;
-                              if (parent) {
-                                parent.className = "relative h-40 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden flex items-center justify-center";
-                              }
-                            }}
-                          />
+                        <div className="relative h-40 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden flex items-center justify-center">
+                          {cert.logo ? (
+                            <Image
+                              src={cert.logo}
+                              alt={`${cert.name} Logo`}
+                              fill
+                              className="object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = "none";
+                              }}
+                            />
+                          ) : (
+                            <div className="text-center p-4">
+                              <Award className="size-12 text-primary/40 mx-auto mb-2" />
+                              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Anthem Quality</span>
+                            </div>
+                          )}
                           <div className="absolute inset-0 bg-black/5"></div>
                         </div>
 
@@ -1497,9 +1509,21 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <Tabs defaultValue="ai" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
+          <Tabs defaultValue="scanning" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
             <div className="flex justify-center mb-6 md:mb-8">
-              <TabsList className="flex flex-wrap justify-center gap-1 p-1 sm:gap-2 sm:grid sm:grid-cols-4 sm:h-14 bg-muted/50 backdrop-blur-sm rounded-full w-full max-w-sm sm:max-w-none">
+              <TabsList className="flex flex-wrap justify-center gap-1 p-1 sm:gap-2 sm:grid sm:grid-cols-5 sm:h-14 bg-muted/50 backdrop-blur-sm rounded-full w-full max-w-sm sm:max-w-none">
+                <TabsTrigger
+                  value="scanning"
+                  className={cn(
+                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
+                    activeTab === "scanning"
+                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
+                      : ""
+                  )}
+                >
+                  <span className="hidden sm:inline">Scanning & Digitisation</span>
+                  <span className="sm:hidden">Scan</span>
+                </TabsTrigger>
                 <TabsTrigger
                   value="ai"
                   className={cn(
@@ -1553,7 +1577,7 @@ export default function LandingPage() {
 
             <div className="relative mt-6 md:mt-8 min-h-[300px] md:min-h-[400px]">
               <AnimatePresence mode="wait">
-                {["ai", "web", "mobile", "cloud"].map((tab) => activeTab === tab && (
+                {["scanning", "ai", "web", "mobile", "cloud"].map((tab) => activeTab === tab && (
                   <motion.div
                     key={tab}
                     initial={{ opacity: 0, y: 20 }}
@@ -1573,11 +1597,12 @@ export default function LandingPage() {
                           >
                             <Image
                               src={
-                                tab === "ai" ? "/image/ai-ml.png" :
-                                  tab === "web" ? "/image/web-solution.jpg" :
-                                    tab === "mobile" ? "/image/mobile.jpg" :
-                                      tab === "cloud" ? "/image/cloud.jpg" :
-                                        "/image/default.jpg"
+                                tab === "scanning" ? "/image/scanning-digitisation.png" :
+                                  tab === "ai" ? "/image/ai-ml.png" :
+                                    tab === "web" ? "/image/web-solution.jpg" :
+                                      tab === "mobile" ? "/image/mobile.jpg" :
+                                        tab === "cloud" ? "/image/cloud.jpg" :
+                                          "/image/default.jpg"
                               }
                               alt={`${tab} Development`}
                               fill
@@ -1588,21 +1613,23 @@ export default function LandingPage() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent flex items-end">
                               <div className="p-6">
                                 <h3 className="text-2xl font-bold text-white mb-2">
-                                  {tab === "ai" ? "AI & Machine Learning" :
-                                    tab === "web" ? "Web Development" :
-                                      tab === "mobile" ? "Mobile Development" : "Cloud Services"}
+                                  {tab === "scanning" ? "Scanning & Digitisation" :
+                                    tab === "ai" ? "AI & Machine Learning" :
+                                      tab === "web" ? "Web Development" :
+                                        tab === "mobile" ? "Mobile Development" : "Cloud Services"}
                                 </h3>
-                                <p className="text-white/80">
-                                  {tab === "ai" ? "Intelligent solutions powered by AI and ML" :
-                                    tab === "web" ? "Custom web solutions for modern businesses" :
-                                      tab === "mobile" ? "Native and cross-platform mobile applications" :
-                                        "Scalable cloud infrastructure and services"}
+                                <p className="text-white/80 text-sm md:text-base">
+                                  {tab === "scanning" ? "Transforming physical records into secure, retrievable digital assets." :
+                                    tab === "ai" ? "Intelligent solutions powered by AI and ML." :
+                                      tab === "web" ? "Custom web solutions for modern businesses." :
+                                        tab === "mobile" ? "Native and cross-platform mobile applications." :
+                                          "Scalable cloud infrastructure and services."}
                                 </p>
                               </div>
                             </div>
                           </motion.div>
                         </div>
-
+ 
                         <div className="order-1 md:order-2">
                           <motion.h3
                             initial={{ opacity: 0, x: -20 }}
@@ -1610,12 +1637,13 @@ export default function LandingPage() {
                             transition={{ duration: 0.6 }}
                             className="text-xl md:text-2xl font-bold mb-4 md:mb-6"
                           >
-                            {tab === "ai" ? "AI & ML Excellence" :
-                              tab === "web" ? "Web Development Excellence" :
-                                tab === "mobile" ? "Mobile App Innovation" :
-                                  "Cloud Infrastructure Mastery"}
+                            {tab === "scanning" ? "Scanning & Digitisation Excellence" :
+                              tab === "ai" ? "AI & ML Excellence" :
+                                tab === "web" ? "Web Development Excellence" :
+                                  tab === "mobile" ? "Mobile App Innovation" :
+                                    "Cloud Infrastructure Mastery"}
                           </motion.h3>
-
+ 
                           <motion.div
                             variants={containerVariants}
                             initial="hidden"
@@ -1637,7 +1665,7 @@ export default function LandingPage() {
                               </motion.div>
                             ))}
                           </motion.div>
-
+ 
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -1646,10 +1674,10 @@ export default function LandingPage() {
                           >
                             <Button size="lg" className="rounded-full group w-full sm:w-auto">
                               <span className="hidden sm:inline">
-                                Explore {tab === "ai" ? "AI/ML" : tab === "web" ? "Web" : tab === "mobile" ? "Mobile" : "Cloud"} Services
+                                Explore {tab === "scanning" ? "Digitisation" : tab === "ai" ? "AI/ML" : tab === "web" ? "Web" : tab === "mobile" ? "Mobile" : "Cloud"} Services
                               </span>
                               <span className="sm:hidden">
-                                Explore {tab === "ai" ? "AI/ML" : tab === "web" ? "Web" : tab === "mobile" ? "Mobile" : "Cloud"}
+                                Explore {tab === "scanning" ? "Digitisation" : tab === "ai" ? "AI/ML" : tab === "web" ? "Web" : tab === "mobile" ? "Mobile" : "Cloud"}
                               </span>
                               <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
                             </Button>

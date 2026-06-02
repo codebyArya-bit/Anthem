@@ -1,199 +1,409 @@
 "use client"
-import { Footer } from "@/components/Footer";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Home, ChevronRight, CheckCircle2, Building, ShieldCheck } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import React, { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Footer } from "@/components/Footer"
+import { PageHero } from "@/components/corporate/PageHero"
+import { SectionHeading } from "@/components/corporate/SectionHeading"
+import { StatsStrip } from "@/components/corporate/StatsStrip"
+import { TiltedCard } from "@/components/reactbits/TiltedCard"
+import { LogoLoop } from "@/components/reactbits/LogoLoop"
+import { Badge } from "@/components/ui/badge"
+import { Landmark, GraduationCap, Building2, ChevronRight, Play } from "lucide-react"
+import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
+import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
+import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
+import { LogoOrbitPattern } from "@/components/corporate/brand-patterns/LogoOrbitPattern"
+import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
+import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
+import { CountUpStat } from "@/components/corporate/CountUpStat"
+
+const sectors = ["All Sectors", "Judiciary & Legal", "Government & E-Governance", "Education & Enterprise"]
 
 const clientsList = [
   {
-    name: "East Coast Railway",
-    logo: "/Anthem Assests/client-logo_East-Coast-Railway.png",
-    sector: "Government & Transport",
+    name: "Orissa High Court",
+    sector: "Judiciary & Legal",
+    description: "Modernisation of legal records, implementation of paperless court systems, and secure document archival pipelines.",
+    icon: Landmark,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "25 Cr+ Pages"
   },
   {
-    name: "Orissa High Court",
-    logo: "/Anthem Assests/client-logo_ohclogog.png",
-    sector: "Judiciary & E-Governance",
+    name: "East Coast Railway",
+    sector: "Government & E-Governance",
+    description: "Custom J2EE management systems, e-office integrations, and large-scale data validation processing.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "12 Cr+ Pages"
   },
   {
     name: "Department of School and Mass Education, Odisha",
-    logo: "/Anthem Assests/client-logo_Mass-Education.png",
-    sector: "Government & Education",
+    sector: "Education & Enterprise",
+    description: "Academic assessment management, computer-based tests, and state-wide student database structures.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "10,000+ Exams"
   },
   {
-    name: "Panchayatiraj, Odisha",
-    logo: "/Anthem Assests/client-logo_Panchayatiraj.png",
-    sector: "Rural Development & Govt",
+    name: "Panchayatiraj Department, Odisha",
+    sector: "Government & E-Governance",
+    description: "E-governance software workflow modules, secure file tracking, and rural information portals.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "40+ Departments"
   },
   {
-    name: "Center For Modernizing Government Initiative",
-    logo: "/Anthem Assests/client-logo_Modernizing-Government.png",
-    sector: "E-Governance Consulting",
+    name: "Center For Modernizing Government Initiative (CMGI)",
+    sector: "Government & E-Governance",
+    description: "Trusted consultancy and software integration partner aligning public systems to citizen services.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "15+ Years"
   },
   {
     name: "Text Book Bureau, Odisha",
-    logo: "/Anthem Assests/client-logo_Text-Book-Bureau.png",
-    sector: "Public Sector & Publishing",
+    sector: "Education & Enterprise",
+    description: "Scanning, digitisation, searchable metadata indexing, and web platform hosting of textbook repositories.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "5 Cr+ Pages"
   },
   {
     name: "Urban Housing Development Department, Odisha",
-    logo: "/Anthem Assests/client-logo_Urban-Housing.png",
-    sector: "Government & Urban Dev",
+    sector: "Government & E-Governance",
+    description: "Custom web applications, automated workflow files, and dashboard reports for municipal schemes.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "12 Cr+ Pages"
   },
   {
     name: "NRHM, Odisha",
-    logo: "/Anthem Assests/client-logo_NRHM-Odisha.png",
-    sector: "Public Health & Govt",
+    sector: "Government & E-Governance",
+    description: "National Rural Health Mission database migration, scanning, and secure healthcare registry installations.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "3 Cr+ Pages"
   },
   {
-    name: "Advocate General, Odisha",
-    logo: "/Anthem Assests/client-logo_logo2.jpg",
-    sector: "Judiciary & Law",
+    name: "Advocate General Office, Odisha",
+    sector: "Judiciary & Legal",
+    description: "Digitisation and optical character recognition (OCR) scanning of legal case briefs and references.",
+    icon: Landmark,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "2 Cr+ Pages"
   },
   {
     name: "Shiksha Vikash Samiti, Odisha",
-    logo: "/Anthem Assests/client-logo_ShikshaVikashSamiti.png",
-    sector: "Educational Society",
+    sector: "Education & Enterprise",
+    description: "School ERP installations, exam processing workflows, and comprehensive student report cards.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "30,000+ Exams"
   },
   {
     name: "Intelli Decision, Canada",
-    logo: "/Anthem Assests/client-logo_Intelli-Decision.png",
-    sector: "International Partner & IT",
+    sector: "Education & Enterprise",
+    description: "Global consulting and remote spatial analysis services, including aerial point cloud classification.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "50+ GIS Projects"
   },
   {
     name: "KIIT University",
-    logo: "/Anthem Assests/client-logo_KIIT-University.png",
-    sector: "Higher Education",
+    sector: "Education & Enterprise",
+    description: "CBT exam solutions, student proctoring, and custom research software development.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "550+ Seats"
   },
   {
     name: "Naxatra News",
-    logo: "/Anthem Assests/client-logo_Naxatra-News.png",
-    sector: "Media & Broadcasting",
+    sector: "Education & Enterprise",
+    description: "Media workflow systems, cloud archives, and custom asset search dashboards.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "15+ Years"
   },
   {
-    name: "College of Pharmaceuticals Sciences, Puri",
-    logo: "/Anthem Assests/client-logo_Pharmaceuticals-Sciences.png",
-    sector: "Higher Education & Medical",
+    name: "College of Pharmaceutical Sciences, Puri",
+    sector: "Education & Enterprise",
+    description: "Student data management, online exam scheduling, and secure academic file databases.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "2,000+ Students"
   },
   {
     name: "Planet Solutions",
-    logo: "/Anthem Assests/client-logo_Planet-Solutions.png",
-    sector: "IT Consultancies",
+    sector: "Education & Enterprise",
+    description: "Integrated staffing, remote recruitment consulting, and custom CRM dashboard support.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "300+ Staff"
   },
   {
     name: "Puri Engineering School",
-    logo: "/Anthem Assests/client-logo_Puri-Engineering-School.png",
-    sector: "Technical Education",
+    sector: "Education & Enterprise",
+    description: "Technical campus infrastructure setup, computer lab networking, and ExamFlow CBT mock tests.",
+    icon: GraduationCap,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "550+ Seats"
   },
   {
-    name: "Abaduta Sricharan Baba",
-    logo: "/Anthem Assests/client-logo_deathbanner.jpg",
-    sector: "Trust & Community",
+    name: "Abaduta Sricharan Baba Office",
+    sector: "Education & Enterprise",
+    description: "Archival record restoration, scanning operations, and secure digital library creation.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "1 Cr+ Pages"
   },
   {
     name: "ARMTECH",
-    logo: "/Anthem Assests/images_armtech-logo.jpg",
-    sector: "Technology Enterprise",
-  },
+    sector: "Education & Enterprise",
+    description: "Collaborative systems, enterprise database consulting, and cloud native integrations.",
+    icon: Building2,
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "5+ Partners"
+  }
 ]
 
 export default function ClientsPage() {
+  const [activeSector, setActiveSector] = useState("All Sectors")
+
+  const filteredClients = activeSector === "All Sectors"
+    ? clientsList
+    : clientsList.filter(c => c.sector === activeSector)
+
+  const midIndex = Math.ceil(clientsList.length / 2)
+  const loopOneClients = clientsList.slice(0, midIndex)
+  const loopTwoClients = clientsList.slice(midIndex)
+
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-background">
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.08),transparent_50%)]">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/Anthem%20Assests/images_ban-clients.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
+    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+      <PageHero
+        title="Our Clients"
+        description="Trusted by top judiciary bodies, central and state government departments, leading universities, and global enterprises to execute high-stakes digital programs."
+        image="/Anthem Assests/images_company-profile.jpg"
+        video="/videos/collab.mp4"
+        icon={Landmark}
+        stats={[
+          { value: "18+ Major", label: "Public clients" },
+          { value: "50 Cr+", label: "Pages digitised" },
+        ]}
+        darkTheme={true}
+      />
+
+      <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
+        {/* Soft background watermarks */}
+        <SectionWatermark className="top-[12%] right-[2%] opacity-[0.015]" size={420} />
+        <SectionWatermark className="bottom-[18%] left-[2%] opacity-[0.02]" size={380} />
         
-        {/* Glow Spheres */}
-        <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-anthem-lightBlue/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Dark teal trust section with client loops and stats */}
+        <div className="bg-[#00232A] rounded-3xl p-6 md:p-8 border border-[#00FFE4]/15 mb-20 shadow-lg relative overflow-hidden">
+          <LogoOrbitPattern opacity={0.25} />
+          
+          <SectionHeading
+            eyebrow="Ecosystem"
+            title="Trusted Ecosystem Loop"
+            description="Explore our massive network of public, legal, and academic clients scrolling infinitely in opposite directions."
+            align="center"
+            darkTheme={true}
+            className="mb-0"
+          />
+          
+          <div className="rounded-2xl bg-[#00232A]/50 border border-[#00FFE4]/10 p-6 space-y-4 relative group z-10 mt-6">
+            <CardCornerMark position="top-right" />
+            {/* Track 1: Leftward */}
+            <LogoLoop speed={35} direction="left" pauseOnHover={true}>
+              {loopOneClients.map((c, idx) => (
+                <div 
+                  key={idx} 
+                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-center text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group"
+                >
+                  <CardCornerMark position="top-right" />
+                  <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4] mr-2" />
+                  {c.name}
+                </div>
+              ))}
+            </LogoLoop>
 
-        <div className="container px-4 md:px-6 relative z-10 mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Home className="size-3.5" /> Home
-            </Link>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">Who We Are</span>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-primary font-medium">Clients</span>
-          </div>
-
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-anthem-blue to-anthem-darkBlue bg-clip-text text-transparent">
-                Our Valued Clients
-              </h1>
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                Anthem Global has built strong, enduring partnerships with diverse clients across public transit, state judiciary, regional ministries, education sectors, and international technology partners.
-              </p>
-            </motion.div>
+            {/* Track 2: Rightward */}
+            <LogoLoop speed={35} direction="right" pauseOnHover={true}>
+              {loopTwoClients.map((c, idx) => (
+                <div 
+                  key={idx} 
+                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-center text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group"
+                >
+                  <CardCornerMark position="top-right" />
+                  <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4] mr-2" />
+                  {c.name}
+                </div>
+              ))}
+            </LogoLoop>
           </div>
         </div>
-      </section>
 
-      {/* Clients Bento Grid */}
-      <section className="pb-24 relative">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-            {clientsList.map((client, index) => (
-              <motion.div
-                key={client.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-              >
-                <Card className="h-full border border-border/40 bg-card/60 hover:bg-card/90 hover:border-primary/20 backdrop-blur-md shadow hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col group p-4 text-center items-center justify-between">
-                  {/* Grayscale to full color transition logo box */}
-                  <div className="h-24 w-full flex items-center justify-center p-2 mb-4 bg-muted/20 border border-border/10 rounded-xl">
-                    <img
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      className="max-h-full max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 group-hover:scale-105"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const fallback = e.currentTarget.parentElement?.querySelector('.fallback-icon') as HTMLElement;
-                        if (fallback) fallback.style.display = 'flex';
-                      }}
-                    />
-                    <div className="fallback-icon hidden items-center justify-center text-muted-foreground">
-                      <Building className="size-8" />
+        {/* Case Study / Editorial Visual Highlight Section with Video */}
+        <section className="mb-20 max-w-6xl mx-auto relative z-10">
+          <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm relative group overflow-hidden">
+            <CardCornerMark position="top-right" />
+            <CardCornerMark position="bottom-left" />
+            <div className="grid gap-8 lg:grid-cols-12 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <SectionHeading
+                  eyebrow="Judicial Modernisation"
+                  title="Orissa High Court Paperless Court Project"
+                  description="Our landmark digitisation program for the Orissa High Court represents one of the largest judicial records transformations in India."
+                  className="mb-0"
+                />
+                <p className="text-sm leading-7 text-slate-500 mt-4 font-medium">
+                  Anthem Global successfully scanned, OCR-indexed, and archived over <strong>25+ Crore legal case pages</strong> across the Orissa High Court and all 30 district courts, transitioning the judicial registry to a high-speed, secure digital e-office ecosystem.
+                </p>
+                
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                  <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm relative group font-mono text-xs">
+                    <CardCornerMark position="top-right" />
+                    <Landmark className="size-8 text-[#017ACA] shrink-0" />
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 block uppercase">Scope</span>
+                      <strong className="text-xs font-black text-slate-700">310 courts state-wide</strong>
                     </div>
                   </div>
-
-                  <div className="w-full">
-                    <h3 className="text-sm font-bold text-foreground line-clamp-2 leading-tight group-hover:text-primary transition-colors mb-1.5">
-                      {client.name}
-                    </h3>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground bg-muted/65 px-2 py-0.5 rounded-full inline-block">
-                      {client.sector}
-                    </span>
+                  
+                  {/* Arrow accent guiding the timeline progression */}
+                  <div className="text-[#FDCD03] hidden sm:block">
+                    <ArrowAccent size={22} direction="right" />
                   </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                  
+                  <div className="rounded-xl border border-[#FDCD03]/35 bg-amber-50/40 p-4 shadow-sm font-mono text-xs">
+                    <span className="text-[10px] font-bold text-amber-600 block uppercase">Timeline</span>
+                    <strong className="text-xs font-black text-amber-700">Active Modernisation Completed</strong>
+                  </div>
+                </div>
+              </div>
 
-      {/* Trust Quote / Stats bar */}
-      <section className="py-16 bg-muted/30 border-t border-border/30">
-        <div className="container px-4 md:px-6 mx-auto text-center max-w-4xl">
-          <ShieldCheck className="size-12 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Dedicated to Public & Enterprise Services</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            By managing high-profile data collections, e-governance infrastructures, and digital point-cloud operations, our team continues to maintain 100% customer satisfaction and dynamic service continuity.
-          </p>
+              {/* Muted AutoPlaying Case Study Video Walkthrough */}
+              <div className="lg:col-span-5 relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 shadow-inner group">
+                <video 
+                  src="/videos/collab.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
+                  <span className="text-white text-[10px] font-mono font-bold flex items-center gap-1.5">
+                    <Play className="size-3 text-[#00FFE4]" /> Muted Video Walkthrough
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Strip with background orbits */}
+        <div className="relative mb-20 max-w-6xl mx-auto rounded-2xl border border-slate-200 bg-white p-1 shadow-sm overflow-hidden group">
+          <LogoOrbitPattern opacity={0.15} />
+          <CardCornerMark position="top-right" />
+          <StatsStrip
+            className="border-0 bg-transparent relative z-10"
+            stats={[
+              { value: "25 Cr+", label: "Judiciary pages", detail: "Orissa High Court and District Courts digitised" },
+              { value: "310", label: "Courts paperless", detail: "State-wide court registry systems operational" },
+              { value: "30", label: "Districts covered", detail: "Active e-governance deployment infrastructure" },
+              { value: "10,000+", label: "Exams conducted", detail: "CBT assessments powered securely with TCS iON" },
+            ]}
+          />
         </div>
-      </section>
+
+        <DataLineDivider className="my-16" />
+
+        {/* Filtered Clients Grid */}
+        <section className="border-t border-slate-200/60 pt-16 relative z-10">
+          <div className="max-w-6xl mx-auto mb-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <SectionHeading
+              eyebrow="Portfolio"
+              title="All Client Engagements"
+              description="Filter our detailed case registries across ministries, railways, high courts, and universities."
+              className="mb-0"
+            />
+            
+            {/* Sliding Framer Motion Filter Chips */}
+            <div className="flex flex-wrap gap-2 relative bg-slate-100 p-1.5 rounded-full border border-slate-200 text-xs font-bold w-fit">
+              {sectors.map((sec) => (
+                <button
+                  key={sec}
+                  onClick={() => setActiveSector(sec)}
+                  className="px-4 py-2 rounded-full relative transition-colors focus:outline-none select-none"
+                >
+                  <span className={`relative z-10 transition-colors ${activeSector === sec ? "text-white" : "text-slate-600 hover:text-slate-800"}`}>
+                    {sec}
+                  </span>
+                  {activeSector === sec ? (
+                    <motion.div 
+                      layoutId="activeSectorChip"
+                      className="absolute inset-0 bg-[#00232A] rounded-full z-0 border border-[#00FFE4]/20"
+                      transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                    />
+                  ) : null}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch relative z-10">
+            <AnimatePresence mode="popLayout">
+              {filteredClients.map((client) => {
+                const IconComponent = client.icon
+                return (
+                  <motion.div
+                    key={client.name}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <TiltedCard className="h-full" scale={1.01} maxRotate={3}>
+                      <div className="group h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-primary/20 transition-all flex flex-col justify-between relative">
+                        <CardCornerMark position="top-right" />
+                        <div>
+                          <div className="flex justify-between items-start mb-5">
+                            <div className="size-12 rounded-xl bg-slate-50 border border-slate-100 p-2.5 text-primary shadow-sm flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                              <IconComponent className="size-6 shrink-0" />
+                            </div>
+                            <Badge variant="anthem" className="rounded-md border border-[#00FFE4]/25 bg-slate-900 font-extrabold text-[10px] text-[#00FFE4]">
+                              <CountUpStat value={client.metric} />
+                            </Badge>
+                          </div>
+                          <h3 className="text-base font-extrabold text-slate-800 group-hover:text-primary transition-colors tracking-tight">{client.name}</h3>
+                          <p className="mt-2 text-[10px] uppercase tracking-wider font-extrabold text-muted-foreground/80">{client.sector}</p>
+                          <p className="mt-4 text-sm leading-6 text-slate-500 font-medium">{client.description}</p>
+                        </div>
+                        <div className="mt-6 flex items-center gap-1.5 text-xs font-bold text-primary border-t border-slate-100 pt-4 justify-between w-full font-mono">
+                          <span>Verified Scale Project</span>
+                          <ChevronRight className="size-3.5 group-hover:translate-x-1 transition-transform text-slate-400 group-hover:text-[#017ACA]" />
+                        </div>
+                      </div>
+                    </TiltedCard>
+                  </motion.div>
+                )
+              })}
+            </AnimatePresence>
+          </div>
+        </section>
+
+        <DataLineDivider className="my-16" />
+
+        <BrandCTA 
+          title="Empaneled with CMGI and Webel"
+          description="Read our empanelment details, scan capacities, and delivery schedules to verify how we handle e-governance systems."
+          buttonText="Contact Alliances Office"
+          href="/contact"
+        />
+      </main>
+
       <Footer />
     </div>
   )

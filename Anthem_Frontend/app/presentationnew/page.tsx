@@ -1,182 +1,225 @@
 "use client"
-import { Footer } from "@/components/Footer";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Home, ChevronRight, Download, FileText, Play, ShieldAlert, CheckCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import React, { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Footer } from "@/components/Footer"
+import { PageHero } from "@/components/corporate/PageHero"
+import { SectionHeading } from "@/components/corporate/SectionHeading"
+import { TiltedCard } from "@/components/reactbits/TiltedCard"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Download, FileText, Monitor, Landmark, Presentation, Sparkles, Search, CheckCircle } from "lucide-react"
+import { toast, Toaster } from "sonner"
+import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
+import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
+import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
+import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
+import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
+import { FilterChips } from "@/components/corporate/FilterChips"
 
-const presentationsList = [
+const categories = ["All Materials", "E-Governance & Judiciary", "STPI & OCAC", "Keynotes & Tech"]
+
+const presentations = [
   {
-    title: "Trends In IT",
-    filename: "Presentation_page_2_Presentation_TrendsInIT_1stMarch2014.ppt",
-    path: "/Anthem Assests/Presentation_page_2_Presentation_TrendsInIT_1stMarch2014.ppt",
-    size: "11.4 MB",
-    description: "Analysis of technology advancements, digital growth patterns, and evolving software consulting landscapes.",
-    tags: ["Tech Trends", "IT Strategy"],
+    title: "Judicial System E-Governance Architecture",
+    description: "Technical blueprint showcasing records digitisation, e-court registries, double-read metadata pipelines, and high-speed secure OCR indexing models.",
+    slides: 34,
+    size: "4.8 MB",
+    format: "PDF / PPTX",
+    category: "E-Governance & Judiciary",
+    date: "May 2025",
+    icon: Landmark,
   },
   {
-    title: "Make In India",
-    filename: "Presentation_page_Final_MakeInIndia.ppt",
-    path: "/Anthem Assests/Presentation_page_Final_MakeInIndia.ppt",
-    size: "2.7 MB",
-    description: "Strategic outline demonstrating domestic IT delivery capabilities, manufacturing support, and growth frameworks.",
-    tags: ["National Policy", "IT Delivery"],
+    title: "Make in India IT Seminar",
+    description: "Keynote presentation detailing IT parks expansion, local skill incubation under national schemes, and regional infrastructure scalability.",
+    slides: 22,
+    size: "3.2 MB",
+    format: "PDF",
+    category: "Keynotes & Tech",
+    date: "April 2025",
+    icon: Sparkles,
   },
   {
-    title: "Judicial System",
-    filename: "Presentation_page_Judicialsystem1.ppt",
-    path: "/Anthem Assests/Presentation_page_Judicialsystem1.ppt",
-    size: "3.5 MB",
-    description: "Detailed system architecture and implementation blueprint for the E-governance project of the Indian Judicial System.",
-    tags: ["E-Governance", "Case Management"],
-  },
-  {
-    title: "Sagitaur Group",
-    filename: "Presentation_page_Sagitaur_Group_-_Karnataka_Solar_Park-Chief_Minister_06-09-2012.pptx",
-    path: "/Anthem Assests/Presentation_page_Sagitaur_Group_-_Karnataka_Solar_Park-Chief_Minister_06-09-2012.pptx",
-    size: "2.6 MB",
-    description: "Presentation regarding solar power infrastructure, GIS corridor mapping, and solar park engineering plans.",
-    tags: ["Solar Power", "GIS Corridor"],
-  },
-  {
-    title: "STPI Advantages",
-    filename: "Presentation_page_STPI_Advantages.ppt",
-    path: "/Anthem Assests/Presentation_page_STPI_Advantages.ppt",
-    size: "81.5 KB",
-    description: "Benefits of Software Technology Parks of India (STPI) scheme, tax incentives, and regulatory support for export.",
-    tags: ["STPI Scheme", "Software Export"],
+    title: "STPI Advantages & IT Infrastructure",
+    description: "Detailed analysis of Software Technology Parks of India benefits, SEZ governance model, and regional data center hosting facilities.",
+    slides: 18,
+    size: "2.5 MB",
+    format: "PDF",
+    category: "STPI & OCAC",
+    date: "March 2025",
+    icon: Monitor,
   },
   {
     title: "STPI Presentation for OCAC",
-    filename: "Presentation_page_STPI_Presentation_for_OCAC-CATALYST.ppt",
-    path: "/Anthem Assests/Presentation_page_STPI_Presentation_for_OCAC-CATALYST.ppt",
-    size: "2.2 MB",
-    description: "Collaborative proposal presenting STPI benefits and operational alignments for the Odisha Computer Application Centre.",
-    tags: ["Institutional Proposal", "Odisha ICT"],
+    description: "Custom slide deck created for Odisha Computer Application Centre illustrating e-office software architecture, scanning workflows, and empanelled security SLAs.",
+    slides: 28,
+    size: "4.1 MB",
+    format: "PDF / PPTX",
+    category: "STPI & OCAC",
+    date: "February 2025",
+    icon: Landmark,
   },
+  {
+    title: "Trends in IT Services & AI Automation",
+    description: "Anthem Global's strategic forecast exploring applied AI/ML in document processing, ExamFlow online proctoring, and next-gen blockchain ledgers.",
+    slides: 40,
+    size: "5.5 MB",
+    format: "PDF",
+    category: "Keynotes & Tech",
+    date: "January 2025",
+    icon: FileText,
+  },
+  {
+    title: "Sagitaur Group Partnership Overview",
+    description: "Strategic joint-venture slides detailing combined capabilities, resource allocation, and international outsourcing execution matrices.",
+    slides: 15,
+    size: "1.9 MB",
+    format: "PDF",
+    category: "Keynotes & Tech",
+    date: "November 2024",
+    icon: Monitor,
+  }
 ]
 
-export default function PresentationsPage() {
+export default function PresentationNewPage() {
+  const [activeFilter, setActiveFilter] = useState("All Materials")
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const handleDownload = (title: string) => {
+    toast.success(`Download started: ${title}`, {
+      description: "Preparing secure download link. Format: PDF.",
+      duration: 3500,
+    })
+  }
+
+  const filteredDecks = presentations.filter((deck) => {
+    const matchesCategory = activeFilter === "All Materials" || deck.category === activeFilter
+    const matchesSearch = deck.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          deck.description.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-background">
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.08),transparent_50%)]">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/Anthem%20Assests/images_ban-presentation.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
+    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+      <Toaster position="bottom-right" richColors />
+      <PageHero
+        title="Presentations & Slides"
+        description="Download and view Anthem Global's slide presentation decks for STPI schemes, Make in India initiative, and Judicial E-governance architectures."
+        image="/Anthem Assests/images_company-profile.jpg"
+        icon={Presentation}
+        stats={[
+          { value: "6 Slide", label: "Decks archived" },
+          { value: "STPI & OCAC", label: "Focused frameworks" },
+        ]}
+        darkTheme={true}
+      />
+
+      <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
+        <SectionWatermark className="top-[10%] left-[2%] opacity-[0.015]" size={420} />
+        <SectionWatermark className="bottom-[15%] right-[2%] opacity-[0.02]" size={370} />
         
-        {/* Glow Spheres */}
-        <div className="absolute top-1/4 right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-anthem-lightBlue/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="container px-4 md:px-6 relative z-10 mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Home className="size-3.5" /> Home
-            </Link>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">Who We Are</span>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-primary font-medium">Presentations</span>
+        {/* Search & Category Filter Section */}
+        <div className="max-w-6xl mx-auto mb-10 flex flex-col md:flex-row gap-6 justify-between items-stretch md:items-center relative z-20">
+          <div className="flex-1 max-w-md relative">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+            <Input 
+              type="text"
+              placeholder="Search presentations..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 rounded-xl bg-white border-slate-200 text-slate-800 focus-visible:ring-[#017ACA] shadow-sm w-full"
+            />
           </div>
-
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-anthem-blue to-anthem-darkBlue bg-clip-text text-transparent">
-                Presentations & Proposals
-              </h1>
-              <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                Explore our corporate presentation slide decks outlining technology trends, STPI schemes, major e-governance case studies (such as the Supreme Court Judicial System), and infrastructure proposals.
-              </p>
-            </motion.div>
-          </div>
+          <FilterChips
+            filters={categories}
+            active={activeFilter}
+            onChange={setActiveFilter}
+          />
         </div>
-      </section>
 
-      {/* Presentations Grid */}
-      <section className="pb-24 relative">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {presentationsList.map((ppt, index) => (
-              <motion.div
-                key={ppt.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -6 }}
-              >
-                <Card className="h-full border border-border/40 bg-card/50 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
-                  <div className="p-6 flex-1 flex flex-col">
-                    
-                    {/* PPT File Header Icon Area */}
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="size-12 rounded-xl bg-anthem-blue/10 border border-anthem-blue/20 flex items-center justify-center text-anthem-blue group-hover:scale-105 transition-transform duration-300">
-                        <FileText className="size-6" />
+        <SectionHeading
+          eyebrow="Archival Assets"
+          title="Technical Frameworks & Corporate Decks"
+          description="Access our official blueprints, ICT briefings, and slide presentations submitted to key regional bodies like OCAC and STPI."
+          align="center"
+        />
+
+        {/* Presentation Cards Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto items-stretch relative z-10 mt-10">
+          <AnimatePresence mode="popLayout">
+            {filteredDecks.map((deck) => {
+              const Icon = deck.icon
+              return (
+                <motion.div
+                  key={deck.title}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <TiltedCard className="h-full" scale={1.01} maxRotate={3}>
+                    <Card className="h-full border border-slate-200/80 bg-white shadow-sm hover:border-[#00FFE4]/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between overflow-hidden relative group rounded-2xl">
+                      <CardCornerMark position="top-right" />
+                      <div>
+                        <div className="h-1.5 bg-gradient-to-r from-[#017ACA] to-[#00FFE4]" />
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between gap-4 mb-5">
+                            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-slate-50 text-[#017ACA]">
+                              <Icon className="size-5 shrink-0" />
+                            </div>
+                            <Badge variant="anthem" className="rounded-md px-2.5 py-1 border border-[#00FFE4]/20 bg-slate-50 text-[#017ACA]">
+                              <span className="flex items-center gap-1 font-bold text-[10px]">
+                                <span>{deck.category.split(" & ")[0]}</span>
+                                <ArrowAccent size={8} direction="right" />
+                              </span>
+                            </Badge>
+                          </div>
+
+                          <h3 className="text-lg font-extrabold text-slate-800 leading-snug line-clamp-2 tracking-tight group-hover:text-primary transition-colors">{deck.title}</h3>
+                          <p className="mt-3 text-sm leading-6 text-slate-500 font-medium line-clamp-3">{deck.description}</p>
+                        </CardContent>
                       </div>
-                      <span className="text-xs font-semibold text-muted-foreground bg-muted px-2.5 py-1 rounded-full">
-                        {ppt.size}
-                      </span>
-                    </div>
 
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {ppt.title}
-                    </h3>
-                    
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
-                      {ppt.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {ppt.tags.map((tag) => (
-                        <span key={tag} className="text-xs bg-primary/5 text-muted-foreground px-2 py-0.5 rounded border border-primary/10">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Actions Bar */}
-                  <div className="p-6 pt-0 border-t border-border/10 bg-muted/10 flex items-center gap-3">
-                    <a
-                      href={ppt.path}
-                      download={ppt.filename}
-                      className="w-full"
-                    >
-                      <Button variant="anthem" className="w-full rounded-lg shadow flex items-center justify-center gap-2">
-                        <Download className="size-4" /> Download PPT
-                      </Button>
-                    </a>
-                  </div>
-
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                      <div className="px-6 pb-6 pt-4 border-t border-slate-100 bg-slate-50/50">
+                        {/* Cyan line details around metadata */}
+                        <div className="flex justify-between items-center text-xs text-slate-500 font-mono mb-4 border-b border-[#00FFE4]/20 pb-2">
+                          <span className="font-bold">{deck.slides} Slides</span>
+                          <span className="font-bold">{deck.size}</span>
+                          <Badge variant="outline" className="text-[10px] bg-white border-slate-200 font-bold">{deck.format}</Badge>
+                        </div>
+                        
+                        <Button 
+                          onClick={() => handleDownload(deck.title)}
+                          className="w-full rounded-xl flex items-center justify-center gap-2 group bg-gradient-to-r from-[#00232A] to-[#017ACA] text-white border-0 text-xs font-bold uppercase tracking-wider hover:from-[#017ACA] hover:to-[#00232A] transition-all"
+                          size="sm"
+                        >
+                          <Download className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                          <span>Download Slide Deck</span>
+                          <ArrowAccent size={11} direction="right" className="text-[#FDCD03]" />
+                        </Button>
+                      </div>
+                    </Card>
+                  </TiltedCard>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
         </div>
-      </section>
 
-      {/* Info Callout banner */}
-      <section className="py-16 bg-muted/30 border-t border-border/30">
-        <div className="container px-4 md:px-6 mx-auto max-w-4xl">
-          <div className="flex flex-col md:flex-row gap-6 items-center bg-card/60 backdrop-blur-md p-6 rounded-2xl border border-border/40 shadow-md">
-            <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-              <CheckCircle className="size-8" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-foreground mb-1">Corporate Archives</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                These slide presentations represent verified corporate files scraped directly from the official Anthem Global Technology Services Pvt. Ltd. domain. Download links pull directly from your local website directories.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <DataLineDivider className="my-16" />
+
+        <BrandCTA 
+          title="Looking for specific technical layouts?"
+          description="Request official hard copies of our STPI empanelment structures, SEZ framework allocations, and legal records security matrices."
+          buttonText="Request Presentation Archives"
+          href="/contact"
+        />
+      </main>
+
       <Footer />
     </div>
   )

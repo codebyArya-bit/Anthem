@@ -1,252 +1,522 @@
 "use client"
-import { Footer } from "@/components/Footer";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Home, ChevronRight, Mail, Phone, MapPin, Briefcase, Award, GraduationCap, ArrowRight, Heart, Sparkles, Send } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import React, { useState, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Footer } from "@/components/Footer"
+import { PageHero } from "@/components/corporate/PageHero"
+import { SectionHeading } from "@/components/corporate/SectionHeading"
+import { InfoCard } from "@/components/corporate/InfoCard"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Mail, Briefcase, Award, GraduationCap, Flame, ArrowRight, UploadCloud, Eye, X, Check } from "lucide-react"
+import { toast, Toaster } from "sonner"
+import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
+import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
+import { LogoOrbitPattern } from "@/components/corporate/brand-patterns/LogoOrbitPattern"
+import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
+import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
+import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
 
 const perks = [
   {
-    title: "Cutting-Edge Projects",
-    description: "Work on major national e-governance systems, LiDAR point cloud processing, and high-profile enterprise applications.",
-    icon: <Sparkles className="size-6 text-primary" />,
+    title: "Mission-Critical Impact",
+    description: "Work on national-scale digital infrastructure including judicial record modernisation, Census workflows, and e-governance systems.",
+    icon: Flame,
+    tag: "High Scale",
+    color: "from-blue-600 to-[#017ACA]"
   },
   {
     title: "Continuous Learning",
-    description: "Participate in skill advancement initiatives and gain certifications in GIS, cloud technologies, and modern frameworks.",
-    icon: <GraduationCap className="size-6 text-primary" />,
+    description: "Expand your capabilities in GIS mapping, LiDAR classification, applied AI models, custom J2EE, React, and Python crafts.",
+    icon: GraduationCap,
+    tag: "Skill Training",
+    color: "from-blue-600 to-[#017ACA]"
   },
   {
-    title: "Inclusive Culture",
-    description: "Be part of a collaborative workspace that values dedication, honest efforts, team building, and social responsibility.",
-    icon: <Heart className="size-6 text-primary" />,
+    title: "Professional Culture",
+    description: "Headquartered in a premier campus at Chandaka Industrial Estate, Bhubaneswar, offering a secure, compliant, and collaborative workspace.",
+    icon: Award,
+    tag: "Prime Campus",
+    color: "from-blue-600 to-[#017ACA]"
+  }
+]
+
+const focusAreas = [
+  {
+    title: "Custom Software Engineering",
+    description: "Java, Python, ASP.NET MVC, React, and secure database administrators delivering robust transactional applications.",
+    tag: "Tech Division"
   },
   {
-    title: "Global Exposure",
-    description: "Contribute to projects servicing domestic government wings and top-tier international clients across multi-sectors.",
-    icon: <Award className="size-6 text-primary" />,
+    title: "GIS & LiDAR Point Cloud",
+    description: "Advanced classification, DTM extraction, corridor mapping, MLS points vectorisation, and aerial photogrammetry experts.",
+    tag: "Spatial Division"
   },
+  {
+    title: "Digitisation & Secure DMS",
+    description: "High-volume secure scanning, industrial OCR indexing, metadata parsing, and compliance-level document archival.",
+    tag: "Operations Division"
+  }
+]
+
+const mockJobs = [
+  {
+    id: "job-1",
+    title: "Senior Java Developer (e-Gov Systems)",
+    department: "Tech Division",
+    location: "Bhubaneswar HQ",
+    type: "Full-Time",
+    experience: "4-6 Years"
+  },
+  {
+    id: "job-2",
+    title: "GIS LiDAR Vectorisation Specialist",
+    department: "Spatial Division",
+    location: "Bhubaneswar HQ",
+    type: "Full-Time",
+    experience: "2-4 Years"
+  },
+  {
+    id: "job-3",
+    title: "React Frontend Engineer",
+    department: "Tech Division",
+    location: "Bhubaneswar HQ",
+    type: "Full-Time",
+    experience: "2-3 Years"
+  },
+  {
+    id: "job-4",
+    title: "High-Volume Scanning Operations lead",
+    department: "Operations Division",
+    location: "Bhubaneswar HQ",
+    type: "Full-Time",
+    experience: "3-5 Years"
+  }
+]
+
+const galleryImages = [
+  {
+    image: "/Anthem Home Page Photo/A Team Spirit.jpg",
+    title: "Team Spirit",
+    description: "Collaborative, open conversations, and deep technical mentorship form the foundation of our execution squads."
+  },
+  {
+    image: "/Anthem Home Page Photo/Comfortable Workspace.jpg",
+    title: "Comfortable Workspace",
+    description: "State-of-the-art corporate infrastructure designed to keep our engineers focused and secure."
+  },
+  {
+    image: "/Anthem Home Page Photo/From Ideas to Impact.jpg",
+    title: "From Ideas to Impact",
+    description: "We brainstorm together, execute with discipline, and celebrate national delivery successes together."
+  }
 ]
 
 export default function CareerPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    position: "General Opening / Software Engineer",
-    coverLetter: "",
-  })
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [role, setRole] = useState("Software Development")
+  const [note, setNote] = useState("")
+  const [activeDept, setActiveDept] = useState("All")
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const formSectionRef = useRef<HTMLDivElement>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Job Application: ${formData.name} - ${formData.position}`)
-    const body = encodeURIComponent(
-      `Hello Anthem HR Team,\n\nI would like to apply for possible openings at Anthem Global.\n\nMy Details:\nName: ${formData.name}\nEmail: ${formData.email}\nDesired Position: ${formData.position}\n\nCover Letter Notes:\n${formData.coverLetter}\n\n(I have attached my detailed resume to this email.)`
-    )
-    window.location.href = `mailto:info@anthemgt.com?subject=${subject}&body=${body}`
+    if (!name || !email || !phone) {
+      toast.error("Please fill in all required fields.")
+      return
+    }
+    toast.success("Application details registered!", {
+      description: "Please also mail your resume directly to info@anthemgt.com to finalize your profile.",
+      duration: 5000,
+    })
+    // Reset form
+    setName("")
+    setEmail("")
+    setPhone("")
+    setNote("")
+    setUploadedFile(null)
   }
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0]
+      if (file.type === "application/pdf" || file.name.endsWith(".doc") || file.name.endsWith(".docx")) {
+        if (file.size <= 5 * 1024 * 1024) {
+          setUploadedFile(file)
+          toast.success(`Attached file: ${file.name}`)
+        } else {
+          toast.error("File exceeds 5MB limit.")
+        }
+      } else {
+        toast.error("Only PDF or Word documents are supported.")
+      }
+    }
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0]
+      setUploadedFile(file)
+      toast.success(`Attached file: ${file.name}`)
+    }
+  }
+
+  const handleApplyClick = (jobTitle: string) => {
+    setRole(jobTitle.includes("GIS") ? "GIS & LiDAR point cloud" : jobTitle.includes("Scanning") ? "Digitisation Operations" : "Software Development")
+    formSectionRef.current?.scrollIntoView({ behavior: "smooth" })
+    toast.info(`Applying for: ${jobTitle}. Form focus updated.`)
+  }
+
+  const filteredJobs = activeDept === "All"
+    ? mockJobs
+    : mockJobs.filter(j => j.department === activeDept)
+
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-background">
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.08),transparent_50%)]">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/Anthem%20Assests/images_ban-career.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
-        
-        {/* Glow Spheres */}
-        <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-anthem-lightBlue/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+      <Toaster position="bottom-right" richColors />
+      
+      <PageHero
+        title="Career With Us"
+        description="Join Anthem Global's engineering, spatial, and digitisation delivery teams to build secure, national-scale e-governance solutions."
+        image="/Anthem Assests/images_ban-mission-vision.jpg"
+        video="/videos/office-tour.mp4"
+        icon={Briefcase}
+        stats={[
+          { value: "300+", label: "Professionals" },
+          { value: "Bhubaneswar", label: "Delivery HQ" },
+        ]}
+        darkTheme={true}
+      />
 
-        <div className="container px-4 md:px-6 relative z-10 mx-auto">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
-              <Home className="size-3.5" /> Home
-            </Link>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-foreground font-medium">Who We Are</span>
-            <ChevronRight className="size-3.5 text-muted-foreground/50" />
-            <span className="text-primary font-medium">Careers</span>
-          </div>
+      <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
+        {/* Soft background watermarks */}
+        <SectionWatermark className="top-[10%] right-[2%] opacity-[0.015]" size={420} />
+        <SectionWatermark className="bottom-[25%] left-[2%] opacity-[0.02]" size={370} />
 
-          <div className="grid md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
-            <div className="md:col-span-7">
+        {/* Culture Showcase Section */}
+        <section className="mb-20 relative z-10">
+          <SectionHeading
+            eyebrow="Life at Anthem"
+            title="Our Dynamic Workspace & Vibe"
+            description="We combine hard-working software operations and secure scanning systems with a supportive, growth-oriented campus environment."
+            align="center"
+          />
+          <div className="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
+            {galleryImages.map((card, idx) => (
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+                key={idx}
+                className="cursor-pointer"
+                onClick={() => setLightboxIndex(idx)}
+                whileHover={{ y: -4, scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-anthem-blue to-anthem-darkBlue bg-clip-text text-transparent">
-                  Build Your Career With Us
-                </h1>
-                <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-6">
-                  Are you passionate about software engineering, GIS mapping, digitization systems, or digital consultancy? We are always looking for dedicated, innovative professionals to join our collaborative office in Bhubaneswar.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground bg-muted/40 px-4 py-3 rounded-xl border border-border/10">
-                    <MapPin className="size-5 text-primary shrink-0" />
-                    <span>Bhubaneswar IT Zone, India</span>
+                <Card className="overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 relative group rounded-2xl h-full">
+                  <CardCornerMark position="top-right" />
+                  <div className="relative h-56 w-full overflow-hidden">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-4 left-4 text-white flex items-center gap-2">
+                      <Eye className="size-4 text-[#00FFE4]" />
+                      <h4 className="text-base font-extrabold tracking-tight">{card.title}</h4>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground bg-muted/40 px-4 py-3 rounded-xl border border-border/10">
-                    <Briefcase className="size-5 text-primary shrink-0" />
-                    <span>Full-Time & Internships</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="md:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative rounded-2xl overflow-hidden shadow-xl border border-border/20 bg-muted/20"
-              >
-                <img
-                  src="/Anthem Assests/images_career.jpg"
-                  alt="Career illustration"
-                  className="w-full h-auto max-h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Perks Grid */}
-      <section className="py-16 md:py-24 border-t border-border/30 relative">
-        <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              Why Join Anthem Global?
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We cultivate a dynamic and supportive environment that fuels technical capability, team building, and professional advancement.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {perks.map((perk, index) => (
-              <motion.div
-                key={perk.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="h-full border border-border/30 bg-card/60 backdrop-blur-md p-6 hover:shadow-lg transition-all duration-300">
-                  <div className="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                    {perk.icon}
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{perk.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{perk.description}</p>
+                  <CardContent className="p-5 bg-white">
+                    <p className="text-sm leading-6 text-slate-500 font-medium">{card.description}</p>
+                  </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Resume Application Form Section */}
-      <section className="pb-24 relative">
-        <div className="container px-4 md:px-6 mx-auto max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <Card className="border border-border/40 bg-card/70 backdrop-blur-md shadow-2xl overflow-hidden relative">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-anthem-blue via-anthem-lightBlue to-anthem-yellow" />
-              
-              <CardContent className="p-8 md:p-12 flex flex-col gap-6">
-                <div className="text-center mb-6">
-                  <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto mb-4 border border-primary/20">
-                    <Mail className="size-7" />
+        <DataLineDivider className="my-16" />
+
+        {/* Job Openings Registry Section */}
+        <section className="mb-20 relative z-10 max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <SectionHeading
+              eyebrow="Job Openings"
+              title="Current Opportunities"
+              description="Review our active requirements. We recruit local talent and tech experts."
+              className="mb-0"
+            />
+            <div className="flex flex-wrap gap-2 text-xs font-bold">
+              {["All", "Tech Division", "Spatial Division", "Operations Division"].map((dept) => (
+                <button
+                  key={dept}
+                  onClick={() => setActiveDept(dept)}
+                  className={`px-4 py-2 rounded-full border transition-all duration-300 ${
+                    activeDept === dept
+                      ? "bg-[#00232A] text-[#00FFE4] border-[#00FFE4]/20"
+                      : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
+                  }`}
+                >
+                  {dept}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <AnimatePresence mode="popLayout">
+              {filteredJobs.map((job) => (
+                <motion.div
+                  key={job.id}
+                  layout
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative group"
+                >
+                  <CardCornerMark position="top-right" className="opacity-40" />
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="anthem" className="rounded-md border border-[#00FFE4]/20 bg-slate-50 text-[#017ACA] text-[10px] font-bold">
+                        {job.department}
+                      </Badge>
+                      <span className="text-[10px] font-bold text-slate-400 font-mono">{job.experience} Exp</span>
+                    </div>
+                    <h4 className="text-base font-extrabold text-slate-800 tracking-tight group-hover:text-primary transition-colors">
+                      {job.title}
+                    </h4>
+                    <p className="text-xs text-slate-500 font-medium mt-1">{job.location} · {job.type}</p>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-2">Submit Your Resume</h3>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    You can send us your detailed resume at <span className="font-semibold text-primary underline">info@anthemgt.com</span> for possible openings in the near future.
-                  </p>
+                  <Button 
+                    onClick={() => handleApplyClick(job.title)}
+                    className="rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-gradient-to-r hover:from-[#00232A] hover:to-[#017ACA] hover:text-white hover:border-transparent transition-all text-xs font-bold font-sans uppercase shrink-0"
+                    size="sm"
+                  >
+                    <span>Apply Now</span>
+                    <ArrowRight className="size-4 ml-1.5 text-[#FDCD03]" />
+                  </Button>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </section>
+
+        <DataLineDivider className="my-16" />
+
+        {/* Perks & Application Form split Section */}
+        <div ref={formSectionRef} className="grid gap-10 lg:grid-cols-12 max-w-6xl mx-auto items-start mt-12 relative scroll-mt-28">
+          <LogoOrbitPattern opacity={0.1} className="absolute inset-0 -top-10" />
+          
+          {/* Perks side */}
+          <div className="lg:col-span-7 space-y-6 relative z-10">
+            <SectionHeading
+              eyebrow="Perks & Benefits"
+              title="Why Build Your Career at Anthem?"
+              description="We offer an elite ecosystem where software crafts, data protection, and professional satisfaction intersect."
+            />
+            <div className="space-y-4">
+              {perks.map((perk) => (
+                <div key={perk.title} className="relative group">
+                  <CardCornerMark position="top-right" className="opacity-[0.15]" />
+                  <InfoCard
+                    icon={perk.icon}
+                    title={perk.title}
+                    description={perk.description}
+                    tag={perk.tag}
+                    className="border-slate-200/80 bg-white"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Form Card side */}
+          <div className="lg:col-span-5 relative z-10">
+            <Card className="border border-slate-200 bg-white shadow-xl rounded-2xl overflow-hidden relative group">
+              <CardCornerMark position="top-right" />
+              <CardCornerMark position="bottom-left" />
+              <div className="h-2 bg-gradient-to-r from-[#00232A] to-[#017ACA]" />
+              <CardContent className="p-6 md:p-8">
+                <div className="mb-6">
+                  <h3 className="text-xl font-extrabold text-slate-800 tracking-tight">Quick Application</h3>
+                  <p className="text-xs text-slate-400 mt-1">Submit your profile details to our recruiting team.</p>
                 </div>
 
-                {/* Styled Interactive Email Application Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-foreground uppercase tracking-wider block">Full Name</label>
-                      <Input
-                        type="text"
-                        required
-                        placeholder="Enter your name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-muted/30 border-border/60 rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-foreground uppercase tracking-wider block">Email Address</label>
-                      <Input
-                        type="email"
-                        required
-                        placeholder="Enter your email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-muted/30 border-border/60 rounded-xl"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-foreground uppercase tracking-wider block">Position / Focus Area</label>
-                    <select
-                      value={formData.position}
-                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                      className="w-full flex h-10 w-full rounded-xl border border-border/60 bg-muted/30 px-3 py-2 text-sm text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <option value="General Opening / Software Engineer">General Opening / Software Engineer</option>
-                      <option value="GIS & LiDAR Point Classification Analyst">GIS & LiDAR Point Classification Analyst</option>
-                      <option value="Digitization / Document Processing Executive">Digitization / Document Processing Executive</option>
-                      <option value="Sales / Project Management Coordinator">Sales / Project Management Coordinator</option>
-                      <option value="Technical Internship">Technical Internship</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-foreground uppercase tracking-wider block">Brief Introduction / Cover Note</label>
-                    <Textarea
-                      required
-                      rows={4}
-                      placeholder="Tell us about yourself, your qualifications, and your software experience..."
-                      value={formData.coverLetter}
-                      onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                      className="bg-muted/30 border-border/60 rounded-xl resize-none"
+                <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-[10px] font-bold uppercase text-slate-500">Full Name *</Label>
+                    <Input 
+                      id="name" 
+                      required 
+                      placeholder="John Doe" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)}
+                      className="rounded-xl border-slate-200 bg-white text-slate-800"
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    variant="anthem"
-                    className="w-full rounded-xl shadow-lg py-6 font-semibold flex items-center justify-center gap-2"
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-[10px] font-bold uppercase text-slate-500">Email Address *</Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      required 
+                      placeholder="john@example.com" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="rounded-xl border-slate-200 bg-white text-slate-800"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone" className="text-[10px] font-bold uppercase text-slate-500">Contact Number *</Label>
+                    <Input 
+                      id="phone" 
+                      required 
+                      placeholder="+91 9999999999" 
+                      value={phone} 
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="rounded-xl border-slate-200 bg-white text-slate-800"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="role" className="text-[10px] font-bold uppercase text-slate-500">Focus Area *</Label>
+                    <select 
+                      id="role"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-800 focus:outline-none"
+                    >
+                      <option>Software Development</option>
+                      <option>GIS & LiDAR point cloud</option>
+                      <option>Digitisation Operations</option>
+                      <option>Other Openings</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="note" className="text-[10px] font-bold uppercase text-slate-500">Cover Note (Optional)</Label>
+                    <Textarea 
+                      id="note" 
+                      placeholder="Brief summary of your skills or credentials..." 
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                      rows={3}
+                      className="rounded-xl border-slate-200 bg-white text-slate-800 resize-none"
+                    />
+                  </div>
+
+                  {/* Drag-and-Drop Resume Box */}
+                  <div 
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className="rounded-xl border border-dashed border-slate-200 p-4 bg-slate-50/50 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100/50 transition-colors relative group"
                   >
-                    <Send className="size-4" /> Send Email Application
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileChange}
+                      accept=".pdf,.doc,.docx"
+                      className="hidden" 
+                    />
+                    {uploadedFile ? (
+                      <div className="flex flex-col items-center">
+                        <Check className="size-6 text-[#00FFE4] mb-1.5" />
+                        <span className="text-xs font-bold text-slate-800 max-w-[200px] truncate">{uploadedFile.name}</span>
+                        <span className="text-[10px] text-slate-400 mt-0.5">{(uploadedFile.size / 1024 / 1024).toFixed(2)} MB · Change file</span>
+                      </div>
+                    ) : (
+                      <>
+                        <UploadCloud className="size-8 text-primary/70 mb-2 group-hover:scale-105 transition-transform" />
+                        <span className="text-xs font-bold text-slate-700">Attach Resume (Optional)</span>
+                        <span className="text-[10px] text-slate-400 mt-1">Drag & drop PDF, DOC, DOCX up to 5MB</span>
+                      </>
+                    )}
+                  </div>
+
+                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#00232A] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
+                    <span>Submit Profile Details</span>
+                    <ArrowRight className="size-4 text-[#FDCD03]" />
                   </Button>
                 </form>
 
-                <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                  Clicking the button will open your default email client (e.g. Outlook, Mail) prefilled with your application notes. Don't forget to attach your PDF/DOC resume!
-                </p>
+                <div className="mt-6 border-t border-slate-100 pt-4 text-center">
+                  <p className="text-[10px] text-slate-500 leading-relaxed flex items-center justify-center gap-1 font-sans font-bold">
+                    <Mail className="size-3.5 text-[#017ACA] shrink-0" />
+                    You can also mail your CV directly to <a href="mailto:info@anthemgt.com" className="font-bold text-[#017ACA] hover:underline">info@anthemgt.com</a>
+                  </p>
+                </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
-      </section>
+
+        <BrandCTA 
+          className="mt-24"
+          title="Looking to build digital infrastructure?"
+          description="Explore our openings, tech frameworks, and competitive campus alignment program in Bhubaneswar."
+          buttonText="Join Our Technical Team"
+          href="mailto:info@anthemgt.com"
+        />
+      </main>
+
+      {/* Lightbox Modal for Life at Anthem Gallery */}
+      <AnimatePresence>
+        {lightboxIndex !== null ? (
+          <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4">
+            <motion.div 
+              className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setLightboxIndex(null)}
+            />
+            
+            <motion.div 
+              className="relative max-w-3xl w-full bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+            >
+              <button 
+                onClick={() => setLightboxIndex(null)}
+                className="absolute top-4 right-4 z-20 size-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-all focus:outline-none"
+              >
+                <X className="size-4" />
+              </button>
+
+              <div className="relative aspect-video w-full">
+                <img 
+                  src={galleryImages[lightboxIndex].image} 
+                  alt={galleryImages[lightboxIndex].title} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="p-6 text-white bg-slate-950/90 border-t border-slate-800">
+                <h4 className="text-lg font-black text-[#00FFE4] tracking-tight">{galleryImages[lightboxIndex].title}</h4>
+                <p className="text-sm text-slate-400 mt-2 leading-relaxed">{galleryImages[lightboxIndex].description}</p>
+              </div>
+            </motion.div>
+          </div>
+        ) : null}
+      </AnimatePresence>
+
       <Footer />
     </div>
   )

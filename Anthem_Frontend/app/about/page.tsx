@@ -27,6 +27,10 @@ import {
   Heart,
   TrendingUp,
   Clock,
+  Database,
+  Landmark,
+  Layers,
+  Cpu,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -337,30 +341,51 @@ export default function AboutPage() {
     {
       year: "2009",
       title: "Company Foundation",
-      description: "Anthem Global was founded with a vision to revolutionize software development and AI solutions",
+      description: "Anthem Global Technology Services began its journey in Bhubaneswar, Odisha, with a vision to deliver reliable IT consulting, application development, and high-end solution integration for public and enterprise needs.",
       icon: <Rocket className="size-6" />,
-      color: "from-anthem-blue to-anthem-lightBlue",
+      color: "from-blue-600 to-indigo-600",
     },
     {
-      year: "2023",
-      title: "DashoApp LMS Achievement",
-      description: "Successfully launched DashoApp Learning Management System, marking our first major milestone",
-      icon: <Sparkles className="size-6" />,
-      color: "from-anthem-yellow to-amber-500",
+      year: "2013",
+      title: "E-Governance & Digitisation Growth",
+      description: "Expanded into mission-critical e-governance projects, document scanning, and large-scale digitisation for government and academic deployments.",
+      icon: <Database className="size-6" />,
+      color: "from-emerald-500 to-teal-500",
+    },
+    {
+      year: "2016",
+      title: "Judiciary Digitisation Milestone",
+      description: "Became a trusted technology partner for judiciary digitisation, supporting paperless court transformation, legal record scanning, OCR, archival, and document management workflows.",
+      icon: <Landmark className="size-6" />,
+      color: "from-[#017ACA] to-[#FDCD03]",
+    },
+    {
+      year: "2019",
+      title: "National-Scale Execution",
+      description: "Delivered large public-sector digitisation and workflow automation projects, including government department records, railway systems, legal documents, and administrative file transformation.",
+      icon: <Layers className="size-6" />,
+      color: "from-purple-600 to-pink-500",
+    },
+    {
+      year: "2022",
+      title: "AI, DMS & Secure Digital Platforms",
+      description: "Strengthened in-house technology capabilities with AI/ML, OCR, Document Management Systems, e-Office, e-Judiciary, scanning workflow applications, and secure archival platforms.",
+      icon: <Brain className="size-6" />,
+      color: "from-cyan-500 to-blue-500",
     },
     {
       year: "2024",
-      title: "First Investment Received",
-      description: "Secured our first significant investment to fuel growth and expand our technological capabilities",
-      icon: <TrendingUp className="size-6" />,
-      color: "from-green-500 to-emerald-500",
+      title: "Assessment & Exam Infrastructure Expansion",
+      description: "Scaled online examination and CBT capabilities with modern infrastructure, AI-powered exam workflows, proctoring, OMR support, evaluation, and result processing.",
+      icon: <Cpu className="size-6" />,
+      color: "from-amber-500 to-orange-500",
     },
     {
-      year: "2025",
-      title: "Reduced Loss to Zero",
-      description: "Achieved financial stability by reducing operational losses to zero, marking a major business milestone",
-      icon: <Target className="size-6" />,
-      color: "from-anthem-blue to-anthem-darkBlue",
+      year: "2026",
+      title: "Digital Transformation Leadership",
+      description: "Today, Anthem stands as a trusted enterprise and government technology partner with 15+ years of experience, 300+ professionals, 50 Cr+ pages digitised, 10,000+ exams conducted, and landmark judiciary transformation across 310 courts.",
+      icon: <Award className="size-6" />,
+      color: "from-[#00FFE4] to-[#017ACA]",
     },
   ]
 
@@ -447,10 +472,14 @@ export default function AboutPage() {
   ]
 
   const certifications = [
-    { name: "StartUp India", icon: <Award className="size-6" />, color: "text-orange-500" },
-    { name: "Start-Up Odisha", icon: <CheckCircle className="size-6" />, color: "text-green-500" },
-    { name: "MSME", icon: <Shield className="size-6" />, color: "text-blue-500" },
-    { name: "ISO 9001:2015", icon: <Target className="size-6" />, color: "text-purple-500" },
+    { name: "ISO 9001:2015 Certified", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
+    { name: "CMMI Level 3", icon: <Layers className="size-6" />, color: "text-purple-500" },
+    { name: "ISO/IEC 27001:2013", icon: <Shield className="size-6" />, color: "text-emerald-500" },
+    { name: "MSME / Udyam Registered", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
+    { name: "Certificate of Incorporation", icon: <Landmark className="size-6" />, color: "text-blue-500" },
+    { name: "OCAC Empanelment", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
+    { name: "GeM Registered", icon: <Cpu className="size-6" />, color: "text-orange-500" },
+    { name: "GST Registered", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
   ]
 
   return (
@@ -674,7 +703,7 @@ export default function AboutPage() {
               Our Journey Through Time
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              From humble beginnings to industry leadership - every milestone shaped our vision
+              From trusted digitisation beginnings to national-scale digital transformation — every milestone reflects our commitment to Integrity, Innovation, and Intelligence.
             </p>
           </motion.div>
 
@@ -1127,14 +1156,14 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Trusted & Certified
+              Recognized Excellence & Compliance
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our commitment to excellence is recognized by leading industry bodies
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Certifications, registrations, and empanelments that reflect Anthem’s quality, security, statutory compliance, and government-ready delivery standards.
             </p>
           </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+ 
+          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4 max-w-6xl mx-auto">
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}

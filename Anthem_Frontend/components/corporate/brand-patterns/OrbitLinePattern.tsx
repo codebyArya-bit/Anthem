@@ -1,0 +1,58 @@
+"use client"
+
+import React from "react"
+
+export function OrbitLinePattern({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 1200 600"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`absolute inset-0 w-full h-full pointer-events-none -z-10 select-none ${className}`}
+      preserveAspectRatio="none"
+    >
+      {/* Sweeping main orbit tracks mimicking the logo's circular motion */}
+      <path
+        d="M -100 450 C 300 200, 700 500, 1300 150"
+        stroke="url(#blueOrbitGrad)"
+        strokeWidth="2"
+        opacity="0.22"
+      />
+      <path
+        d="M -50 480 C 350 230, 750 530, 1350 180"
+        stroke="url(#blueOrbitGrad)"
+        strokeWidth="1.5"
+        strokeDasharray="6 6"
+        opacity="0.18"
+      />
+      <path
+        d="M -150 420 C 250 170, 650 470, 1250 120"
+        stroke="url(#yellowOrbitGrad)"
+        strokeWidth="1"
+        opacity="0.15"
+      />
+
+      {/* Decorative concentric orbits in background */}
+      <circle cx="950" cy="200" r="160" stroke="#017ACA" strokeWidth="1" strokeDasharray="4 4" opacity="0.07" />
+      <circle cx="950" cy="200" r="100" stroke="#68B1DE" strokeWidth="1.5" opacity="0.05" />
+      <circle cx="150" cy="400" r="220" stroke="#017ACA" strokeWidth="1" opacity="0.06" />
+      
+      {/* Tiny logo-accentuated nodes */}
+      <circle cx="550" cy="335" r="4" fill="#FDCD03" opacity="0.4" />
+      <circle cx="850" cy="235" r="3" fill="#017ACA" opacity="0.3" />
+
+      <defs>
+        <linearGradient id="blueOrbitGrad" x1="0" y1="300" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#017ACA" />
+          <stop offset="0.6" stopColor="#68B1DE" />
+          <stop offset="1" stopColor="transparent" />
+        </linearGradient>
+        <linearGradient id="yellowOrbitGrad" x1="0" y1="300" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#FDCD03" />
+          <stop offset="0.5" stopColor="#68B1DE" />
+          <stop offset="1" stopColor="transparent" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
