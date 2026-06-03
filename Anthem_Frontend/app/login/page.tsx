@@ -145,11 +145,11 @@ export default function LoginPage() {
             ? `${baseMsg}. SMS and email are not configured. Use the OTP shown below.`
             : smsSent === false && otpCode
               ? `${baseMsg}. SMS not configured. OTP: ${otpCode}`
-            : smsSent === false
-              ? `${baseMsg}. SMS not configured.`
-              : otpCode
-                ? `${baseMsg}. OTP: ${otpCode}`
-                : baseMsg;
+              : smsSent === false
+                ? `${baseMsg}. SMS not configured.`
+                : otpCode
+                  ? `${baseMsg}. OTP: ${otpCode}`
+                  : baseMsg;
 
         // Move to OTP verification step
         setEmpEmployeeId(data.employee_id);
@@ -216,11 +216,11 @@ export default function LoginPage() {
             ? "OTP resent. SMS and email are not configured. Use the OTP shown below."
             : smsSent === false && otpCode
               ? `OTP resent. SMS not configured. OTP: ${otpCode}`
-            : smsSent === false
-              ? "OTP resent. SMS not configured."
-              : otpCode
-                ? `OTP resent. OTP: ${otpCode}`
-                : "OTP resent successfully!";
+              : smsSent === false
+                ? "OTP resent. SMS not configured."
+                : otpCode
+                  ? `OTP resent. OTP: ${otpCode}`
+                  : "OTP resent successfully!";
         setSuccessMsg(msg);
         setEmpFallbackOTP(noDeliveryChannelWorked ? otpCode : "");
         setEmpOTP("");
@@ -246,11 +246,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary/20 p-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-background to-secondary/20 pt-20 md:pt-24 pb-12 px-4">
       <div className="bg-card border border-border rounded-3xl shadow-2xl px-6 py-8 md:px-8 md:py-12 w-full max-w-md flex flex-col items-center space-y-6">
         <div className="flex flex-col items-center gap-2">
           <Image
-            src="/logo.png"
+            src="/Anthem logo.png"
             width={60}
             height={60}
             alt="Logo"
@@ -267,11 +267,10 @@ export default function LoginPage() {
               setError("");
               setSuccessMsg("");
             }}
-            className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition flex items-center justify-center gap-2 ${
-              mode === "admin"
+            className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition flex items-center justify-center gap-2 ${mode === "admin"
                 ? "bg-primary text-primary-foreground shadow"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             <Briefcase className="w-4 h-4" />
             Admin
@@ -282,11 +281,10 @@ export default function LoginPage() {
               setError("");
               setSuccessMsg("");
             }}
-            className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition flex items-center justify-center gap-2 ${
-              mode === "employee"
+            className={`flex-1 py-2.5 text-sm font-medium rounded-lg transition flex items-center justify-center gap-2 ${mode === "employee"
                 ? "bg-primary text-primary-foreground shadow"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             <User className="w-4 h-4" />
             Employee
@@ -332,9 +330,8 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${
-                loading ? "opacity-70 cursor-not-allowed" : ""
-              }`}
+              className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
             >
               {loading ? (
                 <span className="animate-spin border-2 border-current border-t-transparent rounded-full w-5 h-5" />
@@ -376,9 +373,8 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${
-                    loading ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                  className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
                 >
                   {loading ? (
                     <span className="animate-spin border-2 border-current border-t-transparent rounded-full w-5 h-5" />
@@ -419,9 +415,8 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading || empOTP.length !== 6}
-                  className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${
-                    loading || empOTP.length !== 6 ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                  className={`w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 ${loading || empOTP.length !== 6 ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
                 >
                   {loading ? (
                     <span className="animate-spin border-2 border-current border-t-transparent rounded-full w-5 h-5" />

@@ -99,7 +99,13 @@ export default function GISServicesPage() {
         }
         const data = await response.json();
         const list = Array.isArray(data) ? data : data?.results || [];
-        if (!cancelled) setServices(list);
+        const filtered = list.filter((s: any) => 
+          String(s.id) !== "6" && 
+          String(s.id) !== "14" && 
+          !s.title.toLowerCase().includes("lidar") &&
+          !(s.slug || "").toLowerCase().includes("lidar")
+        );
+        if (!cancelled) setServices(filtered);
       } catch (error) {
         console.error("Error fetching GIS services:", error);
         if (!cancelled) setServices([]);
@@ -127,7 +133,7 @@ export default function GISServicesPage() {
               Precision Geospatial Solutions
             </p>
             <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-500 md:text-base">
-              From Photogrammetry to LiDAR, we deliver accurate, actionable geographic data for infrastructure, environment, and planning.
+              From Photogrammetry to advanced mapping, we deliver accurate, actionable geographic data for infrastructure, environment, and planning.
             </p>
           </div>
         </div>

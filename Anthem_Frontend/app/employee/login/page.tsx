@@ -75,11 +75,11 @@ export default function EmployeeLoginPage() {
           ? `${baseMsg}. SMS and email are not configured. Use the OTP shown below.`
           : smsSent === false && otpFromApi
             ? `${baseMsg}. SMS not configured. OTP: ${otpFromApi}`
-          : smsSent === false
-            ? `${baseMsg}. SMS not configured.`
-            : otpFromApi
-              ? `${baseMsg}. OTP: ${otpFromApi}`
-              : baseMsg;
+            : smsSent === false
+              ? `${baseMsg}. SMS not configured.`
+              : otpFromApi
+                ? `${baseMsg}. OTP: ${otpFromApi}`
+                : baseMsg;
 
       setEmployeeId(String((data as any)?.employee_id || ""));
       setMaskedPhone(sentTo);
@@ -158,11 +158,11 @@ export default function EmployeeLoginPage() {
           ? "OTP resent. SMS and email are not configured. Use the OTP shown below."
           : smsSent === false && otpFromApi
             ? `OTP resent. SMS not configured. OTP: ${otpFromApi}`
-          : smsSent === false
-            ? "OTP resent. SMS not configured."
-            : otpFromApi
-              ? `OTP resent. OTP: ${otpFromApi}`
-              : "OTP resent successfully!";
+            : smsSent === false
+              ? "OTP resent. SMS not configured."
+              : otpFromApi
+                ? `OTP resent. OTP: ${otpFromApi}`
+                : "OTP resent successfully!";
       setOtpCode("");
       setFallbackOtp(noDeliveryChannelWorked ? otpFromApi : "");
       setSuccessMsg(msg);
@@ -185,11 +185,11 @@ export default function EmployeeLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary/20 p-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-background to-secondary/20 pt-20 md:pt-24 pb-12 px-4">
       <Card className="w-full max-w-md shadow-2xl rounded-3xl">
         <CardHeader className="space-y-3 text-center">
           <div className="flex items-center justify-center">
-            <Image src="/logo.png" width={56} height={56} alt="Logo" className="rounded-xl shadow" />
+            <Image src="/Anthem logo.png" width={56} height={56} alt="Logo" className="rounded-xl shadow" />
           </div>
           <CardTitle className="text-2xl font-bold text-primary">Employee Login</CardTitle>
         </CardHeader>

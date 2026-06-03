@@ -187,7 +187,7 @@ export function Footer() {
                   Bhubaneswar-751024, Odisha
                 </p>
                 <p className="text-slate-800 mt-1.5 font-medium flex items-center gap-1">
-                  <Phone className="size-3 text-anthem-blue" /> +91-674-2972299
+                  <Phone className="size-3 text-anthem-blue" /> +91 78730 77777
                 </p>
                 <p className="text-slate-800 font-medium flex items-center gap-1 mt-0.5">
                   <Mail className="size-3 text-anthem-blue" /> info@anthemgt.com

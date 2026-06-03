@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -71,6 +72,21 @@ const certifiedFacets = [
   { text: "Biometric Verification Gateways" },
   { text: "20,000+ sq ft Campus" },
   { text: "Live CCTV Surveillance Matrix" }
+]
+
+const partnersList = [
+  {
+    name: "TCS iON",
+    logo: "/Anthem Assests/images_ionlogo.jpg"
+  },
+  {
+    name: "OCAC",
+    logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png"
+  },
+  {
+    name: "HP",
+    logo: "/image/hp_logo.svg"
+  }
 ]
 
 const certificatesList = [
@@ -236,13 +252,30 @@ export default function PartnersPage() {
         <section className="mb-20 relative z-10">
           <SectionHeading
             eyebrow="Certified Alliances"
-            title="Strategic Capabilities Loop"
-            description="Our physical examination hub is validated by industry leaders, operating under high security specs."
+            title="Strategic Partners & Capabilities"
+            description="Our physical examination hub and e-governance solutions are validated by leading organizations."
             align="center"
           />
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm max-w-6xl mx-auto relative group">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 max-w-6xl mx-auto relative group">
             <CardCornerMark position="top-right" />
+            {/* Track 1: Partner Logos */}
             <LogoLoop speed={30} pauseOnHover={true}>
+              {partnersList.map((partner, idx) => (
+                <div 
+                  key={idx} 
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
+                >
+                  <CardCornerMark position="top-right" />
+                  <div className="size-12 rounded bg-white p-1 flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden">
+                    <img src={partner.logo} alt={partner.name} className="size-full object-contain" loading="lazy" decoding="async" />
+                  </div>
+                  <span className="truncate">{partner.name}</span>
+                </div>
+              ))}
+            </LogoLoop>
+
+            {/* Track 2: Certified Facets */}
+            <LogoLoop speed={35} direction="right" pauseOnHover={true}>
               {certifiedFacets.map((facet, idx) => (
                 <div 
                   key={idx} 
@@ -589,7 +622,9 @@ export default function PartnersPage() {
         ) : null}
       </AnimatePresence>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="partners" />
+<Footer />
     </div>
   )
 }
@@ -599,3 +634,4 @@ function certificationsLabel(auth: string) {
   if (auth.includes("West")) return "Government Empanelment"
   return "E-Governance Registration"
 }
+

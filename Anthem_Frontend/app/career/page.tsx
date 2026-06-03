@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -517,7 +518,10 @@ export default function CareerPage() {
         ) : null}
       </AnimatePresence>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="career" />
+<Footer />
     </div>
   )
 }
+

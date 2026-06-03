@@ -1199,8 +1199,8 @@ export default function ProductsPage() {
                   <div className="mb-2 flex justify-center">
                     <div className="h-10 w-10 rounded-[10px] overflow-hidden bg-[#0a4eb4] shadow-lg">
                       <Image
-                        src="/DashoApp.jpg"
-                        alt="Dasho"
+                        src="/Anthem Logo.png"
+                        alt="Anthem"
                         width={40}
                         height={40}
                         className="h-full w-full object-cover"

@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -44,24 +45,39 @@ const values = [
 
 const journeyEvents = [
   {
-    year: "2009",
-    title: "Company Foundation",
-    description: "Anthem Global commenced operations in Bhubaneswar, Odisha, with a focus on core software applications and high-fidelity digitisation."
+    year: "Phase 1",
+    title: "Over 15 Years of Experience",
+    description: "Anthem Global commenced operations in Bhubaneswar, Odisha, with a focus on core software applications, client advisory, and high-fidelity digitisation."
   },
   {
-    year: "2013",
-    title: "E-Governance Expansion",
-    description: "Secured empanelment for high-volume document scanning, paperless court record systems, and public records workflows."
+    year: "Phase 2",
+    title: "Government & E-Governance Delivery",
+    description: "Secured empanelments and delivered large-scale digital records, public database administration, and e-office workflow management platforms."
   },
   {
-    year: "2018",
-    title: "LiDAR & Advanced Spatial Division",
-    description: "Launched state-of-the-art corridor mapping, MLS points vectorisation, and global spatial outsourcing divisions."
+    year: "Phase 3",
+    title: "Scanning & Digitisation Scale",
+    description: "Optimized state-of-the-art production hubs to scan, index, and securely store over 50 Crore pages of critical archives."
   },
   {
-    year: "2026",
-    title: "AI-Powered Workflows & National Scale",
-    description: "Pioneered OCR pipelines, biometric verification, secure proctoring solutions, and multi-state judicial modernisations."
+    year: "Phase 4",
+    title: "Judiciary Paperless Transformation",
+    description: "Pioneered paperless court conversions across 310 courts and 30 districts, digitising over 25 Crore pages of high-security legal records."
+  },
+  {
+    year: "Phase 5",
+    title: "Assessment Infrastructure Growth",
+    description: "Developed and managed extensive examination infrastructure spanning 20,000+ sq ft with a 550 examinee capacity and 10,000+ tests conducted."
+  },
+  {
+    year: "Phase 6",
+    title: "AI, OCR & Secure DMS Platforms",
+    description: "Integrated custom DSpace-based Document Management Systems, AI-powered metadata extraction, and 60-second question extraction engines."
+  },
+  {
+    year: "Phase 7",
+    title: "India-Wide Public Sector Impact",
+    description: "Executing large-scale digitisation, spatial engineering, and e-governance solutions across multiple state administrative departments, railways, and courts."
   }
 ]
 
@@ -229,12 +245,12 @@ export default function MissionVisionPage() {
                     className="relative z-10 flex flex-col items-center focus:outline-none group"
                   >
                     <motion.div 
-                      className={`size-10 rounded-full border-2 flex items-center justify-center font-bold text-xs shadow-md transition-all ${
+                      className={`px-3 py-1.5 rounded-full border-2 flex items-center justify-center font-bold text-[10px] whitespace-nowrap shadow-md transition-all ${
                         activeMilestone === idx
                           ? "bg-[#00232A] border-[#00FFE4] text-[#00FFE4]"
                           : "bg-white border-slate-300 text-slate-600 hover:border-[#017ACA]"
                       }`}
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       {evt.year}
@@ -261,7 +277,7 @@ export default function MissionVisionPage() {
                     <Card className="border border-slate-200 shadow-md bg-white relative overflow-hidden rounded-2xl">
                       <CardCornerMark position="top-right" />
                       <CardContent className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        <div className="size-16 rounded-2xl bg-gradient-to-br from-[#00232A] to-[#017ACA] text-[#00FFE4] font-black text-2xl flex items-center justify-center shadow shrink-0">
+                        <div className="px-4 py-3 min-w-[90px] rounded-2xl bg-gradient-to-br from-[#00232A] to-[#017ACA] text-[#00FFE4] font-black text-sm flex items-center justify-center text-center shadow shrink-0">
                           {journeyEvents[activeMilestone].year}
                         </div>
                         <div className="space-y-2">
@@ -324,8 +340,9 @@ export default function MissionVisionPage() {
           </motion.section>
         </SideNavLayout>
 
+        <DataLineDivider className="my-16" />
+
         <BrandCTA 
-          className="mt-24"
           title="Aligning Security and Public Value"
           description="Let us help you implement secure records modernisation and digital operations backed by empanelled quality standard guidelines."
           buttonText="Partner With Us"
@@ -333,7 +350,10 @@ export default function MissionVisionPage() {
         />
       </main>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="mission-vision" />
+<Footer />
     </div>
   )
 }
+

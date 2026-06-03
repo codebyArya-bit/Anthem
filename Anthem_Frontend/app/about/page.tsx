@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation"
-import { useRef, useEffect, useState } from "react"
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
+import { useRef, useEffect, useState, useMemo } from "react"
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from "framer-motion"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -153,29 +153,37 @@ export default function AboutPage() {
   const backgroundY3 = useTransform(smoothProgress, [0, 1], [0, -75])
 
   // Section visibility
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 })
-  const statsInView = useInView(statsRef, { once: false, amount: 0.3 })
-  const journeyInView = useInView(journeyRef, { once: false, amount: 0.3 })
-  const valuesInView = useInView(valuesRef, { once: false, amount: 0.3 })
-  const teamInView = useInView(teamRef, { once: false, amount: 0.3 })
-  const expertiseInView = useInView(expertiseRef, { once: false, amount: 0.3 })
+  const heroInView = useInView(heroRef, { once: true, amount: 0.05 })
+  const statsInView = useInView(statsRef, { once: true, amount: 0.05 })
+  const journeyInView = useInView(journeyRef, { once: true, amount: 0.05 })
+  const valuesInView = useInView(valuesRef, { once: true, amount: 0.05 })
+  const teamInView = useInView(teamRef, { once: true, amount: 0.05 })
+  const expertiseInView = useInView(expertiseRef, { once: true, amount: 0.05 })
 
-  // Mouse position for 3D effects
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  // Optimized tilt effect using MotionValues to avoid React component re-renders on mousemove
+  const mouseX = useMotionValue(0.5)
+  const mouseY = useMotionValue(0.5)
+
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [5, -5]), {
+    stiffness: 100,
+    damping: 20,
+  })
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), {
+    stiffness: 100,
+    damping: 20,
+  })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / (typeof window !== 'undefined' ? window.innerWidth : 1)) * 2 - 1,
-        y: (e.clientY / (typeof window !== 'undefined' ? window.innerHeight : 1)) * 2 - 1,
-      })
+      const width = window.innerWidth
+      const height = window.innerHeight
+      mouseX.set(e.clientX / width)
+      mouseY.set(e.clientY / height)
     }
 
-    if (typeof window !== 'undefined') {
-      window.addEventListener("mousemove", handleMouseMove)
-      return () => window.removeEventListener("mousemove", handleMouseMove)
-    }
-  }, [])
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [mouseX, mouseY])
 
 
   const [projects, setProjects] = useState<Array<{ client?: string | null }>>([]);
@@ -199,11 +207,13 @@ export default function AboutPage() {
     fetchProjects();
   }, []);
 
-  const uniqueClients = new Set(
-    projects
-      .map((project) => project.client?.trim())
-      .filter((client) => client && client !== "")
-  ).size;
+  const uniqueClients = useMemo(() => {
+    return new Set(
+      projects
+        .map((project) => project.client?.trim())
+        .filter((client) => client && client !== "")
+    ).size;
+  }, [projects]);
 
   // const stats = [
   //   {
@@ -472,14 +482,13 @@ export default function AboutPage() {
   ]
 
   const certifications = [
-    { name: "ISO 9001:2015 Certified", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
+    { name: "ISO Certified 9001: 2008", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
+    { name: "ISO Certified 27001: 2015", icon: <Shield className="size-6" />, color: "text-emerald-500" },
     { name: "CMMI Level 3", icon: <Layers className="size-6" />, color: "text-purple-500" },
-    { name: "ISO/IEC 27001:2013", icon: <Shield className="size-6" />, color: "text-emerald-500" },
-    { name: "MSME / Udyam Registered", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
-    { name: "Certificate of Incorporation", icon: <Landmark className="size-6" />, color: "text-blue-500" },
-    { name: "OCAC Empanelment", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
-    { name: "GeM Registered", icon: <Cpu className="size-6" />, color: "text-orange-500" },
-    { name: "GST Registered", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
+    { name: "MSME", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
+    { name: "OCAC Empanelment Agency", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
+    { name: "GEM", icon: <Cpu className="size-6" />, color: "text-orange-500" },
+    { name: "GST", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
   ]
 
   return (
@@ -549,7 +558,9 @@ export default function AboutPage() {
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
                 style={{
-                  transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`,
+                  rotateX,
+                  rotateY,
+                  transformPerspective: 1000,
                 }}
               >
                 <motion.span
@@ -994,6 +1005,8 @@ export default function AboutPage() {
                       className="w-full h-full object-cover object-top"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.5 }}
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => {
                         e.currentTarget.src = "/placeholder-user.jpg"
                       }}
@@ -1062,6 +1075,8 @@ export default function AboutPage() {
                       className="w-full h-full object-cover object-center rounded-lg"
                       whileHover={{ scale: 1.08 }}
                       transition={{ duration: 0.5 }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <motion.div
@@ -1111,6 +1126,8 @@ export default function AboutPage() {
                         className="w-full h-full object-cover object-center rounded-lg"
                         whileHover={{ scale: 1.08 }}
                         transition={{ duration: 0.5 }}
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       <motion.div
@@ -1163,7 +1180,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
  
-          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}
@@ -1172,12 +1189,14 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="group"
+                className="group relative"
               >
-                <Card className="p-6 text-center bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-0">
+                <Card className="p-6 text-center bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-50/50 rounded-2xl h-full flex flex-col items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-50/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300 pointer-events-none"></div>
+                  
                   <motion.div
                     className={cn(
-                      "size-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4 group-hover:bg-gray-200 transition-colors",
+                      "size-12 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-3 group-hover:bg-gray-100 transition-colors relative z-10",
                       cert.color,
                     )}
                     whileHover={{ rotate: 360 }}
@@ -1185,7 +1204,7 @@ export default function AboutPage() {
                   >
                     {cert.icon}
                   </motion.div>
-                  <h3 className="font-semibold text-gray-900">{cert.name}</h3>
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm relative z-10 leading-tight">{cert.name}</h3>
                 </Card>
               </motion.div>
             ))}

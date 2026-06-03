@@ -9,12 +9,12 @@ class SiteConfig(models.Model):
     """
     company_name = models.CharField(
         max_length=100,
-        default="DiracAI",
+        default="Anthem Global",
         help_text="Company name shown in the top navbar logo."
     )
     hero_heading = models.CharField(
         max_length=200,
-        default="Your Vision, Our",
+        default="Your Mission, Our",
         help_text="First part of the large hero headline."
     )
     hero_highlight = models.CharField(
@@ -23,7 +23,7 @@ class SiteConfig(models.Model):
         help_text="The gradient-coloured word in the hero headline."
     )
     hero_subheading = models.TextField(
-        default="From Vision to Reality With AI-Driven IT Services",
+        default="From Mission to Reality With AI-Driven IT Services",
         help_text="Descriptive line below the main headline."
     )
     hero_video = models.FileField(
@@ -92,5 +92,5 @@ class HeroVideo(models.Model):
         verbose_name = 'Hero Video'
         verbose_name_plural = 'Hero Videos'
 
-    def __str__(self):
-        return self.title or f'Hero Video #{self.pk}'
+    def __str__(self) -> str:
+        return str(self.title) or f'Hero Video #{self.pk}'

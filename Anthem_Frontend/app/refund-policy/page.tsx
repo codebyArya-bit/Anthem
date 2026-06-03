@@ -96,7 +96,7 @@ export default function RefundPolicyPage() {
         "TRIDENT GALAXY APARTMENT, KALINGANAGAR,",
         "Paikarapur, Khordha, Odisha, 752054, India",
         "Email: info@anthemgt.com",
-        "Phone: +91 6742972299",
+        "Phone: +91 78730 77777",
       ],
     },
   ]

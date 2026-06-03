@@ -3,6 +3,13 @@
 
 import type React from "react"
 import "@/styles/globals.css"
+import "@/components/GradientText.css"
+import "@/components/ScrollFloat.css"
+import "@/components/ScrollStack.css"
+import "@/components/CircularGallery.css"
+import "@/components/ChromaGrid.css"
+import "@/components/FloatingLines.css"
+import "@/components/SoftAurora.css"
 import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
@@ -12,7 +19,7 @@ import WhatsAppButtonClient from "@/components/WhatsAppButtonClient"
 export const metadata: Metadata = {
   title: "Anthem Global | Software, GIS & Digitization Solutions",
   description:
-    "Anthem Global Technology Services Private Limited is a premier provider of custom software, GIS & LiDAR point cloud classification, digitization, and workforce consulting solutions.",
+    "Anthem Global Technology Services Private Limited is a premier provider of custom software, GIS solutions, digitization, and workforce consulting solutions.",
   generator: "Next.js",
   icons: {
     icon: [
@@ -49,3 +56,4 @@ export default function RootLayout({
     </html>
   )
 }
+

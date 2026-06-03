@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { API_URL } from "@/lib/config";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -1123,6 +1123,7 @@ export default function EmployeeDashboard() {
   };
 
   const updateProject = async () => {
+    if (!employee) return;
     const allowed =
       canEditProject(employee.role, employee.designation) ||
       canEditProject(undefined, myAssignment?.designation) ||

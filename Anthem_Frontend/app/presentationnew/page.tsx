@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -220,7 +221,10 @@ export default function PresentationNewPage() {
         />
       </main>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="presentationnew" />
+<Footer />
     </div>
   )
 }
+

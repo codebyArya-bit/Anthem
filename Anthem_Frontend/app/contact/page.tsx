@@ -116,7 +116,7 @@ export default function ContactPage() {
       name: "Development Center (HQ)",
       address:
         "Anthem Tower, IDCO Plot No. N24,25,26 & 27, New IT Zone, Chandaka Industrial Estate, Bhubaneswar-751024, Odisha, India",
-      phone: "+91-674-2972299",
+      phone: "+91 78730 77777",
       email: "info@anthemgt.com",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.6698642232936!2d85.80800877524584!3d20.355294381129596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a190906be33604f%3A0xe54d4a8e6308ffc2!2sChandaka%20Industrial%20Estate%20Bhubaneswar!5e0!3m2!1sen!2sin!4v1759750289802!5m2!1sen!2sin",
@@ -127,45 +127,45 @@ export default function ContactPage() {
       id: "registered-office",
       name: "Registered Office",
       address: "HIG 84, Sailshree vihar, Chandrasekharpur, Bhubaneswar-751021, India",
-      phone: "+91-674-2972299",
+      phone: "+91 78730 77777",
       email: "info@anthemgt.com",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.3644026362544!2d85.81640167524623!3d20.367807781121087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a19096a5bc5a42d%3A0x286395b21d51a6ee!2sSailashree%20Vihar%2C%20Bhubaneswar!5e0!3m2!1sen!2sin!4v1759750289803!5m2!1sen!2sin",
       hours: "Monday - Friday: 9:00 AM - 6:00 PM",
-      image: "/placeholder.jpg",
+      image: "/anthemgt-offices/registered-office.jpg",
     },
     {
       id: "agartala",
       name: "Agartala Office",
       address: "Adjacent to TFDPC Ltd., East side of Raj Bhavan, PO: Kunjavan, Agartala, Tripura, India",
-      phone: "+91-674-2972299",
+      phone: "+91 78730 77777",
       email: "info@anthemgt.com",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.718873763321!2d91.28280167534431!3d23.864104478589716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3753f2f0a1c6bb7f%3A0x6b0487c679b3cb6f!2sRaj%20Bhavan%20Agartala!5e0!3m2!1sen!2sin!4v1759750289804!5m2!1sen!2sin",
       hours: "Monday - Friday: 9:00 AM - 6:00 PM",
-      image: "/placeholder.jpg",
+      image: "/anthemgt-offices/agartala-office.jpg",
     },
     {
       id: "bhilai",
       name: "Bhilai Office",
       address: "STPI Incubation Centre, Mangal Bhavan, Nehru Nagar (East), Bhilai, Dist: Durg, Chhattisgarh - 490020, India",
-      phone: "+91-674-2972299",
+      phone: "+91 78730 77777",
       email: "info@anthemgt.com",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.9667794357497!2d81.332801675269!3d21.233104380468305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a293df0be33604f%3A0xe54d4a8e6308ffc2!2sSTPI%20Bhilai!5e0!3m2!1sen!2sin!4v1759750289805!5m2!1sen!2sin",
       hours: "Monday - Friday: 9:00 AM - 6:00 PM",
-      image: "/placeholder.jpg",
+      image: "/anthemgt-offices/bhilai-office.jpg",
     },
     {
       id: "raipur",
       name: "Raipur Office",
       address: "C-12, Jivan Vihar, Telibandha, Raipur, Chhattisgarh, India",
-      phone: "+91-674-2972299",
+      phone: "+91 78730 77777",
       email: "info@anthemgt.com",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.3467794357497!2d81.6528016752686!3d21.218104380479105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28ddf0be33604f%3A0xe54d4a8e6308ffc2!2sTelibandha%20Raipur!5e0!3m2!1sen!2sin!4v1759750289806!5m2!1sen!2sin",
       hours: "Monday - Friday: 9:00 AM - 6:00 PM",
-      image: "/placeholder.jpg",
+      image: "/anthemgt-offices/raipur-office.jpg",
     },
   ];
 
@@ -356,14 +356,14 @@ export default function ContactPage() {
                     Our friendly team is here to help
                     <br />
                     <span className="text-lg font-medium text-foreground">
-                      +91-674-2972299
+                      +91 78730 77777
                     </span>
                   </p>
                   <div className="flex items-center gap-2 text-muted-foreground mb-4">
                     <Clock className="size-4" />
                     <span className="text-sm">Mon-Fri: 9:00 AM - 6:00 PM</span>
                   </div>
-                  <Link href="tel:+916742972299" className="mt-auto w-full">
+                  <Link href="tel:+917873077777" className="mt-auto w-full">
                     <Button
                       variant="outline"
                       size="sm"
@@ -432,14 +432,14 @@ export default function ContactPage() {
                     Chat with us instantly on WhatsApp
                     <br />
                     <span className="text-lg font-medium text-foreground">
-                      +91-674-2972299
+                      +91 78730 77777
                     </span>
                   </p>
                   <p className="text-sm text-muted-foreground mb-4">
                     Quick responses guaranteed
                   </p>
                   <Link
-                    href="https://wa.me/916742972299"
+                    href="https://wa.me/917873077777"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-auto w-full"
@@ -977,3 +977,5 @@ export default function ContactPage() {
     </div>
   );
 }
+
+

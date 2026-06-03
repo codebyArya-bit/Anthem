@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -24,146 +25,128 @@ const clientsList = [
   {
     name: "Orissa High Court",
     sector: "Judiciary & Legal",
-    description: "Modernisation of legal records, implementation of paperless court systems, and secure document archival pipelines.",
+    description: "Exclusive strategic partner for over a decade implementing state-wide paperless court initiatives and judicial digitization.",
     icon: Landmark,
+    logo: "/Anthem Assests/client-logo_ohclogog.png",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "25 Cr+ Pages"
+    metric: "310 Courts"
+  },
+  {
+    name: "Center for Judicial Archives",
+    sector: "Judiciary & Legal",
+    description: "High Court of Orissa partner for high-volume digitization and scanning of historical judicial records and legal heritage.",
+    icon: Landmark,
+    logo: "/Anthem Assests/client-logo_ohclogog.png",
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "Judicial Archives"
+  },
+  {
+    name: "Government of Odisha",
+    sector: "Government & E-Governance",
+    description: "Scanning, digitising and indexing massive workflows for the OSWAS & OJWAS systems across all 40 administrative departments.",
+    icon: Building2,
+    logo: "/Anthem Assests/client-logo_Modernizing-Government.png",
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "40 Departments"
+  },
+  {
+    name: "Government of West Bengal",
+    sector: "Government & E-Governance",
+    description: "District-wide land records data digitization and archival storage across 5 administrative districts.",
+    icon: Building2,
+    logo: "/Anthem Assests/images_webel_oppurtunities.jpg",
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "5 Districts"
+  },
+  {
+    name: "Government of Bihar",
+    sector: "Government & E-Governance",
+    description: "High-volume data conversion and digitization of state land records across 5 administrative districts.",
+    icon: Building2,
+    logo: "/Anthem Assests/client-logo_Panchayatiraj.png",
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "5 Districts"
   },
   {
     name: "East Coast Railway",
     sector: "Government & E-Governance",
-    description: "Custom J2EE management systems, e-office integrations, and large-scale data validation processing.",
+    description: "Providing custom J2EE systems, database validation services, and secure e-office portal integrations for the East Coast zone.",
     icon: Building2,
+    logo: "/Anthem Assests/client-logo_East-Coast-Railway.png",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "12 Cr+ Pages"
+    metric: "East Coast Zone"
   },
   {
-    name: "Department of School and Mass Education, Odisha",
-    sector: "Education & Enterprise",
-    description: "Academic assessment management, computer-based tests, and state-wide student database structures.",
-    icon: GraduationCap,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "10,000+ Exams"
-  },
-  {
-    name: "Panchayatiraj Department, Odisha",
+    name: "Eastern Railway",
     sector: "Government & E-Governance",
-    description: "E-governance software workflow modules, secure file tracking, and rural information portals.",
+    description: "Providing custom J2EE systems, database validation services, and secure e-office portal integrations for the Eastern zone.",
     icon: Building2,
+    logo: "/Anthem Assests/client-logo_East-Coast-Railway.png",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "40+ Departments"
+    metric: "Eastern Zone"
   },
   {
-    name: "Center For Modernizing Government Initiative (CMGI)",
+    name: "Consumer Dispute Redressal Commission",
     sector: "Government & E-Governance",
-    description: "Trusted consultancy and software integration partner aligning public systems to citizen services.",
+    description: "Digitisation and portal records management across the State Commission and all 30 District Forums in Odisha.",
     icon: Building2,
+    logo: "/Anthem Assests/client-logo_Modernizing-Government.png",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "15+ Years"
-  },
-  {
-    name: "Text Book Bureau, Odisha",
-    sector: "Education & Enterprise",
-    description: "Scanning, digitisation, searchable metadata indexing, and web platform hosting of textbook repositories.",
-    icon: GraduationCap,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "5 Cr+ Pages"
-  },
-  {
-    name: "Urban Housing Development Department, Odisha",
-    sector: "Government & E-Governance",
-    description: "Custom web applications, automated workflow files, and dashboard reports for municipal schemes.",
-    icon: Building2,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "12 Cr+ Pages"
-  },
-  {
-    name: "NRHM, Odisha",
-    sector: "Government & E-Governance",
-    description: "National Rural Health Mission database migration, scanning, and secure healthcare registry installations.",
-    icon: Building2,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "3 Cr+ Pages"
-  },
-  {
-    name: "Advocate General Office, Odisha",
-    sector: "Judiciary & Legal",
-    description: "Digitisation and optical character recognition (OCR) scanning of legal case briefs and references.",
-    icon: Landmark,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "2 Cr+ Pages"
-  },
-  {
-    name: "Shiksha Vikash Samiti, Odisha",
-    sector: "Education & Enterprise",
-    description: "School ERP installations, exam processing workflows, and comprehensive student report cards.",
-    icon: GraduationCap,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "30,000+ Exams"
-  },
-  {
-    name: "Intelli Decision, Canada",
-    sector: "Education & Enterprise",
-    description: "Global consulting and remote spatial analysis services, including aerial point cloud classification.",
-    icon: Building2,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "50+ GIS Projects"
+    metric: "30 District Forums"
   },
   {
     name: "KIIT University",
     sector: "Education & Enterprise",
-    description: "CBT exam solutions, student proctoring, and custom research software development.",
+    description: "Academic assessment proctoring, online CBT mock tests, and student record database integration.",
     icon: GraduationCap,
+    logo: "/Anthem Assests/client-logo_KIIT-University.png",
     color: "from-blue-600 to-[#017ACA]",
     metric: "550+ Seats"
   },
   {
-    name: "Naxatra News",
+    name: "TCS iON Strategic Alliance",
     sector: "Education & Enterprise",
-    description: "Media workflow systems, cloud archives, and custom asset search dashboards.",
-    icon: Building2,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "15+ Years"
-  },
-  {
-    name: "College of Pharmaceutical Sciences, Puri",
-    sector: "Education & Enterprise",
-    description: "Student data management, online exam scheduling, and secure academic file databases.",
+    description: "Empowered delivery center conducting major computer-based tests including GATE, CAT, AIIMS, JEE Advanced, OJEE, IBPS, SSC, Indian Army, and Supreme Court.",
     icon: GraduationCap,
+    logo: "/Anthem Assests/images_ionlogo.jpg",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "2,000+ Students"
+    metric: "10,000+ Exams"
   },
   {
-    name: "Planet Solutions",
+    name: "Tata Consultancy Services (TCS)",
     sector: "Education & Enterprise",
-    description: "Integrated staffing, remote recruitment consulting, and custom CRM dashboard support.",
+    description: "Key technology and corporate client for assessment execution and software consulting workflows.",
     icon: Building2,
+    logo: "/Anthem Assests/images_ionlogo.jpg",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "300+ Staff"
+    metric: "Corporate Client"
   },
   {
-    name: "Puri Engineering School",
+    name: "HCL Technologies",
     sector: "Education & Enterprise",
-    description: "Technical campus infrastructure setup, computer lab networking, and ExamFlow CBT mock tests.",
-    icon: GraduationCap,
-    color: "from-blue-600 to-[#017ACA]",
-    metric: "550+ Seats"
-  },
-  {
-    name: "Abaduta Sricharan Baba Office",
-    sector: "Education & Enterprise",
-    description: "Archival record restoration, scanning operations, and secure digital library creation.",
+    description: "Strategic enterprise technology client for backend software consulting and GIS applications.",
     icon: Building2,
+    logo: "/image/hcl_logo.svg",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "1 Cr+ Pages"
+    metric: "Corporate Partner"
   },
   {
-    name: "ARMTECH",
+    name: "HP Inc.",
     sector: "Education & Enterprise",
-    description: "Collaborative systems, enterprise database consulting, and cloud native integrations.",
+    description: "Corporate hardware infrastructure client and system engineering collaboration partner.",
     icon: Building2,
+    logo: "/image/hp_logo.svg",
     color: "from-blue-600 to-[#017ACA]",
-    metric: "5+ Partners"
+    metric: "Corporate Partner"
+  },
+  {
+    name: "Odisha Computer Application Centre (OCAC)",
+    sector: "Education & Enterprise",
+    description: "Empanelled technology agency executing government-notified data digitization, scanning, and software workflows.",
+    icon: Building2,
+    logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png",
+    color: "from-blue-600 to-[#017ACA]",
+    metric: "Empanelled Partner"
   }
 ]
 
@@ -218,11 +201,17 @@ export default function ClientsPage() {
               {loopOneClients.map((c, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-center text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group"
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-left text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
-                  <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4] mr-2" />
-                  {c.name}
+                  {c.logo ? (
+                    <div className="size-12 rounded bg-white/10 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                      <img src={c.logo} alt={c.name} className="size-full object-contain" loading="lazy" decoding="async" />
+                    </div>
+                  ) : (
+                    <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4]" />
+                  )}
+                  <span className="truncate">{c.name}</span>
                 </div>
               ))}
             </LogoLoop>
@@ -232,11 +221,17 @@ export default function ClientsPage() {
               {loopTwoClients.map((c, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-center text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group"
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-left text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
-                  <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4] mr-2" />
-                  {c.name}
+                  {c.logo ? (
+                    <div className="size-12 rounded bg-white/10 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                      <img src={c.logo} alt={c.name} className="size-full object-contain" loading="lazy" decoding="async" />
+                    </div>
+                  ) : (
+                    <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4]" />
+                  )}
+                  <span className="truncate">{c.name}</span>
                 </div>
               ))}
             </LogoLoop>
@@ -370,8 +365,12 @@ export default function ClientsPage() {
                         <CardCornerMark position="top-right" />
                         <div>
                           <div className="flex justify-between items-start mb-5">
-                            <div className="size-12 rounded-xl bg-slate-50 border border-slate-100 p-2.5 text-primary shadow-sm flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
-                              <IconComponent className="size-6 shrink-0" />
+                            <div className="size-16 rounded-xl bg-slate-50 border border-slate-100 p-1.5 text-primary shadow-sm flex items-center justify-center group-hover:bg-white group-hover:border-primary/20 transition-all overflow-hidden">
+                              {client.logo ? (
+                                <img src={client.logo} alt={client.name} className="size-full object-contain" loading="lazy" decoding="async" />
+                              ) : (
+                                <IconComponent className="size-8 shrink-0" />
+                              )}
                             </div>
                             <Badge variant="anthem" className="rounded-md border border-[#00FFE4]/25 bg-slate-900 font-extrabold text-[10px] text-[#00FFE4]">
                               <CountUpStat value={client.metric} />
@@ -404,7 +403,10 @@ export default function ClientsPage() {
         />
       </main>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="clients" />
+<Footer />
     </div>
   )
 }
+

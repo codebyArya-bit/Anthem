@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -39,13 +40,13 @@ const sisterOrganizations = [
   {
     name: "Anthem Global Proprietary",
     label: "Global Outsourcing & GIS",
-    description: "International outreach arm specializing in LiDAR point cloud classification, aerial photogrammetry, and secure cloud migration for North American and European enterprise clients.",
+    description: "International outreach arm specializing in spatial engineering, aerial photogrammetry, and secure cloud migration for North American and European enterprise clients.",
     icon: Globe,
     tag: "Global Advisory",
     color: "from-blue-600 to-[#017ACA]",
     video: "/videos/office-tour.mp4",
-    longDescription: "Our international outsourcing division handles advanced spatial engineering and remote infrastructure management. We specialize in LiDAR point cloud vectorization, high-fidelity corridor mapping, and photogrammetry datasets. We support enterprises globally with remote resources and strict security protocols.",
-    capabilities: ["LiDAR Point Classification", "DTM Extraction", "Corridor Mapping", "Cloud Migration"]
+    longDescription: "Our international outsourcing division handles advanced spatial engineering and remote infrastructure management. We specialize in point cloud vectorization, high-fidelity corridor mapping, and photogrammetry datasets. We support enterprises globally with remote resources and strict security protocols.",
+    capabilities: ["Spatial Engineering", "DTM Extraction", "Corridor Mapping", "Cloud Migration"]
   },
   {
     name: "Jagruti & Prasanti",
@@ -61,13 +62,13 @@ const sisterOrganizations = [
   {
     name: "CSI Bhubaneswar Chapter",
     label: "Professional Association",
-    description: "Strategic research and student alignment chapter fostering tech summits, academic mentorship programs, and startup conventions in Odisha.",
+    description: "Strategic research and student alignment chapter fostering tech summits, academic mentorship programs, and innovation conventions in Odisha.",
     icon: Network,
     tag: "Ecosystem Partner",
     color: "from-blue-600 to-[#017ACA]",
     video: "/videos/collab.mp4",
-    longDescription: "As part of our commitment to the technological ecosystem, we align closely with the Computer Society of India (CSI). We host regional tech symposiums, sponsor academic projects, mentor aspiring developers, and bridge startups with senior corporate advisory programs.",
-    capabilities: ["Tech Summit Hosting", "Academic Alliances", "Startup Mentorship", "Technical Research"]
+    longDescription: "As part of our commitment to the technological ecosystem, we align closely with the Computer Society of India (CSI). We host regional tech symposiums, sponsor academic projects, mentor aspiring developers, and bridge academic talent with senior corporate advisory programs.",
+    capabilities: ["Tech Summit Hosting", "Academic Alliances", "Innovation Mentorship", "Technical Research"]
   }
 ]
 
@@ -366,7 +367,10 @@ export default function SisterOrganizationsPage() {
         ) : null}
       </AnimatePresence>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="sister-concern-company" />
+<Footer />
     </div>
   )
 }
+

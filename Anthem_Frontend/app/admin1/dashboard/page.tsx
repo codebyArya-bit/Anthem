@@ -2698,7 +2698,6 @@ const EmployeeModal = ({
       password: "",
       profile_pic: null,
       location: "",
-      employment_type: "",
       qualification: "",
       documents: null,
       status: "active",

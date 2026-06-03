@@ -38,6 +38,8 @@ import {
   ExternalLink,
   Watch,
   MessageCircle,
+  Layers,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -107,8 +109,8 @@ export default function LandingPage() {
     setMounted(true);
     // Load from API, seed immediately from cache
     setSiteConfig(getCachedConfig());
-    fetchSiteConfig().then(setSiteConfig).catch(() => {});
-    fetchHeroVideos(true).then(vids => { if (vids.length > 0) setHeroVideos(vids); }).catch(() => {});
+    fetchSiteConfig().then(setSiteConfig).catch(() => { });
+    fetchHeroVideos(true).then(vids => { if (vids.length > 0) setHeroVideos(vids); }).catch(() => { });
     if (videoRef.current) {
       videoRef.current.addEventListener("loadeddata", () => {
         setVideoLoaded(true);
@@ -117,8 +119,8 @@ export default function LandingPage() {
     }
     // Listen for admin live-edit updates
     const onConfigUpdate = () => {
-      fetchSiteConfig().then(setSiteConfig).catch(() => {});
-      fetchHeroVideos(true).then(vids => { if (vids.length > 0) setHeroVideos(vids); }).catch(() => {});
+      fetchSiteConfig().then(setSiteConfig).catch(() => { });
+      fetchHeroVideos(true).then(vids => { if (vids.length > 0) setHeroVideos(vids); }).catch(() => { });
     };
     window.addEventListener("site-config-updated", onConfigUpdate);
     return () => window.removeEventListener("site-config-updated", onConfigUpdate);
@@ -153,11 +155,11 @@ export default function LandingPage() {
   useEffect(() => {
     if (heroVideos.length === 0) return;
     const currentVideo = heroVideos[currentVideoIdx];
-    
+
     videoRefs.current.forEach((videoEl, id) => {
       if (id === currentVideo?.id && currentVideo?.media_type !== "image") {
         videoEl.currentTime = 0;
-        videoEl.play().catch(() => {});
+        videoEl.play().catch(() => { });
       } else {
         videoEl.pause();
       }
@@ -182,61 +184,13 @@ export default function LandingPage() {
   };
 
   const certifications = [
-    {
-      name: "ISO 9001:2015",
-      logo: "/certifications/iso.png",
-      certificateNo: "INQ/AN-19004/126054/0325",
-      issuedBy: "International Standards Organization",
-      validity: "2024-2027",
-      description: "Quality Management System Certified",
-    },
-    {
-      name: "CMMI Level 3",
-      issuedBy: "CMMI Institute",
-      validity: "Active",
-      description: "Capability Maturity Model Integration - Process Maturity",
-    },
-    {
-      name: "ISO/IEC 27001:2013",
-      issuedBy: "International Standards Organization",
-      validity: "Active",
-      description: "Information Security Management Certified",
-    },
-    {
-      name: "MSME / Udyam Registered",
-      logo: "/certifications/MSME.png",
-      certificateNo: "UDYAM-OD-19-0100961",
-      issuedBy: "Ministry of MSME",
-      validity: "Lifetime",
-      description: "Government of India MSME Registration",
-    },
-    {
-      name: "Certificate of Incorporation",
-      logo: "/certifications/incorporation.png",
-      certificateNo: "U72900OR2022PTC039682",
-      issuedBy: "Ministry of Corporate Affairs",
-      validity: "Permanent",
-      description: "Registered Private Limited Company",
-    },
-    {
-      name: "OCAC Empanelment",
-      issuedBy: "Odisha Computer Application Centre",
-      validity: "Active",
-      description: "Government Empanelled Technology Agency",
-    },
-    {
-      name: "GeM Registered",
-      logo: "/certifications/gem.png",
-      description: "Government e-Marketplace Public Procurement",
-    },
-    {
-      name: "GST Registered",
-      logo: "/certifications/gst.jpeg",
-      certificateNo: "21AAJCD2715R1ZH",
-      issuedBy: "GST Council of India",
-      validity: "Active",
-      description: "Goods & Services Tax Registration",
-    },
+    { name: "ISO Certified 9001: 2008", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
+    { name: "ISO Certified 27001: 2015", icon: <Shield className="size-6" />, color: "text-emerald-500" },
+    { name: "CMMI Level 3", icon: <Layers className="size-6" />, color: "text-purple-500" },
+    { name: "MSME", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
+    { name: "OCAC Empanelment Agency", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
+    { name: "GEM", icon: <Cpu className="size-6" />, color: "text-orange-500" },
+    { name: "GST", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
   ];
 
   const keyBenefits = [
@@ -432,9 +386,9 @@ export default function LandingPage() {
                   ${i === currentVideoIdx ? "opacity-100 z-10" : "opacity-0 z-0"}`}
               >
                 {v.media_type === "image" ? (
-                  <img 
-                    src={v.image_url ?? ""} 
-                    className="w-full h-full object-cover" 
+                  <img
+                    src={v.image_url ?? ""}
+                    className="w-full h-full object-cover"
                     alt={v.title || "Hero Media"}
                     onLoad={() => { if (i === 0) setVideoLoaded(true); }}
                   />
@@ -498,7 +452,7 @@ export default function LandingPage() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl"
                 >
-                  {siteConfig?.hero_heading ?? "Your Vision, Our"}{" "}
+                  {siteConfig?.hero_heading ?? "Your Mission, Our"}{" "}
                   <motion.span
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -547,13 +501,13 @@ export default function LandingPage() {
           ) : (
             <div className="container px-4 md:px-6 text-center max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl">
-                {siteConfig?.hero_heading ?? "Your Vision, Our"}{" "}
+                {siteConfig?.hero_heading ?? "Your Mission, Our"}{" "}
                 <span className="bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent">
                   {siteConfig?.hero_highlight ?? "Technology"}
                 </span>
               </h1>
               <p className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto drop-shadow-lg">
-                {siteConfig?.hero_subheading ?? "From Vision to Reality With AI-Driven IT Services"}
+                {siteConfig?.hero_subheading ?? "From Mission to Reality With AI-Driven IT Services"}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -753,76 +707,8 @@ export default function LandingPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 relative z-10">
-            {/* DashoApp */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.02 }}
-              className="group relative h-full"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
-              <Card className="relative overflow-hidden rounded-3xl shadow-xl border border-border/40 backdrop-blur bg-white/80 h-full flex flex-col">
-                <div className="relative h-72 w-full overflow-hidden rounded-t-3xl flex-shrink-0">
-                  <Image
-                    src="/products/DashoApp1.png"
-                    alt="DashoApp - AI Powered Learning Platform"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-2xl font-bold">DashoApp</h3>
-                    <p className="text-white/80 text-sm">
-                      AI Powered Learning Platform
-                    </p>
-                  </div>
-                </div>
-
-                <CardContent className="p-6 flex flex-col flex-grow">
-                  <p className="text-muted-foreground mb-4 flex-grow">
-                    A next-gen AI learning ecosystem that personalizes education for students, automates workflows for teachers, and provides powerful analytics for institutions.
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {["AI Learning Paths", "Smart Assessment", "Live Classes", "Progress Analytics"].map((i, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-primary/10 to-blue-500/10 border border-border/40"
-                      >
-                        {i}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <Link href="/products" className="flex-1">
-                      <Button className="rounded-full w-full group">
-                        Explore DashoApp
-                        <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </Link>
-                    <Link
-                      href="https://dashoapp.com/"
-                      className="flex-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        variant="outline"
-                        className="rounded-full w-full border-blue-300 text-blue-600 hover:bg-blue-50"
-                      >
-                        Live Demo
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Exam Platform */}
+            {/* Dspace Platform */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -836,27 +722,27 @@ export default function LandingPage() {
               <Card className="relative overflow-hidden rounded-3xl shadow-xl border border-border/40 backdrop-blur bg-white/80 h-full flex flex-col">
                 <div className="relative h-72 w-full overflow-hidden rounded-t-3xl flex-shrink-0">
                   <Image
-                    src="/products/examapp2.png"
-                    alt="Exam Management System"
+                    src="/products/High Court of Orissa.jpg"
+                    alt="Dspace - AI Powered Legal Platform"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-2xl font-bold">Exam Platform</h3>
+                    <h3 className="text-2xl font-bold">Dspace</h3>
                     <p className="text-white/80 text-sm">
-                      Smart Online Examination System
+                      Smart Online LegalTech System
                     </p>
                   </div>
                 </div>
 
                 <CardContent className="p-6 flex flex-col flex-grow">
                   <p className="text-muted-foreground mb-4 flex-grow">
-                    A modern examination system with secure online tests, automated evaluation, instant reporting, and AI-powered proctoring.
+                    A modern legal platform with secure online case management, automated workflows, instant reporting, and AI-powered legal research.
                   </p>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {["Secure Exams", "Auto Evaluation", "AI Proctoring", "Detailed Reports"].map((i, idx) => (
+                    {["Secure Case Management", "Auto Workflows", "AI Legal Research", "Detailed Reporting"].map((i, idx) => (
                       <span
                         key={idx}
                         className="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-anthem-blue/10 to-anthem-lightBlue/10 border border-border/40"
@@ -869,12 +755,80 @@ export default function LandingPage() {
                   <div className="flex flex-col sm:flex-row gap-3 pt-2">
                     <Link href="/products" className="flex-1">
                       <Button className="rounded-full w-full group">
-                        Explore Exam Platform
+                        Dspace
                         <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
                       </Button>
                     </Link>
                     <Link
-                      href="https://exams.dashoapp.com/"
+                      href="https://www.orissahighcourt.nic.in/"
+                      className="flex-1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        variant="outline"
+                        className="rounded-full w-full border-anthem-blue text-anthem-blue hover:bg-anthem-bgLight"
+                      >
+                        Live Demo
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+            {/* Ant Legal App */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.02 }}
+              className="group relative h-full"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+              <Card className="relative overflow-hidden rounded-3xl shadow-xl border border-border/40 backdrop-blur bg-white/80 h-full flex flex-col">
+                <div className="relative h-72 w-full overflow-hidden rounded-t-3xl flex-shrink-0">
+                  <Image
+                    src="/products/AntLegal.jpg"
+                    alt="Ant Legal App - AI Powered Legal Platform"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <h3 className="text-2xl font-bold">Ant Legal App</h3>
+                    <p className="text-white/80 text-sm">
+                      AI Powered Legal Platform
+                    </p>
+                  </div>
+                </div>
+
+                <CardContent className="p-6 flex flex-col flex-grow">
+                  <p className="text-muted-foreground mb-4 flex-grow">
+                    A next-gen AI Legal ecosystem that personalizes Legal Workflow for Lawyers, paralegals , Clients and automates workflows for Law Organisation, and provides powerful analytics for institutions.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {["AI Legal Paths", "Smart Legal Solutions", "Live Consultations", "Progress Analytics"].map((i, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 rounded-full text-xs bg-gradient-to-r from-primary/10 to-blue-500/10 border border-border/40"
+                      >
+                        {i}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <Link href="/products" className="flex-1">
+                      <Button className="rounded-full w-full group">
+                        Explore Ant Legal App
+                        <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </Link>
+                    <Link
+                      href="https://antlegal.anthemgt.com/"
                       className="flex-1"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -927,152 +881,36 @@ export default function LandingPage() {
               Certifications, registrations, and empanelments that reflect Anthem’s quality, security, statutory compliance, and government-ready delivery standards.
             </p>
           </motion.div>
- 
-          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-4 md:gap-6 relative z-30 overflow-visible">
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6 relative z-30 overflow-visible max-w-6xl mx-auto">
             {certifications.map((cert, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20, rotateY: 30 }}
+                initial={{ opacity: 0, y: 20, rotateY: 15 }}
                 whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
+                whileHover={{ scale: 1.05, y: -5 }}
                 className="group relative"
-                onMouseEnter={() => setActiveCert(i)}
-                onMouseLeave={() => setActiveCert(null)}
               >
-                <div
-                  className="relative bg-white rounded-xl shadow-lg border border-blue-100 p-4 md:p-6 h-full transform-gpu transition-all duration-300 group-hover:shadow-xl group-hover:scale-105 flex flex-col items-center justify-center text-center cursor-pointer"
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      setActiveCert(activeCert === i ? null : i);
-                    }
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300"></div>
- 
+                <Card className="p-6 text-center bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-50/50 rounded-2xl h-full flex flex-col items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300 pointer-events-none"></div>
+                  
                   <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.05 + 0.2 }}
-                    className="size-8 md:size-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 text-primary"
+                    className={cn(
+                      "size-12 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-3 group-hover:bg-gray-100 transition-colors relative z-10",
+                      cert.color,
+                    )}
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <Check className="size-4 md:size-5" />
+                    {cert.icon}
                   </motion.div>
- 
-                  <p className="font-medium text-xs md:text-sm relative z-10 leading-tight">
+                  
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm relative z-10 leading-tight">
                     {cert.name}
-                  </p>
- 
-                  <motion.div
-                    className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary to-blue-500 rounded-full"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.05 + 0.3 }}
-                  />
-                </div>
- 
-                <AnimatePresence>
-                  {activeCert === i && (
-                    <>
-                      <div
-                        className="fixed inset-0 bg-black/30 z-30 md:hidden"
-                        onClick={() => setActiveCert(null)}
-                      />
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: 8 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: 8 }}
-                        transition={{ duration: 0.25 }}
-                        className="absolute z-40 w-full max-w-[260px] md:w-72 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
-                        style={{
-                          top: "calc(100% + 12px)",
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          ...(typeof window !== "undefined" && window.innerWidth <= 430 && {
-                            width: "92vw",
-                            transform: "none",
-                            ...(i % 2 === 0 ? { left: "5vw" } : { right: "5vw", left: "auto" }),
-                          }),
-                          ...(typeof window !== "undefined" && window.innerWidth > 430 && {
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            ...(i % 8 >= 6 && { left: "auto", right: "0", transform: "none" }),
-                            ...(i % 8 <= 1 && { left: "0", transform: "none" }),
-                          }),
-                        }}
-                      >
-                        <div className="relative h-40 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden flex items-center justify-center">
-                          {cert.logo ? (
-                            <Image
-                              src={cert.logo}
-                              alt={`${cert.name} Logo`}
-                              fill
-                              className="object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = "none";
-                              }}
-                            />
-                          ) : (
-                            <div className="text-center p-4">
-                              <Award className="size-12 text-primary/40 mx-auto mb-2" />
-                              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Anthem Quality</span>
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-black/5"></div>
-                        </div>
-
-                        <div className="p-4 space-y-3">
-                          <div>
-                            <h4 className="font-bold text-sm text-gray-900">{cert.name}</h4>
-                            <p className="text-xs text-gray-600 mt-1">{cert.description}</p>
-                          </div>
-
-                          <div className="space-y-2">
-                            <div className="flex justify-between items-center text-xs">
-                              <span className="text-gray-500">Certificate No:</span>
-                              <span className="font-mono text-gray-900 bg-gray-50 px-2 py-1 rounded border text-xs">
-                                {cert.certificateNo || "N/A"}
-                              </span>
-                            </div>
-                            <div className="flex justify-between items-center text-xs">
-                              <span className="text-gray-500">Issued By:</span>
-                              <span className="text-gray-900 text-right font-medium max-w-[120px] truncate">
-                                {cert.issuedBy || "N/A"}
-                              </span>
-                            </div>
-                            <div className="flex justify-between items-center text-xs">
-                              <span className="text-gray-500">Validity:</span>
-                              <span
-                                className={cn(
-                                  "font-medium px-2 py-1 rounded border text-xs",
-                                  cert.validity === "Lifetime" || cert.validity === "Permanent" || cert.validity === "Active"
-                                    ? "bg-green-100 text-green-700 border-green-200"
-                                    : "bg-blue-100 text-blue-700 border-blue-200"
-                                )}
-                              >
-                                {cert.validity || "N/A"}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="md:hidden pt-2">
-                            <button
-                              onClick={() => setActiveCert(null)}
-                              className="w-full py-2 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium"
-                            >
-                              Close
-                            </button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
+                  </h3>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -1084,18 +922,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-center mt-12 relative z-10"
           >
-            <Button
-              variant="outline"
-              className="rounded-full border-primary/20 hover:border-primary/40 bg-white/50 backdrop-blur-sm"
-              size="lg"
-            >
-              View All Certifications
-              <ArrowRight className="ml-2 size-4" />
-            </Button>
+            <Link href="/about">
+              <Button
+                variant="outline"
+                className="rounded-full border-primary/20 hover:border-primary/40 bg-white/50 backdrop-blur-sm"
+                size="lg"
+              >
+                View All Certifications
+                <ArrowRight className="ml-2 size-4" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
-
       {/* Key Benefits Section */}
       <section
         ref={benefitsRef}
@@ -1629,7 +1468,7 @@ export default function LandingPage() {
                             </div>
                           </motion.div>
                         </div>
- 
+
                         <div className="order-1 md:order-2">
                           <motion.h3
                             initial={{ opacity: 0, x: -20 }}
@@ -1643,7 +1482,7 @@ export default function LandingPage() {
                                   tab === "mobile" ? "Mobile App Innovation" :
                                     "Cloud Infrastructure Mastery"}
                           </motion.h3>
- 
+
                           <motion.div
                             variants={containerVariants}
                             initial="hidden"
@@ -1665,7 +1504,7 @@ export default function LandingPage() {
                               </motion.div>
                             ))}
                           </motion.div>
- 
+
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}

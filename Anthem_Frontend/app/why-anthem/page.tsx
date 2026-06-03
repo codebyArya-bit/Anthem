@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -98,7 +99,7 @@ export default function WhyAnthemPage() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
   }
 
   return (
@@ -137,7 +138,7 @@ export default function WhyAnthemPage() {
             },
             {
               title: "Innovation",
-              description: "Empowering state departments with advanced GIS/LiDAR systems, e-office systems, and AI proctoring engines.",
+              description: "Empowering state departments with advanced GIS systems, e-office systems, and AI proctoring engines.",
               border: "border-l-4 border-l-[#00FFE4]"
             },
             {
@@ -339,20 +340,24 @@ export default function WhyAnthemPage() {
             <CardCornerMark position="bottom-left" />
             <LogoLoop speed={25} pauseOnHover={true}>
               {[
-                { name: "Orissa High Court", label: "Judicial Client" },
-                { name: "East Coast Railway", label: "Central Government" },
-                { name: "TCS iON", label: "Technology Partner" },
-                { name: "OCAC Empanelment", label: "Government Partner" },
-                { name: "MSME", label: "MSME Registered" },
-                { name: "CMGI", label: "E-Governance Partner" },
-                { name: "STPI", label: "Technology Sponsor" },
+                { name: "Orissa High Court", logo: "/Anthem Assests/client-logo_ohclogog.png" },
+                { name: "East Coast Railway", logo: "/Anthem Assests/client-logo_East-Coast-Railway.png" },
+                { name: "TCS iON", logo: "/Anthem Assests/images_ionlogo.jpg" },
+                { name: "OCAC", logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png" },
+                { name: "MSME Registered", logo: "/certifications/MSME.png" },
+                { name: "CMGI Odisha", logo: "/Anthem Assests/client-logo_Modernizing-Government.png" },
+                { name: "Startup India", logo: "/certifications/startup-india.png" },
+                { name: "Startup Odisha", logo: "/certifications/startup-odisha.png" },
               ].map((partner, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-52 items-center justify-center rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-center text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group"
+                  className="flex h-16 w-52 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
-                  <span className="shrink-0 size-1.5 rounded-full bg-primary/70 mr-2" />
-                  {partner.name}
+                  <CardCornerMark position="top-right" />
+                  <div className="size-12 rounded bg-white p-1 flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden">
+                    <img src={partner.logo} alt={partner.name} className="size-full object-contain" />
+                  </div>
+                  <span className="truncate">{partner.name}</span>
                 </div>
               ))}
             </LogoLoop>
@@ -392,11 +397,14 @@ export default function WhyAnthemPage() {
           title="Ready to modernise your operations?"
           description="Explore our empanelment guidelines, high-volume operational centers, and compliant service levels."
           buttonText="Contact Our Experts"
-          buttonHref="/contact"
+          href="/contact"
         />
       </main>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="why-anthem" />
+<Footer />
     </div>
   )
 }
+

@@ -1,4 +1,5 @@
 "use client"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
 import { Footer } from "@/components/Footer"
 import { PageHero } from "@/components/corporate/PageHero"
@@ -14,7 +15,7 @@ const managementTeam = [
   {
     name: "Manas Ranjan Pattnaik",
     role: "Chairman",
-    statBadge: "30+ Years Experience",
+    statBadge: "46+ Years Experience",
     avatar: "/Anthem Assests/images_manas_pattnaik.png",
     education: "M.S. in Computer Science (San Diego State University, California, USA)",
     emails: ["manas.pattnaik@anthemgt.com", "manaspattnaik@hotmail.com"],
@@ -30,10 +31,10 @@ const managementTeam = [
       "Technical In-Charge of the landmark E-Governance project for the Indian Judicial System (Hon'ble Supreme Court of India).",
       "Managed 45+ STPI centers across India and established 30 of them as Director of STPI.",
       "Served extensively in Botswana, Ivory Coast, Algeria, Mauritius, Nepal, and China setting up IT networks.",
-      "30+ years of domestic and international advisory consulting experience."
+      "46+ years of domestic and international advisory consulting experience."
     ],
     bio: [
-      "A Techno-commercial expert with a Master's degree in Computer Science from San Diego State University, California, USA. He has over 30 years of experience in various domestic and international assignments in the fields of Information Technology and Consulting. He has served extensively in Botswana, Ivory Coast, Algeria, Nepal, Bhutan, and Mauritius assisting governments in setting up their IT and supporting infrastructure.",
+      "A Techno-commercial expert with a Master's degree in Computer Science from San Diego State University, California, USA. He has over 46 years of experience in various domestic and international assignments in the fields of Information Technology and Consulting. He has served extensively in Botswana, Ivory Coast, Algeria, Nepal, Bhutan, and Mauritius assisting governments in setting up their IT and supporting infrastructure.",
       "He was the technical in charge of the ambitious E-governance project of the Indian Judicial System under the aegis of the Hon'ble Supreme Court of India. As Director of Software Technology Parks of India (STPI) he managed 45+ STPI centers across India and also helped in creating 30 of those. He has played a key role in providing consulting services to the ICT programmes and policy formation in China and Panama.",
       "He is also currently actively promoting Entrepreneurship development and has setup his own Information Technology firm which is handling several high profile IT and Data management projects, under the National E-governance program, like Census Data collection and processing, digitization of legal documents, and management systems for railways."
     ]
@@ -41,7 +42,7 @@ const managementTeam = [
   {
     name: "Rajesh Kumar Acharya",
     role: "Director",
-    statBadge: "25+ Years Experience",
+    statBadge: "41+ Years Experience",
     avatar: "/Anthem Assests/images_rajeshsir.png",
     education: "M. Tech in Computer Science",
     emails: ["raja@anthemgt.com"],
@@ -54,13 +55,13 @@ const managementTeam = [
       "Fostering joint ventures with academic institutions and corporate allies."
     ],
     achievements: [
-      "25+ years of software industry leadership and computer science teaching.",
+      "41+ years of software industry leadership and computer science teaching.",
       "Orchestrated scale operations for regional network monitoring facilities.",
       "Successfully trained and empanelled thousands of youths under National Skill initiatives.",
       "Pioneered secure training delivery centers in Bhubaneswar and Bhilai."
     ],
     bio: [
-      "A Techno-commercial expert with M. Tech in Computer Science. He has over 25 years of experience in both Industry and Technical Education.",
+      "A Techno-commercial expert with M. Tech in Computer Science. He has over 41 years of experience in both Industry and Technical Education.",
       "Has handled many domestic and international assignments in the fields of Information Technology & Consulting. He has expertise in Infrastructure, Software Development, Education & Training, Network operations centers, remote infrastructure management, government relations and business development etc.",
       "He is currently handling Skill and Entrepreneurship development under National Skill Development Program to promote employability and empower youth with technical competencies."
     ]
@@ -68,7 +69,7 @@ const managementTeam = [
   {
     name: "Chakradhara Panda",
     role: "Chief Executive Officer (CEO)",
-    statBadge: "15+ Years Experience",
+    statBadge: "31+ Years Experience",
     avatar: "/Anthem Assests/images_chakradhara_panda.png",
     education: "B.E. (Institution of Electronics & Telecommunication Engineers)",
     emails: ["chakradhara.panda@anthemgt.com"],
@@ -81,14 +82,14 @@ const managementTeam = [
       "Maintaining rigid compliance controls and secure data pipelines."
     ],
     achievements: [
-      "15+ years of software delivery experience in high-impact public projects.",
+      "31+ years of software delivery experience in high-impact public projects.",
       "Led massive Socio-economic & Census digitisation operations in multiple states.",
       "Proven track record of managing projects with zero data leaks.",
       "Built highly capable regional technical offices for legal document processing."
     ],
     bio: [
       "Mr. Chakradhara Panda is the CEO of Anthem Global Technologies Pvt Ltd and he is responsible for execution of projects.",
-      "He has over 15+ years of delivery experience in implementing high-impact e-governance projects. He was instrumental in building highly capable technical teams in various states for delivering large-scale Socio-economic & Census projects.",
+      "He has over 31+ years of delivery experience in implementing high-impact e-governance projects. He was instrumental in building highly capable technical teams in various states for delivering large-scale Socio-economic & Census projects.",
       "His core expertise includes end-to-end project implementation, team building, and operational team management to ensure timely project delivery and compliance."
     ]
   }
@@ -103,7 +104,7 @@ export default function ManagementProfilePage() {
         image="/Anthem Assests/images_ban-managprofile.jpg"
         icon={Users}
         stats={[
-          { value: "30+ Yrs", label: "Consulting expertise" },
+          { value: "46+ Yrs", label: "Consulting expertise" },
           { value: "45+", label: "STPI centers managed" },
         ]}
         darkTheme={true}
@@ -149,7 +150,9 @@ export default function ManagementProfilePage() {
         />
       </main>
 
-      <Footer />
+      
+      <AnthemRouteMedia slug="managementprofile" />
+<Footer />
     </div>
   )
 }
