@@ -1,4 +1,4 @@
-# Gunicorn configuration file for DiracAI Django Backend
+# Gunicorn configuration file for Anthem Global Django Backend
 
 import multiprocessing
 
@@ -19,7 +19,7 @@ errorlog = '/home/sammy/myprojectdir/logs/gunicorn_error.log'
 loglevel = 'info'
 
 # Process naming
-proc_name = 'diracai_backend'
+proc_name = 'anthem_backend'
 
 # Server mechanics
 daemon = False

@@ -168,7 +168,7 @@ class CreateAccountWithPhoneSerializer(serializers.ModelSerializer):
         instance.set_password(fullpassword)
         instance.save()
         username = instance.username;
-        send_mail('Registration successful! : DiCelpip'," We are glad to welcome you to DiCelpip platform!",'From <dicelpip@gmail.com>',[username])
+        send_mail('Registration successful! : Anthem Global'," We are glad to welcome you to Anthem Global platform!",settings.DEFAULT_FROM_EMAIL,[username])
         #print ("instance password: ", instance.password)
         return instance
 
@@ -296,7 +296,7 @@ def _send_otp_email(otp_code: str, to_email: str):
     to_email = _normalize_login_id(to_email)
     if not to_email or "@" not in to_email:
         raise serializers.ValidationError("Invalid email")
-    subject = "Your login OTP : DiracAI"
+    subject = "Your login OTP : Anthem Global"
     body = f"Your OTP to login is {otp_code}"
     sender = getattr(settings, "DEFAULT_FROM_EMAIL", None) or "no-reply@localhost"
     send_mail(subject, body, sender, [to_email], fail_silently=False)
@@ -434,7 +434,7 @@ def _send_otp_email(otp_code: str, to_email: str):
     to_email = _normalize_login_id(to_email)
     if not to_email or "@" not in to_email:
         raise serializers.ValidationError("Invalid email")
-    subject = "Your login OTP : DiracAI"
+    subject = "Your login OTP : Anthem Global"
     body = f"Your OTP to login is {otp_code}"
     sender = getattr(settings, "DEFAULT_FROM_EMAIL", None) or "no-reply@localhost"
     send_mail(subject, body, sender, [to_email], fail_silently=False)
@@ -572,7 +572,7 @@ def _send_otp_email(otp_code: str, to_email: str):
     to_email = _normalize_login_id(to_email)
     if not to_email or "@" not in to_email:
         raise serializers.ValidationError("Invalid email")
-    subject = "Your login OTP : DiracAI"
+    subject = "Your login OTP : Anthem Global"
     body = f"Your OTP to login is {otp_code}"
     sender = getattr(settings, "DEFAULT_FROM_EMAIL", None) or "no-reply@localhost"
     send_mail(subject, body, sender, [to_email], fail_silently=False)
@@ -874,7 +874,7 @@ class CreateOTPAccountWithPhoneSerializer(serializers.ModelSerializer):
         #html_message = render_to_string('account/mail_template.html')
         #plain_message = strip_tags(html_message)
         #send_mail('Registration successful!',plain_message,'From <edresearch.in@gmail.com>',[email],html_message=html_message)
-        send_mail('OTP : DiCelpip',str(otp),'From <dicelpip@gmail.com>',[username])
+        send_mail('OTP : Anthem Global',str(otp),settings.DEFAULT_FROM_EMAIL,[username])
 
         return instance
 

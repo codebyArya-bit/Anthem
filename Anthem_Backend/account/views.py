@@ -128,7 +128,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
         return Blog.objects.filter(status="published").order_by("-published_at", "-created_at")
 
 def mail(request):
-    send_mail('Registration successful!',"jdsd",'From <edresearch.in@gmail.com>',['bibhu.phy@gmail.com'])
+    send_mail('Registration successful!',"jdsd",settings.DEFAULT_FROM_EMAIL,['bibhu.phy@gmail.com'])
     return HttpResponse('mail sent')
 
 
@@ -155,7 +155,7 @@ def register_view(request, *args, **kwargs):
                         account = authenticate(email=email, password=raw_password)
                         html_message = render_to_string('account/mail_template.html')
                         plain_message = strip_tags(html_message)
-                        send_mail('Registration successful!',plain_message,'From <edresearch.in@gmail.com>',[email],html_message=html_message)
+                        send_mail('Registration successful!',plain_message,settings.DEFAULT_FROM_EMAIL,[email],html_message=html_message)
                         #login(request, account)
                         #user.registrationid="123"
                         #registrationid = "ED293872"
@@ -214,11 +214,11 @@ def contact_api_submission(request):
             
             # Prepare email content
             full_name = f"{first_name} {last_name}".strip()
-            email_subject = f"DiracAI Contact: {subject}" if subject else "New Contact Form Submission"
+            email_subject = f"Anthem Global Contact: {subject}" if subject else "New Contact Form Submission"
             
             # Plain text version
             text_message = f"""
-                New Contact Form Submission - DiracAI Website
+                New Contact Form Submission - Anthem Global Website
                 
                 Name: {full_name}
                 Email: {email}
@@ -227,7 +227,7 @@ def contact_api_submission(request):
                 Message:
                 {message}
                 
-                This message was sent from the DiracAI website contact form.
+                This message was sent from the Anthem Global website contact form.
                             """
             
             # HTML version
@@ -235,7 +235,7 @@ def contact_api_submission(request):
 
             html_message = f"""
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h2 style="color: #2563eb;">New Contact Form Submission - DiracAI</h2>
+                <h2 style="color: #2563eb;">New Contact Form Submission - Anthem Global</h2>
                 <div style="background: #f8fafc; padding: 20px; border-radius: 8px;">
                     <p><strong>Name:</strong> {full_name}</p>
                     <p><strong>Email:</strong> {email}</p>
@@ -246,7 +246,7 @@ def contact_api_submission(request):
                     </div>
                 </div>
                 <p style="color: #64748b; font-size: 12px; margin-top: 20px;">
-                    This message was sent from the DiracAI website contact form.
+                    This message was sent from the Anthem Global website contact form.
                 </p>
             </div>
             """
@@ -380,7 +380,7 @@ def employeeregister_view(request, *args, **kwargs):
                         account = authenticate(email=email, password=raw_password)
                         html_message = render_to_string('account/mail_template.html')
                         plain_message = strip_tags(html_message)
-                        send_mail('Registration successful!',plain_message,'From <edresearch.in@gmail.com>',[email],html_message=html_message)
+                        send_mail('Registration successful!',plain_message,settings.DEFAULT_FROM_EMAIL,[email],html_message=html_message)
                         #login(request, account)
                         #user.registrationid="123"
                         #registrationid = "ED293872"

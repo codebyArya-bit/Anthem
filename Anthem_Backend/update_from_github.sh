@@ -3,7 +3,7 @@
 
 set -e  # Exit on error
 
-echo "🚀 DiracAI Backend - GitHub Deployment"
+echo "🚀 Anthem Global Backend - GitHub Deployment"
 echo "========================================"
 echo ""
 
@@ -14,12 +14,12 @@ NC='\033[0m' # No Color
 
 # SSH to server and deploy
 echo -e "${YELLOW}Connecting to server...${NC}"
-ssh sammy@139.59.77.118 << 'ENDSSH'
+ssh sammy@103.191.132.173 << 'ENDSSH'
 
 set -e
 
 echo "📂 Navigating to project directory..."
-cd ~/myprojectdir/TGRWA_DiracAI
+cd ~/myprojectdir/Anthem
 
 echo "📥 Pulling latest changes from GitHub..."
 git pull origin main
@@ -34,18 +34,18 @@ echo "📦 Collecting static files..."
 DJANGO_SETTINGS_MODULE=myproject.settings_production python manage.py collectstatic --noinput
 
 echo "🔄 Restarting backend service..."
-sudo systemctl restart diracai_backend
+sudo systemctl restart gunicorn-anthemgt.com.service
 
 echo ""
 echo "✅ Deployment complete!"
 echo ""
 echo "Checking service status..."
-sudo systemctl status diracai_backend --no-pager -l
+sudo systemctl status gunicorn-anthemgt.com.service --no-pager -l
 
 echo ""
 echo "🌐 Testing API..."
 sleep 3
-curl -s https://diracai.com/api/team/ | head -5
+curl -s https://anthemgt.com/api/team/ | head -5
 
 ENDSSH
 

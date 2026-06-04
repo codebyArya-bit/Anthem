@@ -26,9 +26,8 @@ ALLOWED_HOSTS = config(
 )
 
  
-#BASE_URL = "http://192.168.29.12:8000"
 BASE_URL = config('BASE_URL', default='https://www.anthemgt.com')
-#BASE_URL ="https://tgrwa.in"  #production
+#BASE_URL = "https://www.anthemgt.com"  #production
 
 #The above lines needs to be changed accordingly in production and developmentenvironment
 
@@ -179,7 +178,7 @@ ALWAYS_UPLOAD_FILES_TO_AWS = config('ALWAYS_UPLOAD_FILES_TO_AWS', default=True, 
 #This means you are uploding to AWS even when running locally
 
 
-#if BASE_URL=="http://127.0.0.1:8000":#http://webapp.diracai.com
+#if BASE_URL=="http://127.0.0.1:8000":#https://www.anthemgt.com
 
 if ALWAYS_UPLOAD_FILES_TO_AWS:
    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
@@ -250,8 +249,6 @@ SPECTACULAR_SETTINGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#EMAIL_HOST_PASSWORD = 'Bibhu12345^'
-#EMAIL_HOST_PASSWORD = 'yjnadnopluupwics'
 #if DEBUG:
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

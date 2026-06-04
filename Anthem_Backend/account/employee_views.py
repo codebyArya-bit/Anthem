@@ -54,11 +54,11 @@ def send_otp_via_email(email, otp_code, employee_name):
         sender_password = os.getenv('EMAIL_HOST_PASSWORD', 'your-password')
         
         # Create message
-        subject = f"DiracAI Login OTP - {otp_code}"
+        subject = f"Anthem Global Login OTP - {otp_code}"
         body = f"""
         Hello {employee_name},
         
-        Your One-Time Password (OTP) for DiracAI login is:
+        Your One-Time Password (OTP) for Anthem Global login is:
         
         {otp_code}
         
@@ -67,7 +67,7 @@ def send_otp_via_email(email, otp_code, employee_name):
         If you didn't request this OTP, please ignore this email.
         
         Best regards,
-        DiracAI Team
+        Anthem Global Team
         """
         
         message = MIMEMultipart()

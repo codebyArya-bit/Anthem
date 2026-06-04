@@ -5,7 +5,7 @@
 set -e  # Exit on error
 
 echo "=================================================="
-echo "DiracAI Backend - Manual Deployment"
+echo "Anthem Global Backend - Manual Deployment"
 echo "=================================================="
 echo ""
 
@@ -17,14 +17,14 @@ NC='\033[0m' # No Color
 
 # Step 1: Pull from GitHub
 echo -e "${BLUE}📥 Step 1/5: Pulling latest code from GitHub...${NC}"
-cd /home/tushar/Music/TGRWA_DiracAI
+cd /home/tushar/Music/Anthem
 git pull origin main
 echo -e "${GREEN}✅ Code updated from GitHub${NC}"
 echo ""
 
 # Step 2: Create deployment package
 echo -e "${BLUE}📦 Step 2/5: Creating deployment package...${NC}"
-tar -czf /tmp/diracai_backend.tar.gz \
+tar -czf /tmp/anthem_backend.tar.gz \
     --exclude='myenv' \
     --exclude='node_modules' \
     --exclude='build' \
@@ -34,22 +34,22 @@ tar -czf /tmp/diracai_backend.tar.gz \
     --exclude='*.log' \
     --exclude='.git' \
     .
-echo -e "${GREEN}✅ Package created: /tmp/diracai_backend.tar.gz${NC}"
+echo -e "${GREEN}✅ Package created: /tmp/anthem_backend.tar.gz${NC}"
 echo ""
 
 # Step 3: Upload to server
 echo -e "${BLUE}📤 Step 3/5: Uploading to production server...${NC}"
-scp /tmp/diracai_backend.tar.gz sammy@139.59.77.118:/tmp/
+scp /tmp/anthem_backend.tar.gz sammy@103.191.132.173:/tmp/
 echo -e "${GREEN}✅ Uploaded to server${NC}"
 echo ""
 
 # Step 4: Deploy on server
 echo -e "${BLUE}🚀 Step 4/5: Deploying on server...${NC}"
-ssh sammy@139.59.77.118 << 'ENDSSH'
+ssh sammy@103.191.132.173 << 'ENDSSH'
 
 echo "  → Extracting files..."
-cd ~/myprojectdir/TGRWA_DiracAI
-tar -xzf /tmp/diracai_backend.tar.gz
+cd ~/myprojectdir/Anthem
+tar -xzf /tmp/anthem_backend.tar.gz
 
 echo "  → Activating virtual environment..."
 source myenv/bin/activate
@@ -61,7 +61,7 @@ echo "  → Collecting static files..."
 DJANGO_SETTINGS_MODULE=myproject.settings_production python manage.py collectstatic --noinput
 
 echo "  → Restarting backend service..."
-sudo systemctl restart diracai_backend
+sudo systemctl restart anthem_backend
 
 echo "  → Waiting for service to start..."
 sleep 3
@@ -72,13 +72,13 @@ echo ""
 
 # Step 5: Verify
 echo -e "${BLUE}🔍 Step 5/5: Verifying deployment...${NC}"
-ssh sammy@139.59.77.118 << 'ENDSSH'
+ssh sammy@103.191.132.173 << 'ENDSSH'
 
 echo "  → Checking service status..."
-sudo systemctl is-active diracai_backend --quiet && echo "  ✅ Service is running" || echo "  ❌ Service is not running"
+sudo systemctl is-active anthem_backend --quiet && echo "  ✅ Service is running" || echo "  ❌ Service is not running"
 
 echo "  → Testing API..."
-curl -s https://diracai.com/api/team/ > /dev/null && echo "  ✅ API is responding" || echo "  ❌ API is not responding"
+curl -s https://anthemgt.com/api/team/ > /dev/null && echo "  ✅ API is responding" || echo "  ❌ API is not responding"
 
 ENDSSH
 
@@ -90,13 +90,13 @@ echo ""
 echo "Your backend is now running the latest code from GitHub"
 echo ""
 echo "URLs:"
-echo "  • API: https://diracai.com/api/team/"
-echo "  • Admin: https://diracai.com/admin/"
+echo "  • API: https://anthemgt.com/api/team/"
+echo "  • Admin: https://anthemgt.com/admin/"
 echo ""
 echo "To view logs:"
-echo "  ssh sammy@139.59.77.118 'sudo journalctl -u diracai_backend -f'"
+echo "  ssh sammy@103.191.132.173 'sudo journalctl -u anthem_backend -f'"
 echo ""
 
 # Cleanup
-rm /tmp/diracai_backend.tar.gz
+rm /tmp/anthem_backend.tar.gz
 
