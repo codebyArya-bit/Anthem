@@ -1,7 +1,6 @@
-# Local development settings
+# Local development settings for Anthem Global
 from .settings import *
 
-# Use SQLite for local development
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -9,6 +8,5 @@ DATABASES = {
     }
 }
 
-print("Using SQLite database for local development")
-
-
+DEBUG = True
+print('Using SQLite database for Anthem local development')

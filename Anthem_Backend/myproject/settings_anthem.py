@@ -2,7 +2,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
-from decouple import config
+from decouple import config, Csv
 
 #import wordpress_api
 
@@ -17,13 +17,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='django-insecure-uczo%0a!buj4$0n(6@3tyd#3!5@vkwcwc*0rlw6(urb0j4f@aj')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['.tgrwa.in','64.227.149.67','localhost','127.0.0.1','192.168.29.12']
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='anthemgt.com,www.anthemgt.com,103.191.132.173,localhost,127.0.0.1',
+    cast=Csv()
+)
 
  
 #BASE_URL = "http://192.168.29.12:8000"
-BASE_URL = "http://127.0.0.1:8000"# development
+BASE_URL = config('BASE_URL', default='https://www.anthemgt.com')
 #BASE_URL ="https://tgrwa.in"  #production
 
 #The above lines needs to be changed accordingly in production and developmentenvironment
@@ -83,14 +87,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool) 
 
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates"),'/home/sammy/myprojectdir/dashboard/templates',os.path.join(BASE_DIR,"build")],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,15 +120,15 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = { 
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'diracai',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',   # IMPORTANT
-        'PORT': '5432',
-    } 
+        'ENGINE': config('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        'NAME': config('DB_NAME', default='anthem_global_db'),
+        'USER': config('DB_USER', default='anthem_global_user'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default='127.0.0.1'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
 }
 
 
@@ -170,23 +174,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-ALWAYS_UPLOAD_FILES_TO_AWS=True
+ALWAYS_UPLOAD_FILES_TO_AWS = config('ALWAYS_UPLOAD_FILES_TO_AWS', default=True, cast=bool)
 
 #This means you are uploding to AWS even when running locally
 
 
 #if BASE_URL=="http://127.0.0.1:8000":#http://webapp.diracai.com
 
-if ALWAYS_UPLOAD_FILES_TO_AWS:    
-   AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID', default='')
-   AWS_SECRET_ACCESS_KEY=config('AWS_SECRET_ACCESS_KEY', default='')
-   AWS_STORAGE_BUCKET_NAME='edrspace'
-   AWS_S3_ENDPOINT_URL='https://sgp1.digitaloceanspaces.com'
+if ALWAYS_UPLOAD_FILES_TO_AWS:
+   AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
+   AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
+   AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='')
+   AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL', default='https://sgp1.digitaloceanspaces.com')
    AWS_S3_OBJECT_PARAMETERS = {
       'CacheControl': 'max-age=86400',
    }
-   AWS_LOCATION='edrcontainer1'
-   STATIC_URL = 'https://%s/%s/'%(AWS_S3_ENDPOINT_URL,AWS_LOCATION)
+   AWS_LOCATION = config('AWS_LOCATION', default='anthem-media')
+   STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
@@ -232,8 +236,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'DiracAI API',
-    'DESCRIPTION': 'DiracAI Backend API Documentation',
+    'TITLE': 'Anthem Global API',
+    'DESCRIPTION': 'Anthem Global Backend API Documentation',
     'VERSION': '2.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
@@ -255,27 +259,30 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #https://myaccount.google.com/lesssecureapps
 #https://accounts.google.com/b/0/displayunlockcaptcha
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='dicelpip@gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-DEFAULT_FROM_EMAIL = 'dicelpip@gmail.com'
-CONTACT_EMAIL = 'contact@diracai.com'
-EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER or 'no-reply@anthemgt.com')
+CONTACT_EMAIL = config('CONTACT_EMAIL', default='contact@anthemgt.com')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
 # ========== CORS SETTINGS ==========
 # Allow all origins for development
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool)
+CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS', default=True, cast=bool)
 
 # Specific allowed origins (optional)
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:8000", 
-    "http://127.0.0.1:8000",
-    "http://192.168.29.12:8000",
-    "https://diracai.com",
-]
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='https://anthemgt.com,https://www.anthemgt.com,http://103.191.132.173:3007,http://localhost:3000,http://127.0.0.1:3000',
+    cast=Csv()
+)
+
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='https://anthemgt.com,https://www.anthemgt.com,http://103.191.132.173:3007',
+    cast=Csv()
+)
 
 # Allowed methods
 CORS_ALLOW_METHODS = [
