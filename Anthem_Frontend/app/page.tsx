@@ -450,16 +450,16 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl"
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl"
                 >
-                  {siteConfig?.hero_heading ?? "Your Mission, Our"}{" "}
+                  {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
                   <motion.span
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent"
+                    className="block bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent mt-2 sm:mt-3 text-[0.8em] sm:text-[0.9em]"
                   >
-                    {siteConfig?.hero_highlight ?? "Technology"}
+                    {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                   </motion.span>
                 </motion.h1>
 
@@ -469,7 +469,7 @@ export default function LandingPage() {
                   transition={{ duration: 0.8, delay: 0.3 }}
                   className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto drop-shadow-lg"
                 >
-                  {siteConfig?.hero_subheading ?? "From Vision to Reality With AI-Driven IT Services"}
+                  {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
                 </motion.p>
 
                 <motion.div
@@ -500,14 +500,14 @@ export default function LandingPage() {
             </motion.div>
           ) : (
             <div className="container px-4 md:px-6 text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl">
-                {siteConfig?.hero_heading ?? "Your Mission, Our"}{" "}
-                <span className="bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent">
-                  {siteConfig?.hero_highlight ?? "Technology"}
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl">
+                {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
+                <span className="block bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent mt-2 sm:mt-3 text-[0.8em] sm:text-[0.9em]">
+                  {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                 </span>
               </h1>
               <p className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto drop-shadow-lg">
-                {siteConfig?.hero_subheading ?? "From Mission to Reality With AI-Driven IT Services"}
+                {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="flex flex-col sm:flex-row gap-4">

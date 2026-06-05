@@ -251,9 +251,9 @@ export default function SiteModifier({ open, onClose }: SiteModifierProps) {
                   {activeGroup === 1 && (
                     <>
                       {[
-                        { key: "hero_heading" as const, label: "Main Heading", desc: "First part of the large hero headline.", ph: "e.g. Your Mission, Our", ta: false },
-                        { key: "hero_highlight" as const, label: "Highlighted Word", desc: "The gradient-coloured word.", ph: "e.g. Technology", ta: false },
-                        { key: "hero_subheading" as const, label: "Sub-heading", desc: "Descriptive line below the headline.", ph: "e.g. From Vision to Reality…", ta: true },
+                        { key: "hero_heading" as const, label: "Main Heading", desc: "First part of the large hero headline.", ph: "e.g. AI-Powered IT Solutions", ta: false },
+                        { key: "hero_highlight" as const, label: "Highlighted Word", desc: "The gradient-coloured word.", ph: "e.g. Built to Transform Your Business", ta: false },
+                        { key: "hero_subheading" as const, label: "Sub-heading", desc: "Descriptive line below the headline.", ph: "e.g. We help businesses automate…", ta: true },
                       ].map(f => (
                         <div key={f.key} className="space-y-1.5">
                           <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-700">

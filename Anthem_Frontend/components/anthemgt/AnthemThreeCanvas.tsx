@@ -19,7 +19,52 @@ export function AnthemThreeCanvas({ className = "", color = "#2563eb" }: Props) 
     const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
     camera.position.z = 5;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      if (!renderer.getContext()) {
+        throw new Error("Context is null");
+      }
+    } catch (err) {
+      console.warn("AnthemThreeCanvas: WebGL with antialiasing failed, retrying without antialiasing...", err);
+      try {
+        renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+        if (!renderer.getContext()) {
+          throw new Error("Fallback context is null");
+        }
+      } catch (err2) {
+        console.error("AnthemThreeCanvas: WebGL initialization failed completely:", err2);
+        host.innerHTML = `
+          <div class="absolute inset-0 overflow-hidden bg-slate-950 rounded-2xl">
+            <div style="position:absolute;inset:-12%;background:
+              radial-gradient(circle at 18% 20%, rgba(34,211,238,.22), transparent 34%),
+              radial-gradient(circle at 82% 26%, rgba(1,122,202,.20), transparent 32%),
+              radial-gradient(circle at 50% 86%, rgba(253,205,3,.08), transparent 28%);
+              filter: blur(2px);"></div>
+            <div style="position:absolute;inset:14% 16% 18% 16%;border:1px solid rgba(255,255,255,.10);border-radius:28px;background:rgba(2,35,42,.70);backdrop-filter: blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.35);"></div>
+            <div style="position:absolute;left:18%;top:28%;width:26%;height:24%;border-radius:24px;border:1px solid rgba(34,211,238,.22);background:linear-gradient(145deg, rgba(34,211,238,.16), rgba(2,35,42,.72));box-shadow:0 12px 40px rgba(0,0,0,.22);"></div>
+            <div style="position:absolute;right:16%;top:24%;width:22%;height:18%;border-radius:22px;border:1px solid rgba(253,205,3,.18);background:linear-gradient(145deg, rgba(253,205,3,.12), rgba(2,35,42,.78));box-shadow:0 12px 36px rgba(0,0,0,.2);"></div>
+            <div style="position:absolute;right:18%;bottom:22%;width:28%;height:20%;border-radius:24px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(2,35,42,.80));box-shadow:0 12px 36px rgba(0,0,0,.2);"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:end;justify-content:space-between;padding:18px;">
+              <div style="max-width:72%;">
+                <div style="display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid rgba(34,211,238,.22);background:rgba(2,35,42,.82);padding:6px 12px;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#7ff9ff;">
+                  Static fallback
+                </div>
+                <div style="margin-top:10px;font-size:12px;line-height:1.5;color:rgba(226,232,240,.72);max-width:360px;">
+                  A live WebGL renderer could not start in this browser context, so this panel stays visually present without breaking the page.
+                </div>
+              </div>
+              <div style="border-radius:999px;border:1px solid rgba(253,205,3,.20);background:rgba(253,205,3,.14);padding:8px 12px;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f8e16b;">
+                3D preview
+              </div>
+            </div>
+          </div>`;
+        return () => {
+          host.innerHTML = "";
+        };
+      }
+    }
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
     renderer.domElement.dataset.engine = "three.js r157";
@@ -119,8 +164,8 @@ export function AnthemThreeCanvas({ className = "", color = "#2563eb" }: Props) 
       ring.geometry.dispose();
       ringMaterial.dispose();
       particles.dispose();
-      renderer.dispose();
       renderer.forceContextLoss();
+      renderer.dispose();
       renderer.domElement.remove();
     };
   }, [color]);

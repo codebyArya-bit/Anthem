@@ -285,10 +285,21 @@ export default function FloatingLines({
     let renderer;
     try {
       renderer = new WebGLRenderer({ antialias: true, alpha: false });
+      if (!renderer.getContext()) {
+        throw new Error("Context is null");
+      }
     } catch (err) {
-      console.error("FloatingLines WebGLRenderer initialization failed:", err);
-      setWebglError(true);
-      return;
+      console.warn("FloatingLines WebGLRenderer: antialias failed, trying without antialias...", err);
+      try {
+        renderer = new WebGLRenderer({ antialias: false, alpha: false });
+        if (!renderer.getContext()) {
+          throw new Error("Fallback context is null");
+        }
+      } catch (err2) {
+        console.error("FloatingLines WebGLRenderer initialization failed completely:", err2);
+        setWebglError(true);
+        return;
+      }
     }
 
     const scene = new Scene();
@@ -463,8 +474,8 @@ export default function FloatingLines({
 
       geometry.dispose();
       material.dispose();
-      renderer.dispose();
       renderer.forceContextLoss();
+      renderer.dispose();
       if (renderer.domElement.parentElement) {
         renderer.domElement.parentElement.removeChild(renderer.domElement);
       }

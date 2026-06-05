@@ -31,9 +31,9 @@ export interface SiteConfigLegacy {
 
 export const DEFAULT_SITE_CONFIG: SiteConfig = {
   company_name: "Anthem Global",
-  hero_heading: "Your Mission, Our",
-  hero_highlight: "Technology",
-  hero_subheading: "From Mission to Reality With AI-Driven IT Services",
+  hero_heading: "AI-Powered IT Solutions",
+  hero_highlight: "Built to Transform Your Business",
+  hero_subheading: "We help businesses automate, digitize, and grow with smart technology services.",
   hero_video_url: "/Hero Section Video/Anthem Global.mp4",
 };
 

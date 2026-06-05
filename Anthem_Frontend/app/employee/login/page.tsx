@@ -189,7 +189,7 @@ export default function EmployeeLoginPage() {
       <Card className="w-full max-w-md shadow-2xl rounded-3xl">
         <CardHeader className="space-y-3 text-center">
           <div className="flex items-center justify-center">
-            <Image src="/Anthem logo.png" width={56} height={56} alt="Logo" className="rounded-xl shadow" />
+            <Image src="/Anthem Logo.png" width={56} height={56} alt="Logo" className="rounded-xl shadow" />
           </div>
           <CardTitle className="text-2xl font-bold text-primary">Employee Login</CardTitle>
         </CardHeader>

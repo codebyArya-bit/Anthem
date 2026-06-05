@@ -250,7 +250,7 @@ export default function LoginPage() {
       <div className="bg-card border border-border rounded-3xl shadow-2xl px-6 py-8 md:px-8 md:py-12 w-full max-w-md flex flex-col items-center space-y-6">
         <div className="flex flex-col items-center gap-2">
           <Image
-            src="/Anthem logo.png"
+            src="/Anthem Logo.png"
             width={60}
             height={60}
             alt="Logo"

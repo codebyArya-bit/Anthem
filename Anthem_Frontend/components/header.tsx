@@ -482,36 +482,36 @@ function HeaderInner() {
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
             className="flex-shrink-0"
           >
-            <Link href="/" className="flex items-center gap-3 p-1 md:p-2">
+            <Link href="/" className="flex items-center gap-1.5 p-1 md:p-2">
               <div className="relative w-14 h-14 md:w-20 md:h-20">
                 <Image
                   src="/Anthem-Logo-transparent.png"
                   alt="Anthem Global Logo"
                   fill
-                  className="object-contain rounded-l transition-all duration-300"
+                  className="p-1 md:p-1.5 object-contain rounded-l transition-all duration-300"
                 />
               </div>
               <div className="flex flex-col">
                 <span
                   className={`text-base md:text-xl font-bold leading-tight transition-all duration-300 ${!isScrolled && isHomePage
-                      ? "text-white drop-shadow-lg"
-                      : "text-foreground"
+                    ? "text-white drop-shadow-lg"
+                    : "text-foreground"
                     }`}
                 >
                   Anthem Global
                 </span>
                 <span
                   className={`text-[11px] md:text-sm font-semibold leading-tight -mt-1 transition-all duration-300 ${!isScrolled && isHomePage
-                      ? "text-white/90"
-                      : "text-muted-foreground"
+                    ? "text-white/90"
+                    : "text-muted-foreground"
                     }`}
                 >
                   Technology Pvt Ltd
                 </span>
                 <span
                   className={`text-[9px] md:text-xs font-medium leading-tight transition-all duration-300 ${!isScrolled && isHomePage
-                      ? "text-white/70"
-                      : "text-muted-foreground/80"
+                    ? "text-white/70"
+                    : "text-muted-foreground/80"
                     }`}
                 >
                   An ISO 9001:2008 Certified Company
@@ -540,15 +540,15 @@ function HeaderInner() {
               <button
                 ref={aboutButtonRef}
                 className={`relative px-2 py-2 text-xs xl:text-sm font-medium rounded-lg transition-all duration-300 group flex items-center gap-1 h-10 whitespace-nowrap ${textStyle} ${[
-                    "/aboutus",
-                    "/mission-vision",
-                    "/why-anthem",
-                    "/managementprofile",
-                    "/sister-concern-company",
-                    "/presentationnew",
-                  ].some((p) => pathname.startsWith(p))
-                    ? "text-primary"
-                    : ""
+                  "/aboutus",
+                  "/mission-vision",
+                  "/why-anthem",
+                  "/managementprofile",
+                  "/sister-concern-company",
+                  "/presentationnew",
+                ].some((p) => pathname.startsWith(p))
+                  ? "text-primary"
+                  : ""
                   }`}
               >
                 Who We Are
@@ -574,8 +574,8 @@ function HeaderInner() {
                           key={item.href}
                           href={item.href}
                           className={`block px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group relative overflow-hidden ${!isScrolled && isHomePage
-                              ? "text-white/90 hover:text-white hover:bg-white/10"
-                              : "text-foreground/90 hover:text-foreground hover:bg-muted/50"
+                            ? "text-white/90 hover:text-white hover:bg-white/10"
+                            : "text-foreground/90 hover:text-foreground hover:bg-muted/50"
                             } ${pathname === item.href ? "text-primary" : ""}`}
                           onClick={() => setActiveDropdown(null)}
                         >
@@ -598,8 +598,8 @@ function HeaderInner() {
                 href="/it-services"
                 ref={servicesButtonRef}
                 className={`relative px-2 py-2 text-xs xl:text-sm font-medium rounded-lg transition-all duration-300 group flex items-center gap-1 h-10 whitespace-nowrap ${textStyle} ${pathname === "/it-services" || pathname.startsWith("/it-services/")
-                    ? "text-primary"
-                    : ""
+                  ? "text-primary"
+                  : ""
                   }`}
               >
                 IT Services
@@ -694,12 +694,12 @@ function HeaderInner() {
                               <Link
                                 href={`/it-services/${baseSlug}`}
                                 className={`block p-3 rounded-lg transition-all duration-300 relative overflow-hidden ${isSpecial
-                                    ? !isScrolled && isHomePage
-                                      ? "bg-blue-500/10 hover:bg-blue-500/20"
-                                      : "bg-blue-100 border border-blue-200 hover:bg-blue-200"
-                                    : !isScrolled && isHomePage
-                                      ? "hover:bg-white/10"
-                                      : "hover:bg-muted/50"
+                                  ? !isScrolled && isHomePage
+                                    ? "bg-blue-500/10 hover:bg-blue-500/20"
+                                    : "bg-blue-100 border border-blue-200 hover:bg-blue-200"
+                                  : !isScrolled && isHomePage
+                                    ? "hover:bg-white/10"
+                                    : "hover:bg-muted/50"
                                   } ${hoveredServiceId === service.id
                                     ? isSpecial && (isScrolled || !isHomePage)
                                       ? "bg-blue-200"
@@ -725,8 +725,8 @@ function HeaderInner() {
                                   <div className="flex-1 min-w-0">
                                     <h4
                                       className={`font-semibold text-sm mb-1 transition-colors ${!isScrolled && isHomePage
-                                          ? "text-white group-hover:text-blue-400"
-                                          : "text-foreground group-hover:text-primary"
+                                        ? "text-white group-hover:text-blue-400"
+                                        : "text-foreground group-hover:text-primary"
                                         }`}
                                     >
                                       {service.title}
@@ -742,8 +742,8 @@ function HeaderInner() {
                                 {hasSecondDropdown && (
                                   <div
                                     className={`absolute top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-all duration-300 ${arrowPointsLeft
-                                        ? "left-1.5 group-hover:-translate-x-0.5"
-                                        : "right-1.5 group-hover:translate-x-0.5"
+                                      ? "left-1.5 group-hover:-translate-x-0.5"
+                                      : "right-1.5 group-hover:translate-x-0.5"
                                       } ${!isScrolled && isHomePage ? "text-blue-400" : "text-primary"
                                       }`}
                                   >
@@ -763,8 +763,8 @@ function HeaderInner() {
                         <Link
                           href="/it-services"
                           className={`block text-center py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${!isScrolled && isHomePage
-                              ? "text-white hover:bg-white/10"
-                              : "text-primary hover:bg-primary/10"
+                            ? "text-white hover:bg-white/10"
+                            : "text-primary hover:bg-primary/10"
                             }`}
                           onClick={() => setActiveDropdown(null)}
                         >
@@ -864,8 +864,8 @@ function HeaderInner() {
                               <Link
                                 href={`/gis-services/${baseSlug}`}
                                 className={`block px-3 py-2 rounded-lg text-sm transition-all duration-200 ${!isScrolled && isHomePage
-                                    ? "text-white hover:bg-white/10 hover:text-white"
-                                    : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
+                                  ? "text-white hover:bg-white/10 hover:text-white"
+                                  : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
                                   }`}
                                 onClick={() => {
                                   setActiveDropdown(null);
@@ -892,8 +892,8 @@ function HeaderInner() {
                           <Link
                             href="/gis-services"
                             className={`block text-center py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${!isScrolled && isHomePage
-                                ? "text-white/70 hover:bg-white/10"
-                                : "text-muted-foreground hover:bg-muted/50"
+                              ? "text-white/70 hover:bg-white/10"
+                              : "text-muted-foreground hover:bg-muted/50"
                               }`}
                             onClick={() => setActiveDropdown(null)}
                           >
@@ -916,8 +916,8 @@ function HeaderInner() {
               <button
                 ref={projectsButtonRef}
                 className={`relative px-2 py-2 text-xs xl:text-sm font-medium rounded-lg transition-all duration-300 group flex items-center gap-1 h-10 whitespace-nowrap ${textStyle} ${["/projects", "/products", "/research-development"].includes(pathname)
-                    ? "text-primary"
-                    : ""
+                  ? "text-primary"
+                  : ""
                   }`}
               >
                 Projects
@@ -943,8 +943,8 @@ function HeaderInner() {
                           key={item.href}
                           href={item.href}
                           className={`block px-3 py-3 rounded-lg text-sm font-medium transition-all duration-300 group relative overflow-hidden ${!isScrolled && isHomePage
-                              ? "text-white/90 hover:text-white hover:bg-white/10"
-                              : "text-foreground/90 hover:text-foreground hover:bg-muted/50"
+                            ? "text-white/90 hover:text-white hover:bg-white/10"
+                            : "text-foreground/90 hover:text-foreground hover:bg-muted/50"
                             } ${pathname === item.href ? "text-primary" : ""}`}
                           onClick={() => setActiveDropdown(null)}
                         >
@@ -992,8 +992,8 @@ function HeaderInner() {
               size="icon"
               onClick={toggleTheme}
               className={`relative rounded-full transition-all duration-300 group size-9 ${!isScrolled && isHomePage
-                  ? "text-white hover:bg-white/20 backdrop-blur-sm"
-                  : "text-foreground hover:bg-muted"
+                ? "text-white hover:bg-white/20 backdrop-blur-sm"
+                : "text-foreground hover:bg-muted"
                 }`}
             >
               {mounted && theme === "dark" ? (
@@ -1006,8 +1006,8 @@ function HeaderInner() {
             <Link href="/contact">
               <Button
                 className={`relative rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-300 group overflow-hidden whitespace-nowrap ${!isScrolled && isHomePage
-                    ? "border border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white hover:shadow-lg hover:shadow-black/10"
-                    : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+                  ? "border border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white hover:shadow-lg hover:shadow-black/10"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
                   }`}
               >
                 <span className="flex items-center gap-1">
@@ -1057,11 +1057,11 @@ function HeaderInner() {
                 <Button
                   variant="outline"
                   className={`relative z-10 flex items-center gap-2 rounded-full px-3 py-1.5 text-sm lg:text-base whitespace-nowrap ${!isScrolled && isHomePage
-                      ? "border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white"
-                      : "border-border text-foreground hover:bg-muted"
+                    ? "border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white"
+                    : "border-border text-foreground hover:bg-muted"
                     }`}
                 >
-                Login
+                  Login
                 </Button>
               </Link>
             )}
@@ -1100,8 +1100,8 @@ function HeaderInner() {
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className={`md:hidden absolute top-20 inset-x-4 rounded-2xl backdrop-blur-xl border shadow-2xl overflow-hidden ${!isScrolled && isHomePage
-                ? "bg-black/80 border-white/20 shadow-black/50"
-                : "bg-background/95 border-border/30 shadow-black/10"
+              ? "bg-black/80 border-white/20 shadow-black/50"
+              : "bg-background/95 border-border/30 shadow-black/10"
               }`}
           >
             <div className="p-6 space-y-4">
@@ -1448,8 +1448,8 @@ function HeaderInner() {
                               key={`${sub.slug}-${idx}`}
                               href={`/gis-services/${serviceSlug}/${sub.slug}`}
                               className={`block px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${!isScrolled && isHomePage
-                                  ? "text-white hover:bg-white/10 hover:text-white"
-                                  : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
+                                ? "text-white hover:bg-white/10 hover:text-white"
+                                : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
                                 }`}
                               onClick={() => {
                                 setActiveDropdown(null);
@@ -1552,8 +1552,8 @@ function HeaderInner() {
                               key={`${sub.slug}-${idx}`}
                               href={`/it-services/${baseSlug}/${sub.slug}`}
                               className={`block px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${!isScrolled && isHomePage
-                                  ? "text-white hover:bg-white/10 hover:text-white"
-                                  : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
+                                ? "text-white hover:bg-white/10 hover:text-white"
+                                : "text-foreground/80 hover:bg-muted/80 hover:text-primary"
                                 }`}
                               onClick={() => {
                                 setActiveDropdown(null);
