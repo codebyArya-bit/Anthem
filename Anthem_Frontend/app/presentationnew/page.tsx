@@ -32,6 +32,7 @@ const presentations = [
     category: "E-Governance & Judiciary",
     date: "May 2025",
     icon: Landmark,
+    file: "/Anthem Assests/Presentation_page_Judicialsystem1.ppt",
   },
   {
     title: "Make in India IT Seminar",
@@ -42,6 +43,7 @@ const presentations = [
     category: "Keynotes & Tech",
     date: "April 2025",
     icon: Sparkles,
+    file: "/Anthem Assests/Presentation_page_Final_MakeInIndia.ppt",
   },
   {
     title: "STPI Advantages & IT Infrastructure",
@@ -52,6 +54,7 @@ const presentations = [
     category: "STPI & OCAC",
     date: "March 2025",
     icon: Monitor,
+    file: "/Anthem Assests/Presentation_page_STPI_Advantages.ppt",
   },
   {
     title: "STPI Presentation for OCAC",
@@ -62,6 +65,7 @@ const presentations = [
     category: "STPI & OCAC",
     date: "February 2025",
     icon: Landmark,
+    file: "/Anthem Assests/Presentation_page_STPI_Presentation_for_OCAC-CATALYST.ppt",
   },
   {
     title: "Trends in IT Services & AI Automation",
@@ -72,6 +76,7 @@ const presentations = [
     category: "Keynotes & Tech",
     date: "January 2025",
     icon: FileText,
+    file: "/Anthem Assests/Presentation_page_2_Presentation_TrendsInIT_1stMarch2014.ppt",
   },
   {
     title: "Sagitaur Group Partnership Overview",
@@ -82,6 +87,7 @@ const presentations = [
     category: "Keynotes & Tech",
     date: "November 2024",
     icon: Monitor,
+    file: "/Anthem Assests/Presentation_page_Sagitaur_Group_-_Karnataka_Solar_Park-Chief_Minister_06-09-2012.pptx",
   }
 ]
 
@@ -91,7 +97,7 @@ export default function PresentationNewPage() {
 
   const handleDownload = (title: string) => {
     toast.success(`Download started: ${title}`, {
-      description: "Preparing secure download link. Format: PDF.",
+      description: "Preparing official slide deck file.",
       duration: 3500,
     })
   }
@@ -104,7 +110,7 @@ export default function PresentationNewPage() {
   })
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <Toaster position="bottom-right" richColors />
       <PageHero
         title="Presentations & Slides"
@@ -163,16 +169,16 @@ export default function PresentationNewPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <TiltedCard className="h-full" scale={1.01} maxRotate={3}>
-                    <Card className="h-full border border-slate-200/80 bg-white shadow-sm hover:border-[#00FFE4]/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between overflow-hidden relative group rounded-2xl">
+                    <Card className="h-full border border-slate-200 bg-white shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:border-anthem-blue/30 hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] transition-all duration-300 flex flex-col justify-between overflow-hidden relative group rounded-[18px]">
                       <CardCornerMark position="top-right" />
                       <div>
-                        <div className="h-1.5 bg-gradient-to-r from-[#017ACA] to-[#00FFE4]" />
+                        <div className="h-1.5 bg-gradient-to-r from-[#017ACA] to-[#003B66]" />
                         <CardContent className="p-6">
                           <div className="flex items-start justify-between gap-4 mb-5">
                             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-slate-50 text-[#017ACA]">
                               <Icon className="size-5 shrink-0" />
                             </div>
-                            <Badge variant="anthem" className="rounded-md px-2.5 py-1 border border-[#00FFE4]/20 bg-slate-50 text-[#017ACA]">
+                            <Badge variant="anthem" className="rounded-md px-2.5 py-1 border border-anthem-blue/20 bg-slate-50 text-anthem-navy">
                               <span className="flex items-center gap-1 font-bold text-[10px]">
                                 <span>{deck.category.split(" & ")[0]}</span>
                                 <ArrowAccent size={8} direction="right" />
@@ -186,21 +192,23 @@ export default function PresentationNewPage() {
                       </div>
 
                       <div className="px-6 pb-6 pt-4 border-t border-slate-100 bg-slate-50/50">
-                        {/* Cyan line details around metadata */}
-                        <div className="flex justify-between items-center text-xs text-slate-500 font-mono mb-4 border-b border-[#00FFE4]/20 pb-2">
+                        {/* Blue line details around metadata */}
+                        <div className="flex justify-between items-center text-xs text-slate-500 font-mono mb-4 border-b border-anthem-blue/20 pb-2">
                           <span className="font-bold">{deck.slides} Slides</span>
                           <span className="font-bold">{deck.size}</span>
                           <Badge variant="outline" className="text-[10px] bg-white border-slate-200 font-bold">{deck.format}</Badge>
                         </div>
                         
-                        <Button 
-                          onClick={() => handleDownload(deck.title)}
-                          className="w-full rounded-xl flex items-center justify-center gap-2 group bg-gradient-to-r from-[#00232A] to-[#017ACA] text-white border-0 text-xs font-bold uppercase tracking-wider hover:from-[#017ACA] hover:to-[#00232A] transition-all"
+                        <Button
+                          asChild
+                          className="w-full rounded-xl flex items-center justify-center gap-2 group bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white border-0 text-xs font-bold uppercase tracking-wider hover:from-[#017ACA] hover:to-[#003B66] transition-all"
                           size="sm"
                         >
-                          <Download className="size-4 group-hover:translate-y-0.5 transition-transform" />
-                          <span>Download Slide Deck</span>
-                          <ArrowAccent size={11} direction="right" className="text-[#FDCD03]" />
+                          <a href={deck.file} download onClick={() => handleDownload(deck.title)}>
+                            <Download className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                            <span>Download Slide Deck</span>
+                            <ArrowAccent size={11} direction="right" className="text-anthem-yellow" />
+                          </a>
                         </Button>
                       </div>
                     </Card>

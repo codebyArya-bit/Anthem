@@ -178,7 +178,7 @@ export function Footer() {
             {/* Development Center */}
             <div className="flex items-start gap-2.5">
               <MapPin className="size-4 text-anthem-blue mt-1 flex-shrink-0" />
-              <div className="text-xs">
+              <div className="text-sm">
                 <p className="font-bold text-anthem-textDark mb-1">Development Center</p>
                 <p className="text-slate-600 leading-relaxed">
                   Anthem Tower,<br />
@@ -186,11 +186,11 @@ export function Footer() {
                   New IT Zone, Chandaka Industrial Estate,<br />
                   Bhubaneswar-751024, Odisha
                 </p>
-                <p className="text-slate-800 mt-1.5 font-medium flex items-center gap-1">
-                  <Phone className="size-3 text-anthem-blue" /> +91 78730 77777
+                <p className="text-slate-800 mt-1.5 font-medium flex items-center gap-1.5">
+                  <Phone className="size-4 text-anthem-blue flex-shrink-0" /> +91 78730 77777
                 </p>
-                <p className="text-slate-800 font-medium flex items-center gap-1 mt-0.5">
-                  <Mail className="size-3 text-anthem-blue" /> info@anthemgt.com
+                <p className="text-slate-800 font-medium flex items-center gap-1.5 mt-0.5">
+                  <Mail className="size-4 text-anthem-blue flex-shrink-0" /> info@anthemgt.com
                 </p>
               </div>
             </div>
@@ -198,7 +198,7 @@ export function Footer() {
             {/* Registered Office */}
             <div className="flex items-start gap-2.5">
               <MapPin className="size-4 text-anthem-blue mt-1 flex-shrink-0" />
-              <div className="text-xs">
+              <div className="text-sm">
                 <p className="font-bold text-anthem-textDark mb-1">Registered Office</p>
                 <p className="text-slate-600 leading-relaxed">
                   HIG 84, Sailshree vihar,<br />
@@ -211,7 +211,7 @@ export function Footer() {
             {/* Agartala Office */}
             <div className="flex items-start gap-2.5">
               <MapPin className="size-4 text-anthem-blue mt-1 flex-shrink-0" />
-              <div className="text-xs">
+              <div className="text-sm">
                 <p className="font-bold text-anthem-textDark mb-1">Agartala Office</p>
                 <p className="text-slate-600 leading-relaxed">
                   Adjacent to TFDPC Ltd.,<br />
@@ -224,7 +224,7 @@ export function Footer() {
             {/* Bhilai Office */}
             <div className="flex items-start gap-2.5">
               <MapPin className="size-4 text-anthem-blue mt-1 flex-shrink-0" />
-              <div className="text-xs">
+              <div className="text-sm">
                 <p className="font-bold text-anthem-textDark mb-1">Bhilai Office</p>
                 <p className="text-slate-600 leading-relaxed">
                   STPI Incubation Centre,<br />
@@ -237,7 +237,7 @@ export function Footer() {
             {/* Raipur Office */}
             <div className="flex items-start gap-2.5">
               <MapPin className="size-4 text-anthem-blue mt-1 flex-shrink-0" />
-              <div className="text-xs">
+              <div className="text-sm">
                 <p className="font-bold text-anthem-textDark mb-1">Raipur Office</p>
                 <p className="text-slate-600 leading-relaxed">
                   C-12, Jivan Vihar,<br />

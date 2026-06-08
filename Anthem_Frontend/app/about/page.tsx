@@ -3,7 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation"
-import { useRef, useEffect, useState, useMemo } from "react"
+import React, { useRef, useEffect, useState, useMemo } from "react"
+import Image from "next/image"
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from "framer-motion"
 import Link from "next/link"
 import {
@@ -38,7 +39,6 @@ import { cn } from "@/lib/utils"
 import { MapPin, Phone, Mail } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { Footer } from "@/components/Footer";
-
 
 // Animated counter component
 const AnimatedCounter = ({ value, label, suffix = "+" }: { value: number; label: string; suffix?: string }) => {
@@ -407,6 +407,7 @@ export default function AboutPage() {
       icon: <Lightbulb className="size-8" />,
       gradient: "from-yellow-400 via-orange-500 to-red-500",
       delay: 0,
+      image: "/anthemgt-media/software-team.jpg",
     },
     {
       title: "Collaborative Spirit",
@@ -415,6 +416,7 @@ export default function AboutPage() {
       icon: <Users className="size-8" />,
       gradient: "from-anthem-blue via-anthem-lightBlue to-blue-600",
       delay: 0.2,
+      image: "/anthemgt-media/strategy-meeting.jpg",
     },
     {
       title: "Agile Excellence",
@@ -423,6 +425,7 @@ export default function AboutPage() {
       icon: <Zap className="size-8" />,
       gradient: "from-anthem-yellow via-anthem-lightYellow to-amber-500",
       delay: 0.4,
+      image: "/anthemgt-media/career-team.jpg",
     },
   ]
 
@@ -479,16 +482,6 @@ export default function AboutPage() {
       image: "/image/data-analytics.jpg",
       technologies: ["Power BI", "Tableau", "Apache Spark", "BigQuery"],
     },
-  ]
-
-  const certifications = [
-    { name: "ISO Certified 9001: 2008", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
-    { name: "ISO Certified 27001: 2015", icon: <Shield className="size-6" />, color: "text-emerald-500" },
-    { name: "CMMI Level 3", icon: <Layers className="size-6" />, color: "text-purple-500" },
-    { name: "MSME", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
-    { name: "OCAC Empanelment Agency", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
-    { name: "GEM", icon: <Cpu className="size-6" />, color: "text-orange-500" },
-    { name: "GST", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
   ]
 
   return (
@@ -802,7 +795,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+      <section id="mission-vision" className="scroll-mt-24 py-20 md:py-32 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
 
         <div className="container px-4 md:px-6 relative">
@@ -831,7 +824,14 @@ export default function AboutPage() {
               className="group"
             >
               <Card className="h-full border-0 bg-white shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                <div className="relative h-48 bg-gradient-to-br from-primary to-blue-600 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src="/anthemgt-media/strategy-meeting.jpg"
+                    alt="Our Mission"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/55 via-primary/35 to-blue-600/45" />
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
@@ -872,7 +872,14 @@ export default function AboutPage() {
               className="group"
             >
               <Card className="h-full border-0 bg-white shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                <div className="relative h-48 bg-gradient-to-br from-anthem-blue to-blue-600 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src="/anthemgt-media/software-team.jpg"
+                    alt="Our Vision"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/55 via-anthem-blue/35 to-blue-600/45" />
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
@@ -909,6 +916,7 @@ export default function AboutPage() {
 
       {/* Values Section */}
       <section
+        id="values"
         ref={valuesRef}
         className="py-20 md:py-32 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden"
       >
@@ -940,11 +948,23 @@ export default function AboutPage() {
               >
                 <Card className="h-full border-0 bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group-hover:scale-105">
                   <div className="relative h-64 overflow-hidden">
-                    <motion.div
-                      className={cn("absolute inset-0 bg-gradient-to-br opacity-90", value.gradient)}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                    />
+                    {value.image ? (
+                      <>
+                        <Image
+                          src={value.image}
+                          alt={value.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className={cn("absolute inset-0 bg-gradient-to-br opacity-55 mix-blend-multiply", value.gradient)} />
+                      </>
+                    ) : (
+                      <motion.div
+                        className={cn("absolute inset-0 bg-gradient-to-br opacity-90", value.gradient)}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    )}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <motion.div
                         className="size-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white"
@@ -1158,56 +1178,6 @@ export default function AboutPage() {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-white to-gray-50">
-        <div className="container px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Recognized Excellence & Compliance
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Certifications, registrations, and empanelments that reflect Anthem’s quality, security, statutory compliance, and government-ready delivery standards.
-            </p>
-          </motion.div>
- 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
-            {certifications.map((cert, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="group relative"
-              >
-                <Card className="p-6 text-center bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-50/50 rounded-2xl h-full flex flex-col items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-50/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300 pointer-events-none"></div>
-                  
-                  <motion.div
-                    className={cn(
-                      "size-12 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-3 group-hover:bg-gray-100 transition-colors relative z-10",
-                      cert.color,
-                    )}
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {cert.icon}
-                  </motion.div>
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm relative z-10 leading-tight">{cert.name}</h3>
-                </Card>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

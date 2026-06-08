@@ -159,7 +159,7 @@ export default function PartnersPage() {
     : collaborationPillars.filter(p => p.category === activeFilter)
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <Toaster position="bottom-right" richColors />
       
       <PageHero
@@ -189,11 +189,11 @@ export default function PartnersPage() {
             align="center"
           />
 
-          <div className="relative h-64 md:h-80 bg-[#00232A] rounded-2xl border border-[#00FFE4]/15 overflow-hidden flex items-center justify-center shadow-lg">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,228,0.02)_0%,transparent_70%)] pointer-events-none" />
+          <div className="relative h-64 md:h-80 bg-[#003B66] rounded-2xl border border-anthem-blue/15 overflow-hidden flex items-center justify-center shadow-lg">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(1,122,202,0.02)_0%,transparent_70%)] pointer-events-none" />
             
             {/* Spinning Map Globe Wireframe SVG */}
-            <svg className="w-96 h-96 opacity-20 text-[#00FFE4] animate-spin" style={{ animationDuration: "60s" }} viewBox="0 0 100 100">
+            <svg className="w-96 h-96 opacity-20 text-anthem-blue animate-spin" style={{ animationDuration: "60s" }} viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.5" />
               <ellipse cx="50" cy="50" rx="45" ry="15" fill="none" stroke="currentColor" strokeWidth="0.5" />
               <ellipse cx="50" cy="50" rx="15" ry="45" fill="none" stroke="currentColor" strokeWidth="0.5" />
@@ -206,9 +206,9 @@ export default function PartnersPage() {
               <div className="relative">
                 {/* Center Node (Bhubaneswar HQ) */}
                 <div className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                  <div className="size-4 rounded-full bg-[#00FFE4] border-2 border-white animate-pulse" />
-                  <span className="text-white text-[9px] font-mono mt-1.5 bg-slate-950/80 px-2 py-0.5 rounded border border-[#00FFE4]/20 flex items-center gap-1">
-                    <MapPin className="size-2 text-[#FDCD03]" /> Bhubaneswar Hub
+                  <div className="size-4 rounded-full bg-anthem-blue border-2 border-white animate-pulse" />
+                  <span className="text-white text-[9px] font-mono mt-1.5 bg-[#003B66] px-2 py-0.5 rounded border border-anthem-blue/20 flex items-center gap-1">
+                    <MapPin className="size-2 text-anthem-yellow" /> Bhubaneswar Hub
                   </span>
                 </div>
 
@@ -231,16 +231,16 @@ export default function PartnersPage() {
             </div>
 
             {/* Glowing floating status */}
-            <div className="absolute bottom-4 left-4 bg-slate-900/70 border border-[#00FFE4]/20 rounded-xl px-4 py-2 flex gap-4 text-white text-xs font-mono">
+            <div className="absolute bottom-4 left-4 bg-slate-900/70 border border-anthem-blue/20 rounded-xl px-4 py-2 flex gap-4 text-white text-xs font-mono">
               <div>
                 <span className="text-[10px] text-slate-400 block uppercase">Alliances</span>
-                <span className="font-bold text-[#00FFE4]">
+                <span className="font-bold text-anthem-yellow">
                   <CountUpStat value="5+" /> Active
                 </span>
               </div>
               <div className="border-l border-slate-800 pl-4">
                 <span className="text-[10px] text-slate-400 block uppercase">States</span>
-                <span className="font-bold text-[#FDCD03]">
+                <span className="font-bold text-anthem-yellow">
                   <CountUpStat value="3+" /> Integrated
                 </span>
               </div>
@@ -263,7 +263,7 @@ export default function PartnersPage() {
               {partnersList.map((partner, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-anthem-blue/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
                   <div className="size-12 rounded bg-white p-1 flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden">
@@ -279,7 +279,7 @@ export default function PartnersPage() {
               {certifiedFacets.map((facet, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-slate-200 bg-slate-50/50 px-6 text-center text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group"
+                  className="flex h-16 w-56 items-center justify-center rounded-xl border border-slate-200 bg-slate-50/50 px-6 text-center text-xs font-bold text-slate-600 shadow-sm hover:border-anthem-blue/40 hover:text-primary transition-all duration-300 relative group"
                 >
                   <CardCornerMark position="top-right" />
                   <span className="shrink-0 size-1.5 rounded-full bg-[#017ACA] mr-2" />
@@ -374,13 +374,13 @@ export default function PartnersPage() {
                 className="cursor-pointer"
                 whileHover={{ y: -4, scale: 1.01 }}
               >
-                <Card className="border border-slate-200 bg-white p-6 shadow-sm hover:border-[#00FFE4]/30 hover:shadow-md transition-all relative group rounded-2xl h-full flex flex-col justify-between">
+                <Card className="border border-slate-200 bg-white p-6 shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:border-anthem-blue/30 hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] transition-all relative group rounded-[18px] h-full flex flex-col justify-between">
                   <CardCornerMark position="top-right" />
                   <div>
                     <div className="size-10 rounded-lg bg-slate-50 border border-slate-100 p-2 text-[#017ACA] flex items-center justify-center mb-4">
                       <Award className="size-5 shrink-0" />
                     </div>
-                    <h4 className="text-base font-extrabold text-slate-800 leading-snug tracking-tight group-hover:text-primary transition-colors">
+                    <h4 className="text-base font-extrabold text-slate-800 leading-snug tracking-tight group-hover:text-[#017ACA] transition-colors">
                       {cert.title}
                     </h4>
                     <p className="text-[10px] text-slate-400 font-mono mt-1 uppercase">{cert.authority}</p>
@@ -419,7 +419,7 @@ export default function PartnersPage() {
                   onClick={() => setActiveFilter(cat)}
                   className={`px-3 py-1.5 rounded-full border transition-all duration-300 ${
                     activeFilter === cat
-                      ? "bg-[#00232A] text-[#00FFE4] border-[#00FFE4]/20"
+                      ? "bg-[#003B66] text-[#FFFFFF] border-anthem-blue/20"
                       : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                   }`}
                 >
@@ -439,7 +439,7 @@ export default function PartnersPage() {
                     </div>
                     <div>
                       <h4 className="text-sm font-extrabold text-slate-800 tracking-tight">{pillar.title}</h4>
-                      <span className="text-[9px] font-extrabold uppercase text-[#FDCD03] mt-0.5 block tracking-wider">{pillar.category}</span>
+                      <span className="text-[9px] font-extrabold uppercase text-anthem-yellow mt-0.5 block tracking-wider">{pillar.category}</span>
                       <p className="text-xs text-slate-500 mt-2 leading-relaxed font-medium">{pillar.description}</p>
                     </div>
                   </div>
@@ -450,10 +450,10 @@ export default function PartnersPage() {
 
           {/* Form Card side */}
           <div className="lg:col-span-5 relative z-10">
-            <Card className="border border-slate-200 bg-white shadow-xl rounded-2xl overflow-hidden relative group">
+            <Card className="border border-slate-200 bg-white shadow-[0_10px_30px_rgba(0,59,102,0.06)] rounded-[18px] overflow-hidden relative group">
               <CardCornerMark position="top-right" />
               <CardCornerMark position="bottom-left" />
-              <div className="h-2 bg-gradient-to-r from-[#00232A] to-[#017ACA]" />
+              <div className="h-2 bg-gradient-to-r from-[#003B66] to-[#017ACA]" />
               <CardContent className="p-6 md:p-8">
                 <div className="mb-6">
                   <h3 className="text-xl font-extrabold text-slate-800 tracking-tight">Become a Partner</h3>
@@ -528,7 +528,7 @@ export default function PartnersPage() {
                     />
                     {uploadedFile ? (
                       <div className="flex flex-col items-center">
-                        <Check className="size-6 text-[#00FFE4] mb-1" />
+                        <Check className="size-6 text-anthem-yellow mb-1" />
                         <span className="text-xs font-bold text-slate-800 max-w-[200px] truncate">{uploadedFile.name}</span>
                         <span className="text-[10px] text-slate-400 mt-0.5">Attached</span>
                       </div>
@@ -541,9 +541,9 @@ export default function PartnersPage() {
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#00232A] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
+                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
                     <span>Submit Partnership Pitch</span>
-                    <ArrowRight className="size-4 text-[#FDCD03]" />
+                    <ArrowRight className="size-4 text-anthem-yellow" />
                   </Button>
                 </form>
               </CardContent>
@@ -572,12 +572,12 @@ export default function PartnersPage() {
             />
             
             <motion.div 
-              className="relative bg-white border border-slate-200 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl z-10"
+              className="relative bg-white border border-slate-200 rounded-[18px] w-full max-w-md overflow-hidden shadow-2xl z-10"
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
             >
-              <div className="h-2 bg-gradient-to-r from-[#00232A] via-[#00FFE4] to-[#FDCD03]" />
+              <div className="h-2 bg-gradient-to-r from-[#003B66] via-anthem-blue to-anthem-yellow" />
               <button 
                 onClick={() => setSelectedCert(null)}
                 className="absolute top-4 right-4 z-20 size-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors focus:outline-none"
@@ -612,7 +612,7 @@ export default function PartnersPage() {
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 block uppercase">Status</span>
-                      <span className="text-[#00FFE4] font-black uppercase text-[9px] bg-[#00232A] px-2 py-0.5 rounded">Active</span>
+                      <span className="text-anthem-yellow font-black uppercase text-[9px] bg-[#003B66] px-2 py-0.5 rounded">Active</span>
                     </div>
                   </div>
                 </div>

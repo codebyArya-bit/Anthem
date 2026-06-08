@@ -23,7 +23,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import GradientText from "@/components/GradientText";
 import ScrollFloat from "@/components/ScrollFloat";
 import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
-import CircularGallery from "@/components/CircularGallery";
 import ChromaGrid from "@/components/ChromaGrid";
 import FloatingLines from "@/components/FloatingLines";
 import SoftAurora from "@/components/SoftAurora";
@@ -193,10 +192,6 @@ export function AnthemMediaShowcase({ profile, offices = [], showOffices = false
 
 function MediaProfileSection({ profile }: { profile: AnthemMediaProfile }) {
   const reduceMotion = useReducedMotion();
-  const galleryItems = profile.images.map((image) => ({
-    image: image.src,
-    text: image.alt,
-  }));
   const chromaItems = profile.images.map((image, index) => ({
     image: image.src,
     title: ["Strategy", "Delivery", "Support"][index] ?? "Anthem",
@@ -244,9 +239,6 @@ function MediaProfileSection({ profile }: { profile: AnthemMediaProfile }) {
             <Link href="/contactus" className="rounded-full bg-cyan-300 px-6 py-3 text-sm font-black text-slate-950 shadow-xl transition hover:bg-cyan-200">
               Start a Conversation
             </Link>
-            <a href={profile.hero.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-black text-white transition hover:bg-white/10">
-              Media Source <ExternalLink className="h-4 w-4" />
-            </a>
           </div>
         </motion.div>
 
@@ -254,12 +246,6 @@ function MediaProfileSection({ profile }: { profile: AnthemMediaProfile }) {
           <div className="group relative min-h-[340px] overflow-hidden rounded-2xl border border-white/10 bg-white/10 shadow-2xl">
             <img src={profile.hero.src} alt={profile.hero.alt} className="h-full min-h-[340px] w-full object-cover transition duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-slate-950">
-                <ImageIcon className="h-3.5 w-3.5" />
-                Local stock image
-              </p>
-            </div>
           </div>
           <AnthemThreeCanvas color={profile.effect === "security" ? "#22c55e" : "#38bdf8"} />
         </motion.div>
@@ -275,26 +261,9 @@ function MediaProfileSection({ profile }: { profile: AnthemMediaProfile }) {
         </ScrollFloat>
       </motion.div>
 
-      <motion.div className="relative mx-auto mt-10 grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr]" {...reveal}>
-        <div className="h-[420px] overflow-hidden rounded-2xl border border-white/10 bg-black/25 p-3">
-          <CircularGallery items={galleryItems} bend={profile.effect === "motion" ? 4 : 2} textColor="#ffffff" borderRadius={0.04} />
-        </div>
-        <div className="grid gap-6">
-          {profile.video && (
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/10 shadow-2xl">
-              <div className="relative aspect-video">
-                <video className="h-full w-full object-cover" src={profile.video.src} poster={profile.video.poster} autoPlay muted loop playsInline />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
-                <p className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-slate-950">
-                  <Film className="h-3.5 w-3.5" />
-                  Local stock video
-                </p>
-              </div>
-            </div>
-          )}
-          <div className="min-h-[360px]">
-            <ChromaGrid items={chromaItems} columns={3} rows={1} radius={220} className="anthem-chroma-grid" />
-          </div>
+      <motion.div className="relative mx-auto mt-10 grid max-w-7xl gap-8" {...reveal}>
+        <div className="min-h-[360px]">
+          <ChromaGrid items={chromaItems} columns={3} rows={1} radius={220} className="anthem-chroma-grid" />
         </div>
       </motion.div>
 

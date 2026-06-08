@@ -472,6 +472,16 @@ export default function CircularGallery({
 }) {
   const containerRef = useRef(null);
   const [webglError, setWebglError] = useState(false);
+  const galleryRef = useRef(null);
+  const pauseFallbackScrollRef = useRef(false);
+  const fallbackItems = items && items.length ? items : [
+    { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' },
+    { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: 'Desk Setup' },
+    { image: `https://picsum.photos/seed/3/800/600?grayscale`, text: 'Waterfall' },
+    { image: `https://picsum.photos/seed/4/800/600?grayscale`, text: 'Strawberries' },
+    { image: `https://picsum.photos/seed/5/800/600?grayscale`, text: 'Deep Diving' },
+    { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' }
+  ];
 
   useEffect(() => {
     let app;
@@ -500,20 +510,89 @@ export default function CircularGallery({
     };
   }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
 
-  if (webglError) {
-    const galleryItems = items && items.length ? items : [
-      { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' },
-      { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: 'Desk Setup' },
-      { image: `https://picsum.photos/seed/3/800/600?grayscale`, text: 'Waterfall' },
-      { image: `https://picsum.photos/seed/4/800/600?grayscale`, text: 'Strawberries' },
-      { image: `https://picsum.photos/seed/5/800/600?grayscale`, text: 'Deep Diving' },
-      { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' }
-    ];
+  useEffect(() => {
+    if (!webglError) return;
 
+    let raf = 0;
+    const tick = () => {
+      const ele = galleryRef.current;
+      if (ele && !pauseFallbackScrollRef.current && !ele.isDown) {
+        ele.scrollLeft += 0.45;
+        const halfway = ele.scrollWidth / 2;
+        if (halfway > 0 && ele.scrollLeft >= halfway) {
+          ele.scrollLeft -= halfway;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [webglError, fallbackItems.length]);
+
+  const handleMouseDown = (e) => {
+    const ele = galleryRef.current;
+    if (!ele) return;
+    ele.isDown = true;
+    pauseFallbackScrollRef.current = true;
+    ele.startX = e.pageX - ele.offsetLeft;
+    ele.scrollLeftStart = ele.scrollLeft;
+    ele.style.cursor = 'grabbing';
+    ele.style.userSelect = 'none';
+  };
+
+  const handleMouseLeave = () => {
+    const ele = galleryRef.current;
+    if (!ele) return;
+    ele.isDown = false;
+    pauseFallbackScrollRef.current = false;
+    ele.style.cursor = 'grab';
+  };
+
+  const handleMouseUp = () => {
+    const ele = galleryRef.current;
+    if (!ele) return;
+    ele.isDown = false;
+    pauseFallbackScrollRef.current = false;
+    ele.style.cursor = 'grab';
+  };
+
+  const handleMouseMove = (e) => {
+    const ele = galleryRef.current;
+    if (!ele || !ele.isDown) return;
+    e.preventDefault();
+    const x = e.pageX - ele.offsetLeft;
+    const walk = (x - ele.startX) * 1.5;
+    ele.scrollLeft = ele.scrollLeftStart - walk;
+  };
+
+  const handleWheel = (e) => {
+    const ele = galleryRef.current;
+    if (!ele) return;
+    e.preventDefault();
+    pauseFallbackScrollRef.current = true;
+    ele.scrollLeft += Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    window.clearTimeout(ele.wheelPauseTimer);
+    ele.wheelPauseTimer = window.setTimeout(() => {
+      pauseFallbackScrollRef.current = false;
+    }, 900);
+  };
+
+  if (webglError) {
     return (
       <div className="w-full h-full min-h-[350px] overflow-hidden flex items-center justify-center bg-slate-900/5 rounded-2xl border border-dashed border-slate-200 p-4">
-        <div className="flex gap-4 overflow-x-auto w-full py-4 scrollbar-thin snap-x snap-mandatory">
-          {galleryItems.map((item, idx) => (
+        <div 
+          ref={galleryRef}
+          onMouseDown={handleMouseDown}
+          onMouseEnter={() => { pauseFallbackScrollRef.current = true; }}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onWheel={handleWheel}
+          style={{ cursor: 'grab' }}
+          className="flex gap-4 overflow-x-scroll w-full py-4 snap-x snap-mandatory select-none scroll-smooth [scrollbar-width:thin] [scrollbar-color:#38bdf8_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-cyan-400/70"
+        >
+          {[...fallbackItems, ...fallbackItems].map((item, idx) => (
             <div 
               key={idx} 
               className="flex-shrink-0 w-64 aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative group snap-center"
@@ -521,10 +600,10 @@ export default function CircularGallery({
               <img 
                 src={item.image} 
                 alt={item.text} 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none" 
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4 pointer-events-none">
                 <span className="text-white font-extrabold text-xs tracking-wider uppercase">{item.text}</span>
               </div>
             </div>

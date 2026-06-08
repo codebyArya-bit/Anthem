@@ -32,10 +32,10 @@ export function CardCornerMark({ position = "top-right", className = "" }: CardC
         xmlns="http://www.w3.org/2000/svg"
         className={`w-full h-full opacity-[0.35] group-hover:opacity-[0.8] transition-opacity duration-300 ${rotationClasses[position]}`}
       >
-        {/* Soft digital cyan orbit path on card corner */}
+        {/* Soft digital blue orbit path on card corner */}
         <path
           d="M0,28 A28,28 0 0,1 28,0"
-          stroke="#00FFE4"
+          stroke="#017ACA"
           strokeWidth="1.25"
           fill="none"
         />
@@ -49,7 +49,7 @@ export function CardCornerMark({ position = "top-right", className = "" }: CardC
         {/* Tiny yellow accent tip at the very corner edge */}
         <path
           d="M22,0 L28,0 L28,6 Z"
-          fill="#FDCD03"
+          fill="#FDCD02"
         />
       </svg>
     </div>

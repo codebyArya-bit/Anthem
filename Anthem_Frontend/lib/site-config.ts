@@ -37,7 +37,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   hero_video_url: "/Hero Section Video/Anthem Global.mp4",
 };
 
-const STORAGE_KEY = "diracai_site_config_v2";
+const STORAGE_KEY = "anthem_site_config_v3";
 const API_ENDPOINT = `${API_URL}/api/site-config/`;
 const API_UPDATE_ENDPOINT = `${API_URL}/api/site-config/update/`;
 
@@ -92,6 +92,9 @@ async function getValidToken(): Promise<string> {
 export function getCachedConfig(): SiteConfig {
   if (typeof window === "undefined") return DEFAULT_SITE_CONFIG;
   try {
+    // Proactively clean up the old stale cache key
+    localStorage.removeItem("diracai_site_config_v2");
+    
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return DEFAULT_SITE_CONFIG;
     return { ...DEFAULT_SITE_CONFIG, ...JSON.parse(raw) };

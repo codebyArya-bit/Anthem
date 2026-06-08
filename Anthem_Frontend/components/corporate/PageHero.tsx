@@ -40,7 +40,7 @@ export function PageHero({
     <section
       className={cn(
         "relative overflow-hidden border-b",
-        darkTheme ? "bg-[#00232A] border-[#00FFE4]/15 pt-24 md:pt-32" : "border-border/40 pt-24 md:pt-32",
+        darkTheme ? "bg-[#003B66] border-anthem-blue/15 pt-24 md:pt-32" : "border-border/40 pt-24 md:pt-32",
         className,
       )}
     >
@@ -72,15 +72,15 @@ export function PageHero({
             href="/" 
             className={cn(
               "flex items-center gap-1 transition-colors",
-              darkTheme ? "text-[#A9C1C7] hover:text-[#00FFE4]" : "text-muted-foreground hover:text-primary"
+              darkTheme ? "text-slate-300 hover:text-anthem-yellow" : "text-muted-foreground hover:text-primary"
             )}
           >
             <Home className="size-3.5" /> Home
           </Link>
-          <ChevronRight className={cn("size-3.5", darkTheme ? "text-[#A9C1C7]/30" : "text-muted-foreground/50")} />
-          <span className={cn("font-medium", darkTheme ? "text-[#A9C1C7]" : "text-foreground")}>{section}</span>
-          <ChevronRight className={cn("size-3.5", darkTheme ? "text-[#A9C1C7]/30" : "text-muted-foreground/50")} />
-          <span className={cn("font-semibold", darkTheme ? "text-[#00FFE4]" : "text-primary")}>{title}</span>
+          <ChevronRight className={cn("size-3.5", darkTheme ? "text-slate-300/30" : "text-muted-foreground/50")} />
+          <span className={cn("font-medium", darkTheme ? "text-slate-300" : "text-foreground")}>{section}</span>
+          <ChevronRight className={cn("size-3.5", darkTheme ? "text-slate-300/30" : "text-muted-foreground/50")} />
+          <span className={cn("font-semibold", darkTheme ? "text-anthem-yellow" : "text-primary")}>{title}</span>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[1fr_360px] lg:items-end">
@@ -89,7 +89,7 @@ export function PageHero({
               {Icon ? (
                 <div className={cn(
                   "flex size-11 items-center justify-center rounded-lg border shadow-sm",
-                  darkTheme ? "border-[#00FFE4]/30 bg-[#00232A]/80 text-[#00FFE4]" : "border-primary/15 bg-white text-primary"
+                  darkTheme ? "border-anthem-blue/30 bg-[#003B66]/80 text-anthem-yellow" : "border-primary/15 bg-white text-primary"
                 )}>
                   <Icon className="size-5" />
                 </div>
@@ -97,15 +97,15 @@ export function PageHero({
               <div className="h-px w-16 bg-[#FDCD03]" />
             </div>
             <h1 className={cn(
-              "max-w-4xl text-4xl font-black tracking-tight md:text-5xl lg:text-6xl",
-              darkTheme ? "text-[#F4FBFC]" : "text-foreground"
-            )}>
-              <SplitText text={title} />
-            </h1>
-            <p className={cn(
-              "mt-6 max-w-3xl text-sm leading-8 md:text-base font-medium",
-              darkTheme ? "text-[#A9C1C7]" : "text-muted-foreground"
-            )}>
+               "max-w-4xl text-4xl font-black tracking-tight md:text-5xl lg:text-6xl",
+               darkTheme ? "text-[#FFFFFF]" : "text-foreground"
+             )}>
+               <SplitText text={title} />
+             </h1>
+             <p className={cn(
+               "mt-6 max-w-3xl text-sm leading-8 md:text-base font-medium",
+               darkTheme ? "text-slate-300" : "text-muted-foreground"
+             )}>
               {description}
             </p>
           </div>
@@ -113,19 +113,19 @@ export function PageHero({
           {stats.length > 0 ? (
             <div className={cn(
               "grid grid-cols-2 gap-3 rounded-xl border p-4 shadow-md backdrop-blur",
-              darkTheme ? "border-[#00FFE4]/20 bg-[#00232A]/80" : "border-primary/10 bg-white/82"
+              darkTheme ? "border-anthem-blue/20 bg-[#003B66]/80" : "border-primary/10 bg-white/82"
             )}>
               {stats.map((stat) => (
                 <div key={`${stat.value}-${stat.label}`} className={cn(
                   "rounded-lg p-3 border",
-                  darkTheme ? "bg-slate-950/40 border-[#00FFE4]/10" : "bg-muted/45 border-transparent"
+                  darkTheme ? "bg-slate-900/40 border-anthem-blue/10" : "bg-muted/45 border-transparent"
                 )}>
-                  <div className={cn("text-2xl font-black", darkTheme ? "text-[#00FFE4]" : "text-primary")}>
+                  <div className={cn("text-2xl font-black", darkTheme ? "text-anthem-yellow" : "text-primary")}>
                     <CountUpStat value={stat.value} />
                   </div>
                   <div className={cn(
                     "mt-1 text-[10px] font-bold uppercase tracking-wider",
-                    darkTheme ? "text-[#A9C1C7]" : "text-muted-foreground"
+                    darkTheme ? "text-slate-300" : "text-muted-foreground"
                   )}>
                     {stat.label}
                   </div>

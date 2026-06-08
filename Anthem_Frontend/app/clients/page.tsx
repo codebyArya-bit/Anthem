@@ -180,36 +180,36 @@ export default function ClientsPage() {
         {/* Soft background watermarks */}
         <SectionWatermark className="top-[12%] right-[2%] opacity-[0.015]" size={420} />
         <SectionWatermark className="bottom-[18%] left-[2%] opacity-[0.02]" size={380} />
-        
-        {/* Dark teal trust section with client loops and stats */}
-        <div className="bg-[#00232A] rounded-3xl p-6 md:p-8 border border-[#00FFE4]/15 mb-20 shadow-lg relative overflow-hidden">
-          <LogoOrbitPattern opacity={0.25} />
-          
+
+        {/* Corporate light trust section with client loops and stats */}
+        <div className="bg-[#F6F9FC] rounded-3xl p-6 md:p-8 border border-slate-200 mb-20 shadow-[0_10px_30px_rgba(0,59,102,0.06)] relative overflow-hidden">
+          <LogoOrbitPattern opacity={0.08} />
+
           <SectionHeading
             eyebrow="Ecosystem"
             title="Trusted Ecosystem Loop"
             description="Explore our massive network of public, legal, and academic clients scrolling infinitely in opposite directions."
             align="center"
-            darkTheme={true}
+            darkTheme={false}
             className="mb-0"
           />
-          
-          <div className="rounded-2xl bg-[#00232A]/50 border border-[#00FFE4]/10 p-6 space-y-4 relative group z-10 mt-6">
+
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 space-y-4 relative group z-10 mt-6 shadow-sm">
             <CardCornerMark position="top-right" />
             {/* Track 1: Leftward */}
             <LogoLoop speed={35} direction="left" pauseOnHover={true}>
               {loopOneClients.map((c, idx) => (
-                <div 
-                  key={idx} 
-                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-left text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group gap-3 overflow-hidden"
+                <div
+                  key={idx}
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-white px-4 text-left text-xs font-bold text-[#003B66] shadow-[0_4px_20px_rgba(0,59,102,0.03)] hover:border-[#017ACA] hover:text-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)] transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
                   {c.logo ? (
-                    <div className="size-12 rounded bg-white/10 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                    <div className="size-12 rounded bg-slate-50 p-1 flex items-center justify-center shrink-0 overflow-hidden border border-slate-100">
                       <img src={c.logo} alt={c.name} className="size-full object-contain" loading="lazy" decoding="async" />
                     </div>
                   ) : (
-                    <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4]" />
+                    <span className="shrink-0 size-1.5 rounded-full bg-[#017ACA]" />
                   )}
                   <span className="truncate">{c.name}</span>
                 </div>
@@ -219,17 +219,17 @@ export default function ClientsPage() {
             {/* Track 2: Rightward */}
             <LogoLoop speed={35} direction="right" pauseOnHover={true}>
               {loopTwoClients.map((c, idx) => (
-                <div 
-                  key={idx} 
-                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-[#00FFE4]/10 bg-[#00232A] px-4 text-left text-xs font-bold text-[#A9C1C7] shadow-sm hover:border-[#00FFE4]/40 hover:text-white transition-all duration-300 relative group gap-3 overflow-hidden"
+                <div
+                  key={idx}
+                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-white px-4 text-left text-xs font-bold text-[#003B66] shadow-[0_4px_20px_rgba(0,59,102,0.03)] hover:border-[#017ACA] hover:text-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)] transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
                   {c.logo ? (
-                    <div className="size-12 rounded bg-white/10 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                    <div className="size-12 rounded bg-slate-50 p-1 flex items-center justify-center shrink-0 overflow-hidden border border-slate-100">
                       <img src={c.logo} alt={c.name} className="size-full object-contain" loading="lazy" decoding="async" />
                     </div>
                   ) : (
-                    <span className="shrink-0 size-1.5 rounded-full bg-[#00FFE4]" />
+                    <span className="shrink-0 size-1.5 rounded-full bg-[#017ACA]" />
                   )}
                   <span className="truncate">{c.name}</span>
                 </div>
@@ -254,7 +254,7 @@ export default function ClientsPage() {
                 <p className="text-sm leading-7 text-slate-500 mt-4 font-medium">
                   Anthem Global successfully scanned, OCR-indexed, and archived over <strong>25+ Crore legal case pages</strong> across the Orissa High Court and all 30 district courts, transitioning the judicial registry to a high-speed, secure digital e-office ecosystem.
                 </p>
-                
+
                 <div className="flex flex-wrap items-center gap-4 pt-2">
                   <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4 shadow-sm relative group font-mono text-xs">
                     <CardCornerMark position="top-right" />
@@ -264,12 +264,12 @@ export default function ClientsPage() {
                       <strong className="text-xs font-black text-slate-700">310 courts state-wide</strong>
                     </div>
                   </div>
-                  
+
                   {/* Arrow accent guiding the timeline progression */}
                   <div className="text-[#FDCD03] hidden sm:block">
                     <ArrowAccent size={22} direction="right" />
                   </div>
-                  
+
                   <div className="rounded-xl border border-[#FDCD03]/35 bg-amber-50/40 p-4 shadow-sm font-mono text-xs">
                     <span className="text-[10px] font-bold text-amber-600 block uppercase">Timeline</span>
                     <strong className="text-xs font-black text-amber-700">Active Modernisation Completed</strong>
@@ -279,7 +279,7 @@ export default function ClientsPage() {
 
               {/* Muted AutoPlaying Case Study Video Walkthrough */}
               <div className="lg:col-span-5 relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 shadow-inner group">
-                <video 
+                <video
                   src="/videos/collab.mp4"
                   autoPlay
                   loop
@@ -323,7 +323,7 @@ export default function ClientsPage() {
               description="Filter our detailed case registries across ministries, railways, high courts, and universities."
               className="mb-0"
             />
-            
+
             {/* Sliding Framer Motion Filter Chips */}
             <div className="flex flex-wrap gap-2 relative bg-slate-100 p-1.5 rounded-full border border-slate-200 text-xs font-bold w-fit">
               {sectors.map((sec) => (
@@ -336,7 +336,7 @@ export default function ClientsPage() {
                     {sec}
                   </span>
                   {activeSector === sec ? (
-                    <motion.div 
+                    <motion.div
                       layoutId="activeSectorChip"
                       className="absolute inset-0 bg-[#00232A] rounded-full z-0 border border-[#00FFE4]/20"
                       transition={{ type: "spring", stiffness: 350, damping: 28 }}
@@ -372,7 +372,7 @@ export default function ClientsPage() {
                                 <IconComponent className="size-8 shrink-0" />
                               )}
                             </div>
-                            <Badge variant="anthem" className="rounded-md border border-[#00FFE4]/25 bg-slate-900 font-extrabold text-[10px] text-[#00FFE4]">
+                            <Badge variant="outline" className="rounded-md border border-anthem-blue/20 bg-anthem-blue/5 hover:bg-anthem-blue hover:text-white transition-all duration-300 font-extrabold text-[10px] text-anthem-blue shadow-sm">
                               <CountUpStat value={client.metric} />
                             </Badge>
                           </div>
@@ -395,7 +395,7 @@ export default function ClientsPage() {
 
         <DataLineDivider className="my-16" />
 
-        <BrandCTA 
+        <BrandCTA
           title="Empaneled with CMGI and Webel"
           description="Read our empanelment details, scan capacities, and delivery schedules to verify how we handle e-governance systems."
           buttonText="Contact Alliances Office"
@@ -403,9 +403,9 @@ export default function ClientsPage() {
         />
       </main>
 
-      
+
       <AnthemRouteMedia slug="clients" />
-<Footer />
+      <Footer />
     </div>
   )
 }

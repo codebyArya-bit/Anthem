@@ -14,16 +14,16 @@ class SiteConfig(models.Model):
     )
     hero_heading = models.CharField(
         max_length=200,
-        default="Your Mission, Our",
+        default="AI-Powered IT Solutions",
         help_text="First part of the large hero headline."
     )
     hero_highlight = models.CharField(
         max_length=100,
-        default="Technology",
+        default="Built to Transform Your Business",
         help_text="The gradient-coloured word in the hero headline."
     )
     hero_subheading = models.TextField(
-        default="From Mission to Reality With AI-Driven IT Services",
+        default="We help businesses automate, digitize, and grow with smart technology services.",
         help_text="Descriptive line below the main headline."
     )
     hero_video = models.FileField(

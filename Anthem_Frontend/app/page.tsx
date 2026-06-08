@@ -5,7 +5,7 @@ import { fetchSiteConfig, getCachedConfig, fetchHeroVideos, type SiteConfig, typ
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import {
   motion,
   useScroll,
@@ -40,6 +40,7 @@ import {
   MessageCircle,
   Layers,
   CheckCircle,
+  CircleCheckBig,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -60,6 +61,88 @@ interface Testimonial {
   sort_order: number;
   created_at: string;
   updated_at: string;
+}
+
+function CertificationIcon({
+  type,
+  Icon,
+  colorClass,
+}: {
+  type: string
+  Icon: React.ElementType
+  colorClass?: string
+}) {
+  const isTarget = type === "target"
+  const isShield = type === "shield"
+  const isLayers = type === "layers"
+  const isAward = type === "award"
+  const isGlobe = type === "globe"
+  const isCpu = type === "cpu"
+  const isCheck = type === "check"
+
+  return (
+    <div className={cn(
+      "relative flex size-12 shrink-0 items-center justify-center rounded-full bg-[#F6F9FC] transition-all duration-300 group-hover:bg-[#EAF4FB] group-hover:shadow-[0_10px_25px_rgba(1,122,202,0.18)]",
+      colorClass
+    )}>
+      {isTarget && (
+        <>
+          <span className="absolute inset-1 rounded-full border border-[#017ACA]/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+          <span className="absolute inset-2 rounded-full border border-[#FDCD02]/40 opacity-0 group-hover:opacity-100 group-hover:animate-[spin_0.7s_linear_infinite]" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[360deg]" />
+        </>
+      )}
+
+      {isShield && (
+        <>
+          <div className="absolute bottom-2 h-0 w-7 rounded-b-full bg-[#017ACA]/20 transition-all duration-500 group-hover:h-7" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110 group-hover:text-[#003B66]" />
+          <Shield className="absolute z-0 size-7 text-[#017ACA]/10 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-125" />
+        </>
+      )}
+
+      {isLayers && (
+        <>
+          <span className="absolute h-5 w-7 rounded-md border border-[#017ACA]/25 transition-all duration-300 group-hover:-translate-y-2 group-hover:translate-x-1 group-hover:border-[#FDCD02]" />
+          <span className="absolute h-5 w-7 rounded-md border border-[#017ACA]/25 transition-all duration-300 group-hover:translate-y-2 group-hover:-translate-x-1 group-hover:border-[#017ACA]" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110" />
+        </>
+      )}
+
+      {isAward && (
+        <>
+          <span className="absolute inset-0 rounded-full bg-[linear-gradient(110deg,transparent_30%,rgba(253,205,2,0.55)_45%,transparent_60%)] opacity-0 transition-all duration-700 group-hover:translate-x-6 group-hover:opacity-100" />
+          <Icon className="relative z-10 size-6 text-[#FDCD02] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
+        </>
+      )}
+
+      {isGlobe && (
+        <>
+          <span className="absolute size-9 rounded-full border border-[#017ACA]/20 transition-all duration-500 group-hover:rotate-180" />
+          <span className="absolute size-2 rounded-full bg-[#FDCD02] opacity-0 transition-all duration-300 group-hover:translate-x-4 group-hover:-translate-y-3 group-hover:opacity-100" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110 group-hover:animate-[spin_4s_linear_infinite]" />
+        </>
+      )}
+
+      {isCpu && (
+        <>
+          <span className="absolute left-0 top-1/2 h-[2px] w-0 -translate-y-1/2 bg-[#017ACA] transition-all duration-300 group-hover:w-3" />
+          <span className="absolute right-0 top-1/2 h-[2px] w-0 -translate-y-1/2 bg-[#017ACA] transition-all duration-300 group-hover:w-3" />
+          <span className="absolute top-0 left-1/2 h-0 w-[2px] -translate-x-1/2 bg-[#FDCD02] transition-all duration-300 group-hover:h-3" />
+          <span className="absolute bottom-0 left-1/2 h-0 w-[2px] -translate-x-1/2 bg-[#FDCD02] transition-all duration-300 group-hover:h-3" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110 group-hover:text-[#003B66]" />
+        </>
+      )}
+
+      {isCheck && (
+        <>
+          <span className="absolute inset-1 rounded-full border border-[#017ACA]/20 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+          <Icon className="relative z-10 size-6 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-0.5" />
+          <Check className="absolute z-20 size-4 text-[#FDCD02] opacity-0 transition-all duration-300 group-hover:scale-125 group-hover:opacity-100" />
+        </>
+      )}
+    </div>
+  )
 }
 
 export default function LandingPage() {
@@ -184,13 +267,55 @@ export default function LandingPage() {
   };
 
   const certifications = [
-    { name: "ISO Certified 9001: 2008", icon: <Target className="size-6" />, color: "text-[#017ACA]" },
-    { name: "ISO Certified 27001: 2015", icon: <Shield className="size-6" />, color: "text-emerald-500" },
-    { name: "CMMI Level 3", icon: <Layers className="size-6" />, color: "text-purple-500" },
-    { name: "MSME", icon: <Award className="size-6" />, color: "text-[#FDCD03]" },
-    { name: "OCAC Empanelment Agency", icon: <Globe className="size-6" />, color: "text-[#00FFE4]" },
-    { name: "GEM", icon: <Cpu className="size-6" />, color: "text-orange-500" },
-    { name: "GST", icon: <CheckCircle className="size-6" />, color: "text-indigo-500" },
+    {
+      title: "ISO Certified",
+      subtitle: "9001: 2008",
+      icon: Target,
+      animationType: "target",
+      colorClass: "text-[#017ACA]",
+    },
+    {
+      title: "ISO Certified",
+      subtitle: "27001: 2015",
+      icon: Shield,
+      animationType: "shield",
+      colorClass: "text-emerald-500",
+    },
+    {
+      title: "CMMI",
+      subtitle: "Level 3",
+      icon: Layers,
+      animationType: "layers",
+      colorClass: "text-purple-500",
+    },
+    {
+      title: "MSME",
+      subtitle: "Registered",
+      icon: Award,
+      animationType: "award",
+      colorClass: "text-[#FDCD03]",
+    },
+    {
+      title: "OCAC",
+      subtitle: "Empanelment Agency",
+      icon: Globe,
+      animationType: "globe",
+      colorClass: "text-cyan-500",
+    },
+    {
+      title: "GEM",
+      subtitle: "Government e-Market",
+      icon: Cpu,
+      animationType: "cpu",
+      colorClass: "text-orange-500",
+    },
+    {
+      title: "GST",
+      subtitle: "Compliance",
+      icon: CircleCheckBig,
+      animationType: "check",
+      colorClass: "text-indigo-500",
+    },
   ];
 
   const keyBenefits = [
@@ -882,37 +1007,38 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6 relative z-30 overflow-visible max-w-6xl mx-auto">
-            {certifications.map((cert, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20, rotateY: 15 }}
-                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="group relative"
-              >
-                <Card className="p-6 text-center bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-50/50 rounded-2xl h-full flex flex-col items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300 pointer-events-none"></div>
-                  
-                  <motion.div
-                    className={cn(
-                      "size-12 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-3 group-hover:bg-gray-100 transition-colors relative z-10",
-                      cert.color,
-                    )}
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {cert.icon}
-                  </motion.div>
-                  
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-sm relative z-10 leading-tight">
-                    {cert.name}
-                  </h3>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 lg:grid-cols-7 relative z-30 overflow-visible max-w-6xl mx-auto">
+            {certifications.map((cert) => {
+              const Icon = cert.icon
+              const isMsme = cert.title === "MSME"
+
+              return (
+                <div key={cert.title + "-" + cert.subtitle} className="group relative">
+                  <div className="relative flex h-full min-h-[150px] flex-col items-center justify-start overflow-hidden rounded-[18px] border border-slate-200 bg-white p-5 text-center shadow-[0_10px_30px_rgba(0,59,102,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#017ACA] hover:shadow-[0_18px_45px_rgba(0,59,102,0.13)]">
+                    <div className="absolute inset-x-0 top-0 h-[3px] bg-[#FDCD02] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+
+                    <div className="mb-4">
+                      <CertificationIcon
+                        type={cert.animationType}
+                        Icon={cert.icon}
+                        colorClass={cert.colorClass}
+                      />
+                    </div>
+
+                    <h3 className="flex flex-col items-center justify-center text-center leading-tight">
+                      <span className="text-xs font-bold text-[#003B66] md:text-sm">
+                        {cert.title}
+                      </span>
+                      {cert.subtitle && (
+                        <span className="text-[10px] font-medium text-slate-500 mt-1 block">
+                          {cert.subtitle}
+                        </span>
+                      )}
+                    </h3>
+                  </div>
+                </div>
+              )
+            })}
           </div>
 
           <motion.div
@@ -1348,65 +1474,48 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <Tabs defaultValue="scanning" className="w-full max-w-4xl mx-auto" onValueChange={setActiveTab}>
-            <div className="flex justify-center mb-6 md:mb-8">
-              <TabsList className="flex flex-wrap justify-center gap-1 p-1 sm:gap-2 sm:grid sm:grid-cols-5 sm:h-14 bg-muted/50 backdrop-blur-sm rounded-full w-full max-w-sm sm:max-w-none">
+          <Tabs
+            defaultValue="scanning"
+            className="w-full max-w-5xl mx-auto"
+            onValueChange={setActiveTab}
+          >
+            <div className="mb-10 flex justify-center px-2 md:mb-12">
+              <TabsList className="!h-auto grid w-full grid-cols-2 gap-1.5 rounded-[24px] border border-slate-200 bg-white p-1.5 shadow-[0_10px_30px_rgba(0,59,102,0.08)] sm:grid-cols-3 lg:grid-cols-5">
                 <TabsTrigger
                   value="scanning"
-                  className={cn(
-                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
-                    activeTab === "scanning"
-                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
-                      : ""
-                  )}
+                  className="h-11 w-full rounded-full bg-[#F6F9FC] px-3 py-2 text-center text-xs font-semibold text-[#334155] transition-all duration-200 hover:bg-[#EAF4FB] hover:text-[#017ACA] data-[state=active]:!bg-[#017ACA] data-[state=active]:!text-white data-[state=active]:shadow-[0_8px_20px_rgba(1,122,202,0.25)] sm:text-sm"
                 >
                   <span className="hidden sm:inline">Scanning & Digitisation</span>
                   <span className="sm:hidden">Scan</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="ai"
-                  className={cn(
-                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
-                    activeTab === "ai"
-                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
-                      : ""
-                  )}
+                  className="h-11 w-full rounded-full bg-[#F6F9FC] px-3 py-2 text-center text-xs font-semibold text-[#334155] transition-all duration-200 hover:bg-[#EAF4FB] hover:text-[#017ACA] data-[state=active]:!bg-[#017ACA] data-[state=active]:!text-white data-[state=active]:shadow-[0_8px_20px_rgba(1,122,202,0.25)] sm:text-sm"
                 >
                   <span className="hidden sm:inline">AI / ML Services</span>
                   <span className="sm:hidden">AI/ML</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="web"
-                  className={cn(
-                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
-                    activeTab === "web"
-                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
-                      : ""
-                  )}
+                  className="h-11 w-full rounded-full bg-[#F6F9FC] px-3 py-2 text-center text-xs font-semibold text-[#334155] transition-all duration-200 hover:bg-[#EAF4FB] hover:text-[#017ACA] data-[state=active]:!bg-[#017ACA] data-[state=active]:!text-white data-[state=active]:shadow-[0_8px_20px_rgba(1,122,202,0.25)] sm:text-sm"
                 >
                   <span className="hidden sm:inline">Web Solutions</span>
                   <span className="sm:hidden">Web</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="mobile"
-                  className={cn(
-                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
-                    activeTab === "mobile"
-                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
-                      : ""
-                  )}
+                  className="h-11 w-full rounded-full bg-[#F6F9FC] px-3 py-2 text-center text-xs font-semibold text-[#334155] transition-all duration-200 hover:bg-[#EAF4FB] hover:text-[#017ACA] data-[state=active]:!bg-[#017ACA] data-[state=active]:!text-white data-[state=active]:shadow-[0_8px_20px_rgba(1,122,202,0.25)] sm:text-sm"
                 >
                   <span className="hidden sm:inline">Mobile Development</span>
                   <span className="sm:hidden">Mobile</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="cloud"
-                  className={cn(
-                    "rounded-full text-xs sm:text-sm md:text-base font-medium transition-all data-[state=active]:shadow-lg px-2 sm:px-4 py-2",
-                    activeTab === "cloud"
-                      ? "data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-600 data-[state=active]:text-white"
-                      : ""
-                  )}
+                  className="h-11 w-full rounded-full bg-[#F6F9FC] px-3 py-2 text-center text-xs font-semibold text-[#334155] transition-all duration-200 hover:bg-[#EAF4FB] hover:text-[#017ACA] data-[state=active]:!bg-[#017ACA] data-[state=active]:!text-white data-[state=active]:shadow-[0_8px_20px_rgba(1,122,202,0.25)] sm:text-sm"
                 >
                   <span className="hidden sm:inline">Cloud Services</span>
                   <span className="sm:hidden">Cloud</span>
@@ -1414,7 +1523,7 @@ export default function LandingPage() {
               </TabsList>
             </div>
 
-            <div className="relative mt-6 md:mt-8 min-h-[300px] md:min-h-[400px]">
+            <div className="relative mt-0 min-h-[360px] md:min-h-[420px]">
               <AnimatePresence mode="wait">
                 {["scanning", "ai", "web", "mobile", "cloud"].map((tab) => activeTab === tab && (
                   <motion.div

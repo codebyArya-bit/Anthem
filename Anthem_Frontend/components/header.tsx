@@ -1005,10 +1005,11 @@ function HeaderInner() {
 
             <Link href="/contact">
               <Button
-                className={`relative rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-300 group overflow-hidden whitespace-nowrap ${!isScrolled && isHomePage
-                  ? "border border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white hover:shadow-lg hover:shadow-black/10"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
-                  }`}
+                className={`relative h-10 rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 group overflow-hidden whitespace-nowrap ${
+                  !isScrolled && isHomePage
+                    ? "border border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white hover:shadow-lg hover:shadow-black/10"
+                    : "bg-[#017ACA] text-white hover:bg-[#005B99] hover:shadow-lg hover:shadow-[#017ACA]/25"
+                }`}
               >
                 <span className="flex items-center gap-1">
                   Consultation
@@ -1056,10 +1057,11 @@ function HeaderInner() {
               <Link href="/login" className="relative z-10 inline-flex shrink-0">
                 <Button
                   variant="outline"
-                  className={`relative z-10 flex items-center gap-2 rounded-full px-3 py-1.5 text-sm lg:text-base whitespace-nowrap ${!isScrolled && isHomePage
-                    ? "border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white"
-                    : "border-border text-foreground hover:bg-muted"
-                    }`}
+                  className={`relative z-10 flex h-10 items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold whitespace-nowrap ${
+                    !isScrolled && isHomePage
+                      ? "border-white/25 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:text-white"
+                      : "border border-slate-200 bg-white text-[#003B66] hover:border-[#017ACA] hover:bg-[#F6F9FC] hover:text-[#017ACA]"
+                  }`}
                 >
                   Login
                 </Button>

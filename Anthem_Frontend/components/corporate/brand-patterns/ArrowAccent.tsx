@@ -6,9 +6,15 @@ interface ArrowAccentProps {
   className?: string
   size?: number
   direction?: "up" | "up-right" | "right" | "down"
+  stroke?: string
 }
 
-export function ArrowAccent({ className = "", size = 20, direction = "up-right" }: ArrowAccentProps) {
+export function ArrowAccent({
+  className = "",
+  size = 20,
+  direction = "up-right",
+  stroke = "#FDCD02",
+}: ArrowAccentProps) {
   const rotationMap = {
     up: "-rotate-45",
     "up-right": "rotate-0",
@@ -26,10 +32,9 @@ export function ArrowAccent({ className = "", size = 20, direction = "up-right" 
       className={`inline-block transform transition-transform duration-300 ${rotationMap[direction]} ${className}`}
       style={{ verticalAlign: "middle" }}
     >
-      {/* Sleek, sharp vector line inspired by the Anthem logo's yellow arrow */}
       <path
         d="M6 18L18 6M18 6H9M18 6V15"
-        stroke="#FDCD03"
+        stroke={stroke}
         strokeWidth="3.5"
         strokeLinecap="round"
         strokeLinejoin="round"

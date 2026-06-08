@@ -188,7 +188,7 @@ export default function CareerPage() {
     : mockJobs.filter(j => j.department === activeDept)
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <Toaster position="bottom-right" richColors />
       
       <PageHero
@@ -226,7 +226,7 @@ export default function CareerPage() {
                 whileHover={{ y: -4, scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 relative group rounded-2xl h-full">
+                <Card className="overflow-hidden border border-slate-200 bg-white shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] hover:border-anthem-blue/20 transition-all duration-300 relative group rounded-[18px] h-full">
                   <CardCornerMark position="top-right" />
                   <div className="relative h-56 w-full overflow-hidden">
                     <img
@@ -236,7 +236,7 @@ export default function CareerPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-4 left-4 text-white flex items-center gap-2">
-                      <Eye className="size-4 text-[#00FFE4]" />
+                      <Eye className="size-4 text-anthem-yellow" />
                       <h4 className="text-base font-extrabold tracking-tight">{card.title}</h4>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function CareerPage() {
                   onClick={() => setActiveDept(dept)}
                   className={`px-4 py-2 rounded-full border transition-all duration-300 ${
                     activeDept === dept
-                      ? "bg-[#00232A] text-[#00FFE4] border-[#00FFE4]/20"
+                      ? "bg-[#003B66] text-[#FFFFFF] border-anthem-blue/20"
                       : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                   }`}
                 >
@@ -286,12 +286,12 @@ export default function CareerPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative group"
+                  className="rounded-[18px] border border-slate-200 bg-white p-5 md:p-6 shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] hover:border-anthem-blue/30 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative group"
                 >
                   <CardCornerMark position="top-right" className="opacity-40" />
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="anthem" className="rounded-md border border-[#00FFE4]/20 bg-slate-50 text-[#017ACA] text-[10px] font-bold">
+                      <Badge variant="anthem" className="rounded-md border border-anthem-blue/20 bg-slate-50 text-anthem-navy text-[10px] font-bold">
                         {job.department}
                       </Badge>
                       <span className="text-[10px] font-bold text-slate-400 font-mono">{job.experience} Exp</span>
@@ -303,11 +303,11 @@ export default function CareerPage() {
                   </div>
                   <Button 
                     onClick={() => handleApplyClick(job.title)}
-                    className="rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-gradient-to-r hover:from-[#00232A] hover:to-[#017ACA] hover:text-white hover:border-transparent transition-all text-xs font-bold font-sans uppercase shrink-0"
+                    className="rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-gradient-to-r hover:from-[#003B66] hover:to-[#017ACA] hover:text-white hover:border-transparent transition-all text-xs font-bold font-sans uppercase shrink-0"
                     size="sm"
                   >
                     <span>Apply Now</span>
-                    <ArrowRight className="size-4 ml-1.5 text-[#FDCD03]" />
+                    <ArrowRight className="size-4 ml-1.5 text-anthem-yellow" />
                   </Button>
                 </motion.div>
               ))}
@@ -346,10 +346,10 @@ export default function CareerPage() {
 
           {/* Form Card side */}
           <div className="lg:col-span-5 relative z-10">
-            <Card className="border border-slate-200 bg-white shadow-xl rounded-2xl overflow-hidden relative group">
+            <Card className="border border-slate-200 bg-white shadow-[0_10px_30px_rgba(0,59,102,0.06)] rounded-[18px] overflow-hidden relative group">
               <CardCornerMark position="top-right" />
               <CardCornerMark position="bottom-left" />
-              <div className="h-2 bg-gradient-to-r from-[#00232A] to-[#017ACA]" />
+              <div className="h-2 bg-gradient-to-r from-[#003B66] to-[#017ACA]" />
               <CardContent className="p-6 md:p-8">
                 <div className="mb-6">
                   <h3 className="text-xl font-extrabold text-slate-800 tracking-tight">Quick Application</h3>
@@ -437,7 +437,7 @@ export default function CareerPage() {
                     />
                     {uploadedFile ? (
                       <div className="flex flex-col items-center">
-                        <Check className="size-6 text-[#00FFE4] mb-1.5" />
+                        <Check className="size-6 text-anthem-yellow mb-1.5" />
                         <span className="text-xs font-bold text-slate-800 max-w-[200px] truncate">{uploadedFile.name}</span>
                         <span className="text-[10px] text-slate-400 mt-0.5">{(uploadedFile.size / 1024 / 1024).toFixed(2)} MB · Change file</span>
                       </div>
@@ -450,9 +450,9 @@ export default function CareerPage() {
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#00232A] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
+                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
                     <span>Submit Profile Details</span>
-                    <ArrowRight className="size-4 text-[#FDCD03]" />
+                    <ArrowRight className="size-4 text-anthem-yellow" />
                   </Button>
                 </form>
 
@@ -510,7 +510,7 @@ export default function CareerPage() {
               </div>
 
               <div className="p-6 text-white bg-slate-950/90 border-t border-slate-800">
-                <h4 className="text-lg font-black text-[#00FFE4] tracking-tight">{galleryImages[lightboxIndex].title}</h4>
+                <h4 className="text-lg font-black text-anthem-yellow tracking-tight">{galleryImages[lightboxIndex].title}</h4>
                 <p className="text-sm text-slate-400 mt-2 leading-relaxed">{galleryImages[lightboxIndex].description}</p>
               </div>
             </motion.div>

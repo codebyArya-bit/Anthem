@@ -103,7 +103,7 @@ export default function WhyAnthemPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <PageHero
         title="Why Anthem Global"
         description="Choose Anthem for proven public-sector execution, secure document transformation, AI-enabled workflows, and national-scale experience across judiciary, government, assessment, and enterprise programmes."
@@ -139,12 +139,12 @@ export default function WhyAnthemPage() {
             {
               title: "Innovation",
               description: "Empowering state departments with advanced GIS systems, e-office systems, and AI proctoring engines.",
-              border: "border-l-4 border-l-[#00FFE4]"
+              border: "border-l-4 border-l-[#017ACA]"
             },
             {
               title: "Intelligence",
               description: "Transforming paper archives into structured, fully searchable repositories with dynamic automated OCR.",
-              border: "border-l-4 border-l-[#FDCD03]"
+              border: "border-l-4 border-l-anthem-yellow"
             }
           ].map((pillar, idx) => (
             <motion.div
@@ -204,7 +204,7 @@ export default function WhyAnthemPage() {
             </motion.div>
 
             {/* Divider Arrow */}
-            <div className="md:col-span-1 flex items-center justify-center text-[#FDCD03] py-2">
+            <div className="md:col-span-1 flex items-center justify-center text-anthem-yellow py-2">
               <ArrowAccent size={22} direction="right" className="hidden md:block" />
               <ArrowAccent size={22} direction="down" className="block md:hidden" />
             </div>
@@ -221,7 +221,7 @@ export default function WhyAnthemPage() {
             </motion.div>
 
             {/* Divider Arrow */}
-            <div className="md:col-span-1 flex items-center justify-center text-[#FDCD03] py-2">
+            <div className="md:col-span-1 flex items-center justify-center text-anthem-yellow py-2">
               <ArrowAccent size={22} direction="right" className="hidden md:block" />
               <ArrowAccent size={22} direction="down" className="block md:hidden" />
             </div>
@@ -262,9 +262,9 @@ export default function WhyAnthemPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs md:text-sm">
                 <thead>
-                  <tr className="bg-[#00232A] text-white border-b border-[#00FFE4]/15">
+                  <tr className="bg-[#003B66] text-white border-b border-anthem-blue/15">
                     <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px]">Capabilities Matrix</th>
-                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-[#00FFE4]">Anthem Global</th>
+                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-anthem-yellow">Anthem Global</th>
                     <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-slate-400">Typical Vendors</th>
                   </tr>
                 </thead>
@@ -273,7 +273,7 @@ export default function WhyAnthemPage() {
                     <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
                       <td className="p-4 md:p-5 text-slate-800 font-extrabold">{row.feature}</td>
                       <td className="p-4 md:p-5 text-[#017ACA] font-bold flex items-center gap-2">
-                        <CheckCircle2 className="size-4 text-[#00FFE4] shrink-0 fill-[#00232A]" />
+                        <CheckCircle2 className="size-4 text-anthem-yellow shrink-0 fill-[#003B66]" />
                         <span>{row.anthem}</span>
                       </td>
                       <td className="p-4 md:p-5 text-slate-400 font-medium">{row.others}</td>
@@ -351,7 +351,7 @@ export default function WhyAnthemPage() {
               ].map((partner, idx) => (
                 <div 
                   key={idx} 
-                  className="flex h-16 w-52 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-[#00FFE4]/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
+                  className="flex h-16 w-52 items-center justify-start rounded-xl border border-slate-200 bg-slate-50/50 px-4 text-left text-xs font-bold text-slate-600 shadow-sm hover:border-anthem-blue/40 hover:text-primary transition-all duration-300 relative group gap-3 overflow-hidden"
                 >
                   <CardCornerMark position="top-right" />
                   <div className="size-12 rounded bg-white p-1 flex items-center justify-center shrink-0 border border-slate-100 overflow-hidden">
@@ -383,7 +383,7 @@ export default function WhyAnthemPage() {
             </div>
             <div className="grid gap-3">
               {["Secure by design", "Operational continuity", "Customisable workflows", "Long-term support"].map((item) => (
-                <div key={item} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-xs font-extrabold text-slate-700 shadow-sm hover:border-[#00FFE4]/20 hover:bg-white transition-all">
+                <div key={item} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-xs font-extrabold text-slate-700 shadow-sm hover:border-anthem-blue/20 hover:bg-white transition-all">
                   <Clock className="size-4 text-primary shrink-0" />
                   {item}
                 </div>

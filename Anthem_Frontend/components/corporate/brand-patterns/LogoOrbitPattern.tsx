@@ -39,28 +39,28 @@ export function LogoOrbitPattern({ className = "", opacity = 0.15 }: LogoOrbitPa
       />
 
       {/* Decorative concentric digital orbit nodes */}
-      <circle cx="950" cy="200" r="160" stroke="#00FFE4" strokeWidth="1" strokeDasharray="4 4" opacity="0.4" />
+      <circle cx="950" cy="200" r="160" stroke="#017ACA" strokeWidth="1" strokeDasharray="4 4" opacity="0.4" />
       <circle cx="950" cy="200" r="100" stroke="#017ACA" strokeWidth="1.5" opacity="0.3" />
-      <circle cx="150" cy="400" r="220" stroke="#00FFE4" strokeWidth="1" opacity="0.25" />
+      <circle cx="150" cy="400" r="220" stroke="#017ACA" strokeWidth="1" opacity="0.25" />
       
       {/* Precision yellow arrow nodes */}
-      <circle cx="550" cy="335" r="4" fill="#FDCD03" />
-      <circle cx="850" cy="235" r="3" fill="#00FFE4" />
+      <circle cx="550" cy="335" r="4" fill="#FDCD02" />
+      <circle cx="850" cy="235" r="3" fill="#017ACA" />
       <circle cx="280" cy="275" r="3" fill="#017ACA" />
 
       <defs>
         <linearGradient id="cyanOrbitGrad" x1="0" y1="300" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#00FFE4" />
+          <stop stopColor="#017ACA" />
           <stop offset="0.5" stopColor="#017ACA" />
           <stop offset="1" stopColor="transparent" />
         </linearGradient>
         <linearGradient id="blueOrbitGrad" x1="0" y1="300" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
           <stop stopColor="#017ACA" />
-          <stop offset="0.7" stopColor="#00FFE4" />
+          <stop offset="0.7" stopColor="#017ACA" />
           <stop offset="1" stopColor="transparent" />
         </linearGradient>
         <linearGradient id="yellowOrbitGrad" x1="0" y1="300" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FDCD03" />
+          <stop stopColor="#FDCD02" />
           <stop offset="0.4" stopColor="#017ACA" />
           <stop offset="1" stopColor="transparent" />
         </linearGradient>

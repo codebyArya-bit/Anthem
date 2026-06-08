@@ -97,7 +97,7 @@ const managementTeam = [
 
 export default function ManagementProfilePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <PageHero
         title="Management Profile"
         description="Anthem Global is steered by visionary leaders and technical pioneers who combine decades of national and international experience in software systems, e-governance, and enterprise project execution."
@@ -121,9 +121,9 @@ export default function ManagementProfilePage() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1400px] mx-auto relative z-10 mt-10 items-stretch">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 max-w-[1400px] mx-auto relative z-10 mt-12 items-stretch">
           {managementTeam.map((member) => (
-            <TiltedCard key={member.name} className="w-full" scale={1.01} maxRotate={3}>
+            <TiltedCard key={member.name} className="h-full w-full" scale={1.005} maxRotate={1.5}>
               <ProfileCard
                 name={member.name}
                 role={member.role}

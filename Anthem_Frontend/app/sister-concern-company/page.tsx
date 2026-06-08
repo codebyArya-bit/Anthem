@@ -79,14 +79,14 @@ export default function SisterOrganizationsPage() {
   const particles = Array.from({ length: 15 })
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       
       {/* Animated Floating Particles Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {particles.map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#00FFE4]/15"
+            className="absolute rounded-full bg-anthem-blue/15"
             style={{
               width: Math.random() * 6 + 2,
               height: Math.random() * 6 + 2,
@@ -134,36 +134,36 @@ export default function SisterOrganizationsPage() {
             align="center"
           />
 
-          <div className="relative h-64 md:h-80 bg-[#00232A] rounded-2xl border border-[#00FFE4]/15 flex items-center justify-center overflow-hidden shadow-lg">
+          <div className="relative h-64 md:h-80 bg-[#003B66] rounded-2xl border border-anthem-blue/15 flex items-center justify-center overflow-hidden shadow-lg">
             {/* Pulsing grid background */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,255,228,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,255,228,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
               {/* Pulsing connection lines */}
               <motion.line
                 x1="20%" y1="50%" x2="50%" y2="50%"
-                stroke="#00FFE4" strokeWidth="1.5" strokeOpacity="0.4"
+                stroke="#017ACA" strokeWidth="1.5" strokeOpacity="0.4"
                 strokeDasharray="5,5"
                 animate={{ strokeDashoffset: [-20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
               <motion.line
                 x1="50%" y1="50%" x2="80%" y2="50%"
-                stroke="#00FFE4" strokeWidth="1.5" strokeOpacity="0.4"
+                stroke="#017ACA" strokeWidth="1.5" strokeOpacity="0.4"
                 strokeDasharray="5,5"
                 animate={{ strokeDashoffset: [-20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
               <motion.line
                 x1="50%" y1="25%" x2="50%" y2="50%"
-                stroke="#FDCD03" strokeWidth="1.5" strokeOpacity="0.4"
+                stroke="#FDCD02" strokeWidth="1.5" strokeOpacity="0.4"
                 strokeDasharray="5,5"
                 animate={{ strokeDashoffset: [20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
               <motion.line
                 x1="50%" y1="50%" x2="50%" y2="75%"
-                stroke="#FDCD03" strokeWidth="1.5" strokeOpacity="0.4"
+                stroke="#FDCD02" strokeWidth="1.5" strokeOpacity="0.4"
                 strokeDasharray="5,5"
                 animate={{ strokeDashoffset: [20, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -180,14 +180,14 @@ export default function SisterOrganizationsPage() {
             {/* Nodes */}
             <div className="absolute inset-0 flex items-center justify-between px-8 md:px-16 text-center select-none text-xs font-black">
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-[#00FFE4] text-[#00FFE4] flex items-center justify-center shadow-md">
+                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-blue text-anthem-blue flex items-center justify-center shadow-md">
                   <Globe className="size-5" />
                 </div>
                 <span className="text-white mt-2 block text-[10px]">Global GIS</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-[#FDCD03] text-[#FDCD03] flex items-center justify-center shadow-md">
+                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-yellow text-anthem-yellow flex items-center justify-center shadow-md">
                   <GraduationCap className="size-5" />
                 </div>
                 <span className="text-white mt-2 block text-[10px]">CBT Exams</span>
@@ -195,22 +195,22 @@ export default function SisterOrganizationsPage() {
 
               {/* Central HQ Hub */}
               <div className="flex flex-col items-center relative">
-                <div className="size-16 rounded-2xl bg-gradient-to-br from-[#00232A] to-[#017ACA] border-2 border-[#00FFE4] text-white flex items-center justify-center shadow-lg relative group">
-                  <div className="absolute inset-0 rounded-2xl bg-[#00FFE4]/10 animate-ping pointer-events-none" />
+                <div className="size-16 rounded-2xl bg-gradient-to-br from-[#003B66] to-[#017ACA] border-2 border-anthem-blue text-white flex items-center justify-center shadow-lg relative group">
+                  <div className="absolute inset-0 rounded-2xl bg-anthem-blue/10 animate-ping pointer-events-none" />
                   <Building2 className="size-7" />
                 </div>
                 <span className="text-white mt-2 block font-extrabold text-[11px] tracking-wide">Anthem HQ</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-[#00FFE4] text-[#00FFE4] flex items-center justify-center shadow-md">
+                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-blue text-anthem-blue flex items-center justify-center shadow-md">
                   <Users className="size-5" />
                 </div>
                 <span className="text-white mt-2 block text-[10px]">CSR Training</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-[#FDCD03] text-[#FDCD03] flex items-center justify-center shadow-md">
+                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-yellow text-anthem-yellow flex items-center justify-center shadow-md">
                   <Network className="size-5" />
                 </div>
                 <span className="text-white mt-2 block text-[10px]">CSI Chapter</span>
@@ -219,9 +219,9 @@ export default function SisterOrganizationsPage() {
           </div>
         </section>
 
-        {/* Deep teal section header band wrapper */}
-        <div className="bg-[#00232A] rounded-2xl p-8 border border-[#00FFE4]/15 mb-12 shadow-md relative overflow-hidden">
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-[linear-gradient(to_left,rgba(0,255,228,0.02)_1px,transparent_1px)] pointer-events-none" />
+        {/* Deep navy section header band wrapper */}
+        <div className="bg-[#003B66] rounded-2xl p-8 border border-anthem-blue/15 mb-12 shadow-md relative overflow-hidden">
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-[linear-gradient(to_left,rgba(1,122,202,0.02)_1px,transparent_1px)] pointer-events-none" />
           <SectionHeading
             eyebrow="Anthem Group Ecosystem"
             title="Ecosystem of Collaborative Companies"
@@ -243,11 +243,11 @@ export default function SisterOrganizationsPage() {
                 onClick={() => setSelectedOrg(org)}
               >
                 <TiltedCard className="h-full" scale={1.01} maxRotate={3}>
-                  <div className="group h-full rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm hover:shadow-md hover:border-[#00FFE4]/30 transition-all flex flex-col justify-between relative">
+                  <div className="group h-full rounded-[18px] border border-slate-200/80 bg-white p-6 shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] hover:border-anthem-blue/30 transition-all flex flex-col justify-between relative">
                     <CardCornerMark position="top-right" />
                     <div>
                       <div className="flex justify-between items-start mb-5">
-                        <div className="size-11 rounded-xl bg-slate-50 border border-slate-100 p-2.5 text-[#017ACA] shadow-sm flex items-center justify-center group-hover:bg-[#00232A] group-hover:text-[#00FFE4] transition-all">
+                        <div className="size-11 rounded-xl bg-slate-50 border border-slate-100 p-2.5 text-[#017ACA] shadow-sm flex items-center justify-center group-hover:bg-[#003B66] group-hover:text-white transition-all">
                           <IconComponent className="size-6 shrink-0" />
                         </div>
                         <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">
@@ -261,7 +261,7 @@ export default function SisterOrganizationsPage() {
                     <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-bold font-mono">
                       <span className="text-[#017ACA] flex items-center gap-1 group-hover:underline">
                         <span>View Walkthrough</span>
-                        <Play className="size-3 text-[#FDCD03]" />
+                        <Play className="size-3 text-anthem-yellow" />
                       </span>
                       <ChevronRight className="size-4 text-slate-400 group-hover:translate-x-1 group-hover:text-[#017ACA] transition-all" />
                     </div>
@@ -304,7 +304,7 @@ export default function SisterOrganizationsPage() {
               transition={{ type: "spring", duration: 0.5 }}
             >
               {/* Top border colored line */}
-              <div className="h-2 bg-gradient-to-r from-[#00232A] via-[#00FFE4] to-[#FDCD03]" />
+              <div className="h-2 bg-gradient-to-r from-[#003B66] via-anthem-blue to-anthem-yellow" />
               
               {/* Close Button */}
               <button 
@@ -325,7 +325,7 @@ export default function SisterOrganizationsPage() {
                     playsInline
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute bottom-4 left-4 bg-slate-900/60 backdrop-blur text-[#00FFE4] text-[10px] font-mono px-3 py-1 rounded border border-[#00FFE4]/20">
+                  <div className="absolute bottom-4 left-4 bg-slate-900/60 backdrop-blur text-anthem-blue text-[10px] font-mono px-3 py-1 rounded border border-anthem-blue/20">
                     AutoPlay Walkthrough Preview
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export default function SisterOrganizationsPage() {
                   </div>
                 </div>
 
-                <p className="text-xs uppercase tracking-wider font-extrabold text-[#FDCD03] bg-[#00232A] px-3 py-1.5 rounded w-fit border border-[#00FFE4]/10">
+                <p className="text-xs uppercase tracking-wider font-extrabold text-anthem-yellow bg-[#003B66] px-3 py-1.5 rounded w-fit border border-anthem-blue/10">
                   {selectedOrg.label}
                 </p>
 

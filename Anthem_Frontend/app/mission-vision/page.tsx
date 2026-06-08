@@ -135,7 +135,7 @@ export default function MissionVisionPage() {
   const [cursor, setCursor] = useState({ x: 50, y: 35 })
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
       <PageHero
         title="Vision & Mission"
         description="Anthem Global's vision is to deliver technology services with responsibility, ethics, and professional discipline while maximizing value for clients and building globally recognized products."
@@ -155,7 +155,7 @@ export default function MissionVisionPage() {
         <SectionWatermark className="bottom-[15%] left-[2%] opacity-[0.02]" size={360} />
 
         <section
-          className="group relative mb-14 overflow-hidden rounded-[2rem] border border-[#00232A]/10 bg-[#00232A] shadow-[0_24px_80px_rgba(0,35,42,0.18)]"
+          className="group relative mb-14 overflow-hidden rounded-[2rem] border border-anthem-blue/10 bg-[#003B66] shadow-[0_24px_80px_rgba(0,59,102,0.12)]"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect()
             const x = ((e.clientX - rect.left) / rect.width) * 100
@@ -169,8 +169,8 @@ export default function MissionVisionPage() {
               speed={0.45}
               scale={1.65}
               brightness={0.9}
-              color1="#00FFE4"
-              color2="#017ACA"
+              color1="#017ACA"
+              color2="#003B66"
               noiseFrequency={1.8}
               noiseAmplitude={1.05}
               bandHeight={0.44}
@@ -180,12 +180,12 @@ export default function MissionVisionPage() {
               mouseInfluence={0.18}
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#00232A]/95 via-[#00232A]/72 to-[#00232A]/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#003B66]/95 via-[#003B66]/72 to-[#003B66]/25" />
           <motion.div
             aria-hidden="true"
             animate={{ left: `${cursor.x}%`, top: `${cursor.y}%` }}
             transition={{ type: "spring", stiffness: 60, damping: 18 }}
-            className="pointer-events-none absolute h-72 w-72 rounded-full bg-[#00FFE4]/12 blur-3xl"
+            className="pointer-events-none absolute h-72 w-72 rounded-full bg-anthem-blue/12 blur-3xl"
             style={{ transform: "translate(-50%, -50%)" }}
           />
           <div className="relative grid gap-8 lg:grid-cols-[1.08fr_0.92fr] items-center p-6 md:p-10 xl:p-14">
@@ -195,14 +195,14 @@ export default function MissionVisionPage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="max-w-3xl"
             >
-              <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.26em] text-[#00FFE4]">
-                <span className="h-px w-12 bg-[#FDCD03]" />
+              <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.26em] text-anthem-yellow">
+                <span className="h-px w-12 bg-anthem-yellow" />
                 Vision & Mission
               </div>
-              <h1 className="text-4xl font-black tracking-tight text-[#F4FBFC] md:text-6xl lg:text-7xl">
+              <h1 className="text-4xl font-black tracking-tight text-[#FFFFFF] md:text-6xl lg:text-7xl">
                 Systems that protect records and move public work forward.
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-[#A9C1C7] md:text-lg lg:text-xl">
+              <p className="mt-6 max-w-2xl text-base leading-8 text-[#E2E8F0] md:text-lg lg:text-xl">
                 Anthem Global builds secure, dependable digital systems for records, services, and institutional workflows. The focus is practical delivery, clear outcomes, and work that holds up in the real world.
               </p>
 
@@ -211,7 +211,7 @@ export default function MissionVisionPage() {
                   <a
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur-md transition-all hover:border-[#00FFE4]/40 hover:bg-white/14 hover:text-white"
+                    className="rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur-md transition-all hover:border-anthem-blue/40 hover:bg-white/14 hover:text-white"
                   >
                     {item.label}
                   </a>
@@ -223,7 +223,7 @@ export default function MissionVisionPage() {
                   href="#values"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="rounded-xl bg-[#FDCD03] px-5 py-3 text-sm font-bold text-[#00232A] shadow-lg shadow-[#FDCD03]/20 transition-colors hover:bg-[#ffe04b]"
+                  className="rounded-xl bg-anthem-yellow px-5 py-3 text-sm font-bold text-[#003B66] shadow-lg shadow-anthem-yellow/20 transition-colors hover:bg-anthem-yellow/90"
                 >
                   Explore Values
                 </motion.a>
@@ -251,8 +251,8 @@ export default function MissionVisionPage() {
                     whileHover={{ y: -4 }}
                     className="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur-md"
                   >
-                    <div className="text-2xl font-black text-[#00FFE4] md:text-3xl">{stat.value}</div>
-                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-[#A9C1C7]">{stat.label}</div>
+                    <div className="text-2xl font-black text-anthem-yellow md:text-3xl">{stat.value}</div>
+                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-300">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -280,10 +280,10 @@ export default function MissionVisionPage() {
                   />
                   <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
                     <div>
-                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00FFE4]">Highlighted Focus</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-anthem-yellow">Highlighted Focus</div>
                       <div className="mt-1 text-lg font-black text-white md:text-xl">Secure delivery with public value</div>
                     </div>
-                    <div className="rounded-full bg-[#FDCD03] px-3 py-1.5 text-xs font-bold text-[#00232A] shadow-lg">
+                    <div className="rounded-full bg-anthem-yellow px-3 py-1.5 text-xs font-bold text-[#003B66] shadow-lg">
                       Live Strategy
                     </div>
                   </div>
@@ -307,7 +307,7 @@ export default function MissionVisionPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#00232A]/80 via-[#00232A]/16 to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
-                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00FFE4]">{image.title}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-anthem-yellow">{image.title}</div>
                     </div>
                   </motion.div>
                 ))}
@@ -333,7 +333,7 @@ export default function MissionVisionPage() {
           <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="mb-3 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.34em] text-[#017ACA]">
-                <span className="h-px w-10 bg-[#FDCD03]" />
+                <span className="h-px w-10 bg-anthem-yellow" />
                 Visual Story
               </div>
               <h2 className="text-3xl font-black tracking-tight text-slate-900 md:text-4xl lg:text-5xl">
@@ -369,7 +369,7 @@ export default function MissionVisionPage() {
                   </div>
                   <motion.div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-tr from-[#00FFE4]/0 via-[#00FFE4]/0 to-[#00FFE4]/18 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    className="absolute inset-0 bg-gradient-to-tr from-anthem-blue/0 via-anthem-blue/0 to-anthem-blue/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   />
                 </div>
                 <div className="space-y-3 p-5">
@@ -403,25 +403,25 @@ export default function MissionVisionPage() {
             <Card className="border-slate-200/80 shadow-md overflow-hidden relative bg-white group rounded-2xl">
               <CardCornerMark position="top-right" />
               <CardCornerMark position="bottom-left" />
-              <div className="h-1.5 bg-gradient-to-r from-[#00232A] via-[#00FFE4] to-[#FDCD03]" />
+              <div className="h-1.5 bg-gradient-to-r from-[#003B66] via-[#017ACA] to-anthem-yellow" />
               <CardContent className="grid gap-4 p-6 md:grid-cols-2 md:p-8 bg-white/70 backdrop-blur-sm">
                 {visionPoints.map((point, index) => {
                   const Icon = point.icon
                   return (
                     <motion.div
                       key={point.text}
-                      className="group/item flex gap-4 rounded-xl border border-slate-200/60 bg-white p-5 shadow-sm hover:border-[#00FFE4]/50 hover:shadow-md transition-all duration-300 relative overflow-hidden"
+                      className="group/item flex gap-4 rounded-xl border border-slate-200/60 bg-white p-5 shadow-sm hover:border-anthem-blue/50 hover:shadow-md transition-all duration-300 relative overflow-hidden"
                       whileHover={{ y: -3, scale: 1.01 }}
                       transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     >
-                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#00232A] to-[#017ACA] text-white shadow-sm">
+                      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#003B66] to-[#017ACA] text-white shadow-sm">
                         <Icon className="size-5" />
                       </div>
                       <div className="flex flex-col justify-between flex-1">
                         <p className="text-sm font-bold text-slate-700 leading-relaxed">{point.text}</p>
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#00FFE4] bg-[#00232A] px-2.5 py-0.5 rounded-full mt-3 w-fit opacity-0 group-hover/item:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-anthem-yellow bg-[#003B66] px-2.5 py-0.5 rounded-full mt-3 w-fit opacity-0 group-hover/item:opacity-100 transition-opacity">
                           <span>Anthem Vision</span>
-                          <ArrowAccent size={8} direction="right" className="text-[#FDCD03]" />
+                          <ArrowAccent size={8} direction="right" className="text-anthem-yellow" />
                         </div>
                       </div>
                     </motion.div>
@@ -516,7 +516,7 @@ export default function MissionVisionPage() {
                   >
                     <motion.div
                       className={`px-3 py-1.5 rounded-full border-2 flex items-center justify-center font-bold text-[10px] whitespace-nowrap shadow-md transition-all ${activeMilestone === idx
-                        ? "bg-[#00232A] border-[#00FFE4] text-[#00FFE4]"
+                        ? "bg-[#003B66] border-anthem-blue text-[#FFFFFF]"
                         : "bg-white border-slate-300 text-slate-600 hover:border-[#017ACA]"
                         }`}
                       whileHover={{ scale: 1.05 }}
@@ -545,7 +545,7 @@ export default function MissionVisionPage() {
                     <Card className="border border-slate-200 shadow-md bg-white relative overflow-hidden rounded-2xl">
                       <CardCornerMark position="top-right" />
                       <CardContent className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        <div className="px-4 py-3 min-w-[90px] rounded-2xl bg-gradient-to-br from-[#00232A] to-[#017ACA] text-[#00FFE4] font-black text-sm flex items-center justify-center text-center shadow shrink-0">
+                        <div className="px-4 py-3 min-w-[90px] rounded-2xl bg-gradient-to-br from-[#003B66] to-[#017ACA] text-[#FFFFFF] font-black text-sm flex items-center justify-center text-center shadow shrink-0">
                           {journeyEvents[activeMilestone].year}
                         </div>
                         <div className="space-y-2">
@@ -582,9 +582,9 @@ export default function MissionVisionPage() {
           >
             <div className="mb-10 relative">
               <div className="mb-3 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                <span className="h-px w-10 bg-[#FDCD03]" />
+                <span className="h-px w-10 bg-anthem-yellow" />
                 Operating Values
-                <span className="h-px w-10 bg-[#FDCD03]" />
+                <span className="h-px w-10 bg-anthem-yellow" />
               </div>
               <h2 className="text-3xl font-bold tracking-tight text-slate-800 md:text-4xl mb-4">
                 <ShinyText className="font-extrabold text-3xl md:text-4xl bg-gradient-to-r from-slate-900 via-[#017ACA] to-slate-900">

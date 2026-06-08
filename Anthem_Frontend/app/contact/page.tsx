@@ -271,26 +271,6 @@ export default function ContactPage() {
             </p>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center"
-          >
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="w-1 h-3 bg-primary/70 rounded-full mt-2"
-            />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Contact Information Cards */}
@@ -308,8 +288,8 @@ export default function ContactPage() {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
-                <CardContent className="p-6 flex flex-col items-center text-center">
+              <Card className="h-full flex flex-col overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
+                <CardContent className="p-6 flex-1 flex flex-col items-center text-center">
                   <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <MapPin className="size-8" />
                   </div>
@@ -346,8 +326,8 @@ export default function ContactPage() {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
-                <CardContent className="p-6 flex flex-col items-center text-center">
+              <Card className="h-full flex flex-col overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
+                <CardContent className="p-6 flex-1 flex flex-col items-center text-center">
                   <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <Phone className="size-8" />
                   </div>
@@ -383,8 +363,8 @@ export default function ContactPage() {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
-                <CardContent className="p-6 flex flex-col items-center text-center">
+              <Card className="h-full flex flex-col overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
+                <CardContent className="p-6 flex-1 flex flex-col items-center text-center">
                   <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <Mail className="size-8" />
                   </div>
@@ -422,8 +402,8 @@ export default function ContactPage() {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Card className="h-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-green-50/30 backdrop-blur transition-all hover:shadow-xl">
-                <CardContent className="p-6 flex flex-col items-center text-center">
+              <Card className="h-full flex flex-col overflow-hidden border-border/40 bg-gradient-to-b from-background to-green-50/30 backdrop-blur transition-all hover:shadow-xl">
+                <CardContent className="p-6 flex-1 flex flex-col items-center text-center">
                   <div className="size-16 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-500 group-hover:text-white transition-colors duration-300">
                     <MessageCircle className="size-8" />
                   </div>
