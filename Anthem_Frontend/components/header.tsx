@@ -35,6 +35,87 @@ type Service = {
   explore?: ExploreSection;
 };
 
+const fallbackServices: Service[] = [
+  {
+    id: "fallback-custom-software",
+    slug: "custom-software",
+    title: "Custom Software",
+    description: "Enterprise software, custom databases, and workflow automation systems.",
+    image: "/images/custom-software.jpg",
+    status: "active",
+    sort_order: 1,
+    explore: {
+      title: "Explore Custom Software",
+      subsections: []
+    }
+  },
+  {
+    id: "fallback-biometric",
+    slug: "biometric-solution",
+    title: "Biometric Solution",
+    description: "Advanced identity validation systems, face recognition, and secure access.",
+    image: "/images/biometric.jpg",
+    status: "active",
+    sort_order: 2,
+    explore: {
+      title: "Explore Biometrics",
+      subsections: []
+    }
+  },
+  {
+    id: "fallback-tracking",
+    slug: "vehicle-tracking-system",
+    title: "Vehicle Tracking System",
+    description: "Real-time GPS tracking, fleet diagnostics, and telematics platforms.",
+    image: "/images/tracking.jpg",
+    status: "active",
+    sort_order: 3,
+    explore: {
+      title: "Explore Vehicle Tracking",
+      subsections: []
+    }
+  },
+  {
+    id: "fallback-web-dev",
+    slug: "web-development",
+    title: "Web Development",
+    description: "Modern web application design, high-performance CMS, and e-commerce.",
+    image: "/images/web-dev.jpg",
+    status: "active",
+    sort_order: 4,
+    explore: {
+      title: "Explore Web Development",
+      subsections: []
+    }
+  },
+  {
+    id: "fallback-mobile-dev",
+    slug: "mobile-app-development",
+    title: "Mobile App Development",
+    description: "Native and cross-platform mobile apps for iOS and Android.",
+    image: "/images/mobile-dev.jpg",
+    status: "active",
+    sort_order: 5,
+    explore: {
+      title: "Explore Mobile Apps",
+      subsections: []
+    }
+  },
+  {
+    id: "fallback-outsourcing",
+    slug: "outsourcing",
+    title: "Outsourcing",
+    description: "Dedicated developer hiring, offshore product teams, and remote support.",
+    image: "/images/outsourcing.jpg",
+    status: "active",
+    sort_order: 6,
+    explore: {
+      title: "Explore Outsourcing",
+      subsections: []
+    }
+  }
+];
+
 function HeaderInner() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -117,6 +198,7 @@ function HeaderInner() {
 
   const [services, setServices] = useState<Service[]>([]);
   const [servicesLoading, setServicesLoading] = useState(true);
+  const servicesToShow = services && services.length > 0 ? services : fallbackServices;
   const [itExploreCache, setItExploreCache] = useState<Record<string, ExploreSection | null>>({});
   const [itExploreLoading, setItExploreLoading] = useState<Record<string, boolean>>({});
 
@@ -609,7 +691,7 @@ function HeaderInner() {
                 />
               </Link>
               <AnimatePresence>
-                {activeDropdown === "services" && services.length > 0 && (
+                {activeDropdown === "services" && servicesToShow.length > 0 && (
                   <motion.div
                     ref={servicesMenuRef}
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -621,7 +703,7 @@ function HeaderInner() {
                   >
                     <div className="p-4 overflow-y-auto max-h-[500px] custom-scrollbar overflow-x-visible">
                       <div className="grid grid-cols-2 gap-3">
-                        {services.map((service) => {
+                        {servicesToShow.map((service) => {
                           const isSpecial =
                             String(service.id) === "14" ||
                             ["gis", "photogrammetry", "bim"].some((term) =>
@@ -638,7 +720,7 @@ function HeaderInner() {
                             (resolvedExplore?.subsections?.length ?? 0) > 0 ||
                             String(service.id) === "14";
 
-                          const colIndex = services.indexOf(service) % 2;
+                          const colIndex = servicesToShow.indexOf(service) % 2;
                           const arrowPointsLeft =
                             hoveredServiceId === service.id ? flyoutPos.openLeft : colIndex === 0;
 
@@ -1169,7 +1251,7 @@ function HeaderInner() {
                         exit={{ opacity: 0, height: 0 }}
                         className="pl-4 space-y-1 overflow-hidden"
                       >
-                        {services.map((service) => {
+                        {servicesToShow.map((service) => {
                           const baseSlug = service.slug || generateServiceSlug(service.id, service.title);
                           const subsections = Array.isArray(service.explore?.subsections)
                             ? service.explore!.subsections

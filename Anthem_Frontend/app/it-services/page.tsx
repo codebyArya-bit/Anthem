@@ -25,10 +25,110 @@ type Service = {
   updated_at: string;
 };
 
+const fallbackITServices: Service[] = [
+  {
+    id: "custom-software",
+    title: "Custom Software Development",
+    description: "Tailored business software shaped around your actual workflows. Databases, CRM, ERP, and API integrations.",
+    image: "/anthemgt-media/software-team.jpg",
+    features: ["Workflow Automation", "Legacy Migration", "API Integration", "Secure Database Admin"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 1,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: "biometric-solution",
+    title: "Biometric Solutions",
+    description: "Advanced identity validation systems, computer-based exam verification, and access control platforms.",
+    image: "/anthemgt-media/biometric-security.jpg",
+    features: ["Face Recognition", "Multi-Factor Authentication", "Candidate Verification", "Access Control"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 2,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: "vehicle-tracking-system",
+    title: "Vehicle Tracking Systems",
+    description: "Real-time location intelligence, telematics routing, and geofencing to optimize movement logistics.",
+    image: "/anthemgt-media/vehicle-tracking.jpg",
+    features: ["High-Precision GPS", "IoT Sensors", "Geofencing Alerting", "Route Optimization"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 3,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: "web-development",
+    title: "Web Design and Development",
+    description: "Responsive, high-performance web applications built for business scalability, transactional portals, and dashboards.",
+    image: "/anthemgt-media/digital-workflow.jpg",
+    features: ["Custom Frontends", "Progressive Web Apps", "E-Commerce Integrations", "Secure Dashboards"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 4,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: "mobile-app-development",
+    title: "Mobile App Development",
+    description: "Secure, native capabilities for iOS and Android to support field workflows and customer engagement.",
+    image: "/anthemgt-media/mobile-development.jpg",
+    features: ["Native iOS/Android", "Offline Capability", "Push Notifications", "App Store Operations"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 5,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: "outsourcing",
+    title: "Managed Workforce Outsourcing",
+    description: "Gain access to top-tier technical squads and remote consulting managers for software and IT operations.",
+    image: "/anthemgt-media/modern-office.jpg",
+    features: ["Deployed Tech Teams", "Flexible Scale Up/Down", "Managed Delivery SLAs", "Continuous Learning Matrix"],
+    long_description: "",
+    benefits: [],
+    technologies: [],
+    developers: [],
+    demo_video_url: "",
+    status: "active",
+    sort_order: 6,
+    created_at: "",
+    updated_at: ""
+  }
+];
+
 export default function ITServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   // Animation variants
   const containerVariants = {
@@ -76,10 +176,8 @@ export default function ITServicesPage() {
         
         setServices(activeServices);
       } catch (error) {
-        console.error("Error fetching services:", error);
-        const message = error instanceof Error ? error.message : String(error);
-        setError(`Failed to load services: ${message}`);
-        setServices([]);
+        console.error("Error fetching services, loading fallbacks:", error);
+        setServices(fallbackITServices);
       } finally {
         setIsLoading(false);
       }
@@ -96,8 +194,13 @@ export default function ITServicesPage() {
 
   const getImageUrl = (imagePath?: string | null, fallback = "/placeholder.svg") => {
     if (!imagePath) return fallback;
-    if (imagePath.startsWith("http")) return imagePath;
-    const normalized = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
+    const cleaned = imagePath.trim().replace(/^`+/, "").replace(/`+$/, "").trim();
+    if (!cleaned) return fallback;
+    if (cleaned.startsWith("http")) return cleaned;
+    if (cleaned.startsWith("/") && (cleaned.startsWith("/images/") || cleaned.startsWith("/anthemgt-media/") || cleaned.startsWith("/certifications/") || cleaned.startsWith("/office_images/") || cleaned.startsWith("/placeholder"))) {
+      return cleaned;
+    }
+    const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
     return `${API_URL}${normalized}`;
   };
 
@@ -171,18 +274,28 @@ export default function ITServicesPage() {
                   className="group"
                 >
                   <Card className="h-full w-full overflow-hidden border-border/40 bg-gradient-to-b from-background to-blue-50/30 backdrop-blur transition-all hover:shadow-xl">
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={getImageUrl(service.image, "/placeholder.svg")}
-                        alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                      <div className="absolute bottom-4 left-4">
-                        <div className="text-white text-sm font-semibold bg-primary/90 px-3 py-1 rounded-full">
-                          {service.features.length} Features
+                    <div className="relative h-56 overflow-hidden bg-slate-50">
+                      {failedImages[service.id] ? (
+                        <div className="w-full h-full bg-gradient-to-br from-[#017ACA]/10 via-[#F4FAFF] to-[#017ACA]/5 flex flex-col items-center justify-center p-4 text-center select-none">
+                          <span className="text-3xl mb-2">💻</span>
+                          <span className="font-semibold text-xs text-[#003B66]">Anthem Technology</span>
                         </div>
-                      </div>
+                      ) : (
+                        <>
+                          <img
+                            src={getImageUrl(service.image, "/placeholder.svg")}
+                            alt={service.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            onError={() => setFailedImages((prev) => ({ ...prev, [service.id]: true }))}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                          <div className="absolute bottom-4 left-4">
+                            <div className="text-white text-sm font-semibold bg-primary/90 px-3 py-1 rounded-full">
+                              {service.features.length} Features
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </div>
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold mb-3">{service.title}</h3>

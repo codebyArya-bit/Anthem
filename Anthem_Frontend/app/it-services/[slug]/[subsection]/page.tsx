@@ -9,6 +9,7 @@ import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { fallbackITServices } from "@/lib/fallback-it-services";
 
 type UseCase = {
   image: string;
@@ -114,8 +115,8 @@ export default function ITExploreSubsectionPage() {
     const cleaned = sanitizeRemoteUrl(imagePath);
     if (!cleaned) return fallback;
     if (cleaned.startsWith("http")) return cleaned;
-    const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-    return `${API_URL}${normalized}`;
+    if (cleaned.startsWith("/")) return cleaned;
+    return `${API_URL}/${cleaned}`;
   };
 
   const [service, setService] = useState<ITService | null>(null);
@@ -134,18 +135,29 @@ export default function ITExploreSubsectionPage() {
 
         const svcRes = await fetch(`${API_URL}/api/services/${serviceSlug}/`, {
           cache: "no-store",
+        }).catch(err => {
+          console.warn("Failed to fetch IT service API", err);
+          return null;
         });
 
         let serviceData: ITService | null = null;
-        if (svcRes.ok) {
+        if (svcRes && svcRes.ok) {
           serviceData = await svcRes.json();
-          if (!cancelled) setService(serviceData);
         } else {
-          if (!cancelled) setService(null);
+          const fbSvc = fallbackITServices.find(
+            (s) => s.id === serviceSlug || s.slug === serviceSlug
+          );
+          if (fbSvc) {
+            serviceData = fbSvc as unknown as ITService;
+          }
         }
+        if (!cancelled) setService(serviceData);
 
+        const isLidar = (serviceData?.title || "").toLowerCase().includes("lidar") || serviceSlug.toLowerCase().includes("lidar");
         const serviceSubsections = Array.isArray(serviceData?.explore?.subsections)
           ? serviceData.explore.subsections
+          : isLidar
+          ? (LIDAR_SUBSECTIONS as unknown as ExploreSubsection[])
           : [];
         const matchedSubsection = findMatchingSubsection(serviceSubsections, subsectionSlug);
         const resolvedSubsectionSlug = matchedSubsection?.slug || subsectionSlug;
@@ -162,10 +174,13 @@ export default function ITExploreSubsectionPage() {
           {
             cache: "no-store",
           }
-        );
+        ).catch(err => {
+          console.warn("Failed to fetch IT subsection API", err);
+          return null;
+        });
 
         let subsectionData: ExploreSubsection | null = null;
-        if (subRes.ok) {
+        if (subRes && subRes.ok) {
           const data: SubsectionApiResponse = await subRes.json();
           subsectionData = data?.subsection || null;
           if (!cancelled) {
@@ -193,8 +208,8 @@ export default function ITExploreSubsectionPage() {
         if (devIds.length > 0) {
           const teamRes = await fetch(`${API_URL}/api/team/`, {
             cache: "no-store",
-          });
-          if (teamRes.ok) {
+          }).catch(() => null);
+          if (teamRes && teamRes.ok) {
             const teamData: TeamMember[] = await teamRes.json();
             const filtered = teamData.filter((m) => devIds.includes(m.id));
             if (!cancelled) setTeam(filtered);
@@ -204,7 +219,8 @@ export default function ITExploreSubsectionPage() {
         } else {
           if (!cancelled) setTeam([]);
         }
-      } catch {
+      } catch (err) {
+        console.error("Error in fetching IT subsection data:", err);
         if (!cancelled) {
           setService(null);
           setSubsection(null);

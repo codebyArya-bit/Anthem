@@ -265,10 +265,10 @@ export default function CareerPage() {
                 <button
                   key={dept}
                   onClick={() => setActiveDept(dept)}
-                  className={`px-4 py-2 rounded-full border transition-all duration-300 ${
+                  className={`rounded-full border px-4 py-2 transition-all duration-300 ${
                     activeDept === dept
-                      ? "bg-[#003B66] text-[#FFFFFF] border-anthem-blue/20"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
+                      ? "border-[#017ACA] bg-[#017ACA] text-white shadow-[0_10px_24px_rgba(1,122,202,0.20)]"
+                      : "border-[#017ACA]/15 bg-white text-[#475569] hover:border-[#017ACA]/35 hover:bg-[#F4FAFF] hover:text-[#017ACA]"
                   }`}
                 >
                   {dept}
@@ -286,7 +286,7 @@ export default function CareerPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="rounded-[18px] border border-slate-200 bg-white p-5 md:p-6 shadow-[0_10px_30px_rgba(0,59,102,0.06)] hover:shadow-[0_15px_35px_rgba(0,59,102,0.12)] hover:border-anthem-blue/30 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative group"
+                  className="group relative flex flex-col gap-4 rounded-3xl border border-[#017ACA]/12 bg-white/90 p-5 shadow-[0_18px_50px_rgba(0,59,102,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#017ACA]/25 hover:shadow-[0_24px_70px_rgba(0,59,102,0.12)] md:flex-row md:items-center md:justify-between md:p-6"
                 >
                   <CardCornerMark position="top-right" className="opacity-40" />
                   <div>
@@ -303,11 +303,11 @@ export default function CareerPage() {
                   </div>
                   <Button 
                     onClick={() => handleApplyClick(job.title)}
-                    className="rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-gradient-to-r hover:from-[#003B66] hover:to-[#017ACA] hover:text-white hover:border-transparent transition-all text-xs font-bold font-sans uppercase shrink-0"
+                    className="group shrink-0 rounded-full border border-[#017ACA]/20 bg-white px-5 text-xs font-bold uppercase tracking-wider text-[#003B66] shadow-sm transition-all duration-300 hover:border-[#017ACA] hover:bg-[#017ACA] hover:text-white"
                     size="sm"
                   >
                     <span>Apply Now</span>
-                    <ArrowRight className="size-4 ml-1.5 text-anthem-yellow" />
+                    <ArrowRight className="ml-1.5 size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </motion.div>
               ))}
@@ -450,9 +450,13 @@ export default function CareerPage() {
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
+                  <Button
+                    type="submit"
+                    className="group mt-4 h-11 w-full rounded-full bg-[#017ACA] text-sm font-semibold text-white shadow-[0_12px_28px_rgba(1,122,202,0.22)] transition-all duration-300 hover:bg-[#005B99] hover:text-white hover:shadow-[0_16px_36px_rgba(1,122,202,0.28)] active:scale-95"
+                    size="sm"
+                  >
                     <span>Submit Profile Details</span>
-                    <ArrowRight className="size-4 text-anthem-yellow" />
+                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </form>
 
@@ -489,14 +493,14 @@ export default function CareerPage() {
             />
             
             <motion.div 
-              className="relative max-w-3xl w-full bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col"
+              className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-[#017ACA]/15 bg-white shadow-[0_30px_100px_rgba(0,0,0,0.28)]"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
             >
               <button 
                 onClick={() => setLightboxIndex(null)}
-                className="absolute top-4 right-4 z-20 size-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-all focus:outline-none"
+                className="absolute top-4 right-4 z-20 size-8 rounded-full bg-black/10 text-slate-800 flex items-center justify-center hover:bg-black/20 transition-all focus:outline-none"
               >
                 <X className="size-4" />
               </button>
@@ -509,9 +513,9 @@ export default function CareerPage() {
                 />
               </div>
 
-              <div className="p-6 text-white bg-slate-950/90 border-t border-slate-800">
-                <h4 className="text-lg font-black text-anthem-yellow tracking-tight">{galleryImages[lightboxIndex].title}</h4>
-                <p className="text-sm text-slate-400 mt-2 leading-relaxed">{galleryImages[lightboxIndex].description}</p>
+              <div className="border-t border-[#017ACA]/10 bg-gradient-to-br from-white via-[#F4FAFF] to-[#EAF6FD] p-6">
+                <h4 className="text-lg font-black tracking-tight text-[#003B66]">{galleryImages[lightboxIndex].title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-[#475569]">{galleryImages[lightboxIndex].description}</p>
               </div>
             </motion.div>
           </div>

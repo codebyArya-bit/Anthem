@@ -1,7 +1,7 @@
 "use client"
 import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Footer } from "@/components/Footer"
 import { PageHero } from "@/components/corporate/PageHero"
@@ -10,7 +10,7 @@ import { StatsStrip } from "@/components/corporate/StatsStrip"
 import { TiltedCard } from "@/components/reactbits/TiltedCard"
 import { LogoLoop } from "@/components/reactbits/LogoLoop"
 import { Badge } from "@/components/ui/badge"
-import { Landmark, GraduationCap, Building2, ChevronRight, Play } from "lucide-react"
+import { Landmark, GraduationCap, Building2, ChevronRight, Pause, Play } from "lucide-react"
 import { CardCornerMark } from "@/components/corporate/brand-patterns/CardCornerMark"
 import { ArrowAccent } from "@/components/corporate/brand-patterns/ArrowAccent"
 import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
@@ -144,13 +144,15 @@ const clientsList = [
     sector: "Education & Enterprise",
     description: "Empanelled technology agency executing government-notified data digitization, scanning, and software workflows.",
     icon: Building2,
-    logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png",
+    logo: "/images/ocac-logo.png",
     color: "from-blue-600 to-[#017ACA]",
     metric: "Empanelled Partner"
   }
 ]
 
 export default function ClientsPage() {
+  const walkthroughVideoRef = useRef<HTMLVideoElement>(null)
+  const [isWalkthroughPlaying, setIsWalkthroughPlaying] = useState(false)
   const [activeSector, setActiveSector] = useState("All Sectors")
 
   const filteredClients = activeSector === "All Sectors"
@@ -161,8 +163,23 @@ export default function ClientsPage() {
   const loopOneClients = clientsList.slice(0, midIndex)
   const loopTwoClients = clientsList.slice(midIndex)
 
+  const toggleWalkthroughPlayback = async () => {
+    const video = walkthroughVideoRef.current
+    if (!video) return
+
+    if (video.paused) {
+      try {
+        await video.play()
+      } catch {
+        setIsWalkthroughPlaying(false)
+      }
+    } else {
+      video.pause()
+    }
+  }
+
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7FAFB] text-slate-800 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col bg-[#F4FAFF] text-slate-800 relative overflow-hidden">
       <PageHero
         title="Our Clients"
         description="Trusted by top judiciary bodies, central and state government departments, leading universities, and global enterprises to execute high-stakes digital programs."
@@ -201,7 +218,7 @@ export default function ClientsPage() {
               {loopOneClients.map((c, idx) => (
                 <div
                   key={idx}
-                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-white px-4 text-left text-xs font-bold text-[#003B66] shadow-[0_4px_20px_rgba(0,59,102,0.03)] hover:border-[#017ACA] hover:text-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)] transition-all duration-300 relative group gap-3 overflow-hidden"
+                  className="min-w-[180px] max-w-[220px] rounded-2xl border border-[#017ACA]/15 bg-white/80 px-4 py-5 text-center shadow-sm h-auto min-h-[96px] relative group flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:border-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)]"
                 >
                   <CardCornerMark position="top-right" />
                   {c.logo ? (
@@ -211,7 +228,7 @@ export default function ClientsPage() {
                   ) : (
                     <span className="shrink-0 size-1.5 rounded-full bg-[#017ACA]" />
                   )}
-                  <span className="truncate">{c.name}</span>
+                  <span className="text-xs font-bold leading-snug text-[#003B66] sm:text-sm break-words">{c.name}</span>
                 </div>
               ))}
             </LogoLoop>
@@ -221,7 +238,7 @@ export default function ClientsPage() {
               {loopTwoClients.map((c, idx) => (
                 <div
                   key={idx}
-                  className="flex h-16 w-56 items-center justify-start rounded-xl border border-slate-200 bg-white px-4 text-left text-xs font-bold text-[#003B66] shadow-[0_4px_20px_rgba(0,59,102,0.03)] hover:border-[#017ACA] hover:text-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)] transition-all duration-300 relative group gap-3 overflow-hidden"
+                  className="min-w-[180px] max-w-[220px] rounded-2xl border border-[#017ACA]/15 bg-white/80 px-4 py-5 text-center shadow-sm h-auto min-h-[96px] relative group flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:border-[#017ACA] hover:shadow-[0_8px_30px_rgba(0,59,102,0.06)]"
                 >
                   <CardCornerMark position="top-right" />
                   {c.logo ? (
@@ -231,7 +248,7 @@ export default function ClientsPage() {
                   ) : (
                     <span className="shrink-0 size-1.5 rounded-full bg-[#017ACA]" />
                   )}
-                  <span className="truncate">{c.name}</span>
+                  <span className="text-xs font-bold leading-snug text-[#003B66] sm:text-sm break-words">{c.name}</span>
                 </div>
               ))}
             </LogoLoop>
@@ -280,17 +297,31 @@ export default function ClientsPage() {
               {/* Muted AutoPlaying Case Study Video Walkthrough */}
               <div className="lg:col-span-5 relative w-full h-56 rounded-xl overflow-hidden border border-slate-200 shadow-inner group">
                 <video
+                  ref={walkthroughVideoRef}
                   src="/videos/collab.mp4"
                   autoPlay
                   loop
                   muted
                   playsInline
+                  preload="metadata"
+                  onPlay={() => setIsWalkthroughPlaying(true)}
+                  onPause={() => setIsWalkthroughPlaying(false)}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
-                  <span className="text-white text-[10px] font-mono font-bold flex items-center gap-1.5">
-                    <Play className="size-3 text-[#00FFE4]" /> Muted Video Walkthrough
-                  </span>
+                <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/55 via-transparent to-transparent p-4">
+                  <button
+                    type="button"
+                    onClick={toggleWalkthroughPlayback}
+                    className="pointer-events-auto flex items-center gap-2 rounded-full border border-white/25 bg-black/35 px-3 py-2 font-mono text-[10px] font-bold text-white backdrop-blur-sm transition-colors hover:bg-black/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FDCD02]"
+                    aria-label={`${isWalkthroughPlaying ? "Pause" : "Play"} muted video walkthrough`}
+                  >
+                    {isWalkthroughPlaying ? (
+                      <Pause className="size-3 text-[#FDCD02]" />
+                    ) : (
+                      <Play className="size-3 text-[#FDCD02]" />
+                    )}
+                    {isWalkthroughPlaying ? "Pause Walkthrough" : "Play Walkthrough"}
+                  </button>
                 </div>
               </div>
             </div>
@@ -338,7 +369,7 @@ export default function ClientsPage() {
                   {activeSector === sec ? (
                     <motion.div
                       layoutId="activeSectorChip"
-                      className="absolute inset-0 bg-[#00232A] rounded-full z-0 border border-[#00FFE4]/20"
+                      className="absolute inset-0 bg-[#017ACA] rounded-full z-0 border border-[#017ACA]/20"
                       transition={{ type: "spring", stiffness: 350, damping: 28 }}
                     />
                   ) : null}

@@ -81,7 +81,7 @@ const partnersList = [
   },
   {
     name: "OCAC",
-    logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png"
+    logo: "/images/ocac-logo.png"
   },
   {
     name: "HP",
@@ -419,8 +419,8 @@ export default function PartnersPage() {
                   onClick={() => setActiveFilter(cat)}
                   className={`px-3 py-1.5 rounded-full border transition-all duration-300 ${
                     activeFilter === cat
-                      ? "bg-[#003B66] text-[#FFFFFF] border-anthem-blue/20"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
+                      ? "border-[#017ACA] bg-[#017ACA] text-white shadow-[0_10px_24px_rgba(1,122,202,0.20)]"
+                      : "border-[#017ACA]/15 bg-white text-[#475569] hover:border-[#017ACA]/35 hover:bg-[#F4FAFF] hover:text-[#017ACA]"
                   }`}
                 >
                   {cat}
@@ -541,9 +541,13 @@ export default function PartnersPage() {
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full rounded-xl mt-4 bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white text-xs font-bold uppercase tracking-wider border-0" size="sm">
+                  <Button
+                    type="submit"
+                    className="group mt-4 h-11 w-full rounded-full bg-[#017ACA] text-sm font-semibold text-white shadow-[0_12px_28px_rgba(1,122,202,0.22)] transition-all duration-300 hover:bg-[#005B99] hover:text-white hover:shadow-[0_16px_36px_rgba(1,122,202,0.28)] active:scale-95"
+                    size="sm"
+                  >
                     <span>Submit Partnership Pitch</span>
-                    <ArrowRight className="size-4 text-anthem-yellow" />
+                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Button>
                 </form>
               </CardContent>
@@ -572,7 +576,7 @@ export default function PartnersPage() {
             />
             
             <motion.div 
-              className="relative bg-white border border-slate-200 rounded-[18px] w-full max-w-md overflow-hidden shadow-2xl z-10"
+              className="relative bg-white border border-[#017ACA]/15 rounded-3xl w-full max-w-md overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.28)] z-10"
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
@@ -612,7 +616,7 @@ export default function PartnersPage() {
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 block uppercase">Status</span>
-                      <span className="text-anthem-yellow font-black uppercase text-[9px] bg-[#003B66] px-2 py-0.5 rounded">Active</span>
+                      <span className="text-[#003B66] font-bold uppercase text-[9px] bg-[#EAF6FD] border border-[#017ACA]/20 px-2 py-0.5 rounded-full">Active</span>
                     </div>
                   </div>
                 </div>

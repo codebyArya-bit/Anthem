@@ -1,6 +1,7 @@
 "use client"
 import { Footer } from "@/components/Footer";;
 import { API_URL } from "@/lib/config";
+import { fallbackProjects } from "@/lib/fallback-projects";
 import { CardContent } from "@/components/ui/card";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -162,7 +163,8 @@ export default function ProjectsPage() {
 
         setProjects(sortedProjects);
       } catch (error) {
-        console.error("Error fetching projects:", error);
+        console.error("Error fetching projects, using fallback:", error);
+        setProjects(fallbackProjects);
       } finally {
         setLoading(false);
       }
@@ -197,7 +199,7 @@ export default function ProjectsPage() {
 
         setTeamData(data);
       } catch (error) {
-        console.error('Error fetching team data:', error);
+        console.error('Error fetching team data, using empty fallback:', error);
         setTeamData([]);
       } finally {
         setTeamLoading(false);
@@ -207,8 +209,9 @@ export default function ProjectsPage() {
     fetchTeamData();
   }, []);
 
-  // Calculate total team count (same logic as team page)
-  const teammember = teamData.filter((member: any) => member.status === 'Active').length;
+  // Calculate total team count (same logic as team page, fallback to 300 if offline)
+  const activeMembersCount = teamData.filter((member: any) => member.status === 'Active').length;
+  const teammember = activeMembersCount > 0 ? activeMembersCount : 300;
 
 
   const openProject = (project: Project) => {

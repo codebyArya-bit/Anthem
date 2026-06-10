@@ -1,30 +1,130 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { API_URL } from "@/lib/config";
+
+const fallbackServices = [
+  { id: "design-development", title: "Website Design & Development", slug: "design-development" },
+  { id: "custom-software", title: "Custom Software Development", slug: "custom-software" },
+  { id: "iphone-app", title: "Mobility Services", slug: "iphone-app" },
+  { id: "ecommerce", title: "E-Commerce Solutions", slug: "ecommerce" },
+  { id: "digitization", title: "Digitization & Document Processing", slug: "digitization" },
+  { id: "biometric-solution", title: "Biometric Solutions", slug: "biometric-solution" },
+  { id: "vehicle-tracking-system", title: "Vehicle Tracking System", slug: "vehicle-tracking-system" },
+  { id: "outsourcing", title: "Outsourcing", slug: "outsourcing" },
+  { id: "ewaste-management", title: "E-Waste Management", slug: "ewaste-management" }
+];
+
+const fallbackProducts = [
+  { id: "jeemocktest", name: "TCS iON Digital PrepTest", url: "/it-services/jeemocktest" },
+  { id: "education-erp", name: "Education ERP", url: "/it-services/education-erp" }
+];
 
 export function Footer() {
+  const [services, setServices] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+
+  const generateServiceSlug = (id: string | number, title: string) => {
+    const titleSlug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+    const isNumericId = /^\d+$/.test(String(id));
+    return isNumericId ? `${id}-${titleSlug}` : String(id);
+  };
+
+  useEffect(() => {
+    let active = true;
+
+    const fetchServices = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/services/`);
+        if (!res.ok) throw new Error("Failed to fetch services");
+        const data = await res.json();
+        const arr = Array.isArray(data) ? data : data.results || [];
+
+        if (arr.length > 0 && active) {
+          const mapped = arr
+            .map((s: any, idx: number) => ({
+              id: String(s.id ?? idx),
+              slug: s.slug || undefined,
+              title: s.title,
+              status: s.status || "active",
+              sort_order: typeof s.sort_order === "number" ? s.sort_order : idx
+            }))
+            .filter((s: any) => 
+              s.status === "active" && 
+              s.id !== "14" && 
+              s.id !== "6" && 
+              !s.title.toLowerCase().includes("lidar")
+            )
+            .sort((a: any, b: any) => a.sort_order - b.sort_order);
+
+          if (mapped.length > 0) {
+            setServices(mapped);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching services for footer:", err);
+      }
+      if (active) {
+        setServices(fallbackServices);
+      }
+    };
+
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/products/`);
+        if (!res.ok) throw new Error("Failed to fetch products");
+        const data = await res.json();
+        const arr = Array.isArray(data) ? data : data.results || [];
+
+        if (arr.length > 0 && active) {
+          const mapped = arr
+            .map((p: any, idx: number) => ({
+              id: String(p.id ?? idx),
+              name: p.name,
+              status: p.status || "active",
+              featured: p.featured || false,
+              sortOrder: typeof p.sortOrder === "number" ? p.sortOrder : idx
+            }))
+            .sort((a: any, b: any) => {
+              if (a.featured !== b.featured) return a.featured ? -1 : 1;
+              return a.sortOrder - b.sortOrder;
+            });
+
+          if (mapped.length > 0) {
+            setProducts(mapped);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching products for footer:", err);
+      }
+      if (active) {
+        setProducts(fallbackProducts);
+      }
+    };
+
+    fetchServices();
+    fetchProducts();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <footer className="w-full border-t border-anthem-lightBlue/30 bg-anthem-bgLight/60 backdrop-blur-sm relative z-20">
       <div className="container px-4 py-10 md:px-6 lg:py-16 mx-auto">
         <div className="grid gap-8 lg:grid-cols-4">
-          {/* Logo & Newsletter */}
+          {/* Newsletter & Certification */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 font-bold mb-4 text-anthem-textDark">
-              <div className="relative size-8">
-                <Image
-                  src="/Anthem Logo.png"
-                  alt="Anthem Global Logo"
-                  width={32}
-                  height={32}
-                  className="rounded-lg object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <span className="text-lg font-bold tracking-tight text-anthem-blue">Anthem Global</span>
-            </div>
             <p className="text-sm text-slate-600 mb-6">Our insights to your inbox</p>
             <div className="flex gap-2 max-w-[280px]">
               <input
@@ -96,77 +196,45 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Our Products Links */}
+          {/* Our Products Links (Dynamic Routes) */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider mb-4 text-anthem-textDark">Our Products</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/products" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Product
+                  Product List
                 </Link>
               </li>
-              <li>
-                <Link href="/jeemocktest" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  TCS iON Digital PrepTest
-                </Link>
-              </li>
-              <li>
-                <Link href="/education-erp" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Education ERP
-                </Link>
-              </li>
+              {products.map((p) => (
+                <li key={p.id}>
+                  <Link
+                    href={p.url || `/products/${p.id}`}
+                    className="text-slate-600 hover:text-anthem-blue font-medium transition-colors"
+                  >
+                    {p.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Our Services Links */}
+          {/* Our Services Links (Dynamic Routes) */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider mb-4 text-anthem-textDark">Our Services</h4>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/design-development" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Website Design & Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/costom-software" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Custom Software Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/iphone-app" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Mobility Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/ecommerce" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  E-Commerce Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/digitization" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Digitization & Document Processing
-                </Link>
-              </li>
-              <li>
-                <Link href="/biometric-solution" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Biometric Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/vehicle-tracking-system" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Vehicle Tracking System
-                </Link>
-              </li>
-              <li>
-                <Link href="/outsourcing" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  Outsourcing
-                </Link>
-              </li>
-              <li>
-                <Link href="/ewaste-management" className="text-slate-600 hover:text-anthem-blue font-medium transition-colors">
-                  E-Waste Management
-                </Link>
-              </li>
+              {services.map((s) => {
+                const baseSlug = s.slug || generateServiceSlug(s.id, s.title);
+                return (
+                  <li key={s.id}>
+                    <Link
+                      href={`/it-services/${baseSlug}`}
+                      className="text-slate-600 hover:text-anthem-blue font-medium transition-colors"
+                    >
+                      {s.title}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

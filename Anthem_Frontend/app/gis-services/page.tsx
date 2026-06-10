@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowRight, CircleCheck, Mail, MapPin, Phone } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
+import { fallbackGISServices } from "@/lib/fallback-gis";
 
 type GISService = {
   id: string;
@@ -94,7 +95,7 @@ export default function GISServicesPage() {
       try {
         const response = await fetch(`${API_URL}/api/gis-services/`, { cache: "no-store" });
         if (!response.ok) {
-          if (!cancelled) setServices([]);
+          if (!cancelled) setServices(fallbackGISServices);
           return;
         }
         const data = await response.json();
@@ -105,10 +106,12 @@ export default function GISServicesPage() {
           !s.title.toLowerCase().includes("lidar") &&
           !(s.slug || "").toLowerCase().includes("lidar")
         );
-        if (!cancelled) setServices(filtered);
+        if (!cancelled) {
+          setServices(filtered.length > 0 ? filtered : fallbackGISServices);
+        }
       } catch (error) {
-        console.error("Error fetching GIS services:", error);
-        if (!cancelled) setServices([]);
+        console.error("Error fetching GIS services, using fallback:", error);
+        if (!cancelled) setServices(fallbackGISServices);
       } finally {
         if (!cancelled) setLoading(false);
       }

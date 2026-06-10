@@ -157,8 +157,8 @@ export const ChromaGrid = ({
             <img src={c.image} alt={c.title} loading="lazy" />
           </div>
           <footer className="chroma-info">
-            <h3 className="name">{c.title}</h3>
             {c.handle && <span className="handle">{c.handle}</span>}
+            <h3 className="name">{c.title}</h3>
             <p className="role">{c.subtitle}</p>
             {c.location && <span className="location">{c.location}</span>}
           </footer>

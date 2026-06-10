@@ -257,26 +257,26 @@ export default function WhyAnthemPage() {
             align="center"
           />
 
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden relative group">
+          <div className="max-w-4xl mx-auto bg-white/85 backdrop-blur-sm rounded-2xl border border-white shadow-[0_18px_45px_-24px_rgba(0,59,102,0.35)] overflow-hidden relative group ring-1 ring-[#017ACA]/10">
             <CardCornerMark position="top-right" />
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs md:text-sm">
                 <thead>
-                  <tr className="bg-[#003B66] text-white border-b border-anthem-blue/15">
+                  <tr className="bg-[#003B66] text-white border-b border-white/20">
                     <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px]">Capabilities Matrix</th>
                     <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-anthem-yellow">Anthem Global</th>
-                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-slate-400">Typical Vendors</th>
+                    <th className="p-4 md:p-5 font-bold uppercase tracking-wider text-[10px] text-white/65">Typical Vendors</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 font-medium">
+                <tbody className="divide-y divide-[#017ACA]/10 bg-gradient-to-br from-white via-white/95 to-[#EAF6FC]/75 font-medium">
                   {comparisonData.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                    <tr key={idx} className="hover:bg-white/80 transition-colors">
                       <td className="p-4 md:p-5 text-slate-800 font-extrabold">{row.feature}</td>
                       <td className="p-4 md:p-5 text-[#017ACA] font-bold flex items-center gap-2">
                         <CheckCircle2 className="size-4 text-anthem-yellow shrink-0 fill-[#003B66]" />
                         <span>{row.anthem}</span>
                       </td>
-                      <td className="p-4 md:p-5 text-slate-400 font-medium">{row.others}</td>
+                      <td className="p-4 md:p-5 text-slate-500 font-medium">{row.others}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -343,7 +343,7 @@ export default function WhyAnthemPage() {
                 { name: "Orissa High Court", logo: "/Anthem Assests/client-logo_ohclogog.png" },
                 { name: "East Coast Railway", logo: "/Anthem Assests/client-logo_East-Coast-Railway.png" },
                 { name: "TCS iON", logo: "/Anthem Assests/images_ionlogo.jpg" },
-                { name: "OCAC", logo: "/Anthem Assests/images_Logo-de-CorelDRAW-X7_full.png" },
+                { name: "OCAC", logo: "/images/ocac-logo.png" },
                 { name: "MSME Registered", logo: "/certifications/MSME.png" },
                 { name: "CMGI Odisha", logo: "/Anthem Assests/client-logo_Modernizing-Government.png" },
                 { name: "Startup India", logo: "/certifications/startup-india.png" },

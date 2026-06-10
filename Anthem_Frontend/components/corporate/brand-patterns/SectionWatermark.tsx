@@ -24,7 +24,7 @@ export function SectionWatermark({ className = "", size = 380 }: { className?: s
           fill="#FDCD03"
         />
         {/* Concentric digital tech orbit lines for details */}
-        <circle cx="100" cy="100" r="82" stroke="#00FFE4" strokeWidth="1" strokeDasharray="4 4" />
+        <circle cx="100" cy="100" r="82" stroke="#017ACA" strokeWidth="1" strokeDasharray="4 4" />
         <circle cx="100" cy="100" r="90" stroke="#017ACA" strokeWidth="0.5" />
       </svg>
     </div>

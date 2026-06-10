@@ -1,6 +1,7 @@
 "use client"
 import { Footer } from "@/components/Footer";
 import { API_URL } from '@/lib/config';
+import { fallbackTeamMembers } from "@/lib/fallback-team";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -173,13 +174,50 @@ export default function TeamPage() {
         setTeamMembers(employeesData);
         setAlumniMembers(alumniData);
       } catch (error) {
-        console.error("Error fetching team data:", error);
-        const message = error instanceof Error ? error.message : String(error);
-        setError(`Failed to load team data: ${message}`);
-        setFounders([]);
-        setExecutives([]);
-        setTeamMembers([]);
+        console.error("Error fetching team data, using fallback:", error);
+        const processMember = (member: any) => ({
+          ...member,
+          image: member.image || "/placeholder.svg",
+          bio: member.bio || "Team member at Anthem Global",
+          skills: member.skills || [],
+          department: member.department || "General",
+          location: member.location || "Bhubaneswar, India",
+          joinDate: member.joinDate || "2024",
+          achievements: member.achievements || [],
+          experience: member.experience || "",
+          education: member.education || "",
+          linkedin_url: member.linkedin_url || "",
+          social: member.social || {
+            linkedin: "#",
+            twitter: "#",
+            github: "#",
+            email: "#"
+          }
+        });
+
+        const foundersData = sortByJoinDate(
+          fallbackTeamMembers
+            .filter((member: any) => (member.member_type === 'founder' || member.role.toLowerCase().includes('ceo')) && member.status === 'Active')
+            .map(processMember)
+        );
+
+        const executivesData = sortByJoinDate(
+          fallbackTeamMembers
+            .filter((member: any) => member.member_type === 'executive' && member.status === 'Active')
+            .map(processMember)
+        );
+
+        const employeesData = sortByJoinDate(
+          fallbackTeamMembers
+            .filter((member: any) => member.member_type === 'employee' && member.status === 'Active')
+            .map(processMember)
+        );
+
+        setFounders(foundersData);
+        setExecutives(executivesData);
+        setTeamMembers(employeesData);
         setAlumniMembers([]);
+        setError(null);
       } finally {
         setIsLoading(false);
       }
@@ -466,7 +504,7 @@ export default function TeamPage() {
                         {/* Achievement Badges */}
                         <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                           {member.achievements?.slice(0, 2).map((achievement: string, idx: number) => (
-                            <Badge key={idx} variant="secondary" className="bg-white/20 text-white backdrop-blur-sm">
+                            <Badge key={idx} variant="outline" className="bg-white/20 hover:bg-white/35 text-white border-transparent backdrop-blur-sm transition-colors cursor-default">
                               <Award className="w-3 h-3 mr-1" />
                               {achievement}
                             </Badge>
@@ -475,7 +513,7 @@ export default function TeamPage() {
                       </div>
 
                       <CardContent className="p-7 flex flex-col flex-grow">
-                        <div className="flex items-start justify-between mb-3">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
                           <div>
                             <div className="flex items-center gap-2 mb-1">
                               <h3 className="text-xl font-bold">{member.name}</h3>
@@ -498,14 +536,14 @@ export default function TeamPage() {
                             </div>
                             <p className="text-primary font-semibold text-base">{member.role}</p>
                           </div>
-                          <div className="text-right text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1 mb-1">
+                          <div className="text-left sm:text-right text-sm text-muted-foreground flex-shrink-0 flex flex-row sm:flex-col gap-x-4 gap-y-1 flex-wrap sm:flex-nowrap">
+                            <div className="flex items-center sm:justify-end gap-1">
                               <MapPin className="w-3 h-3" />
-                              {member.location}
+                              <span className="truncate max-w-[150px] sm:max-w-none">{member.location}</span>
                             </div>
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center sm:justify-end gap-1">
                               <Calendar className="w-3 h-3" />
-                              Since {getYearFromDate(member.joinDate)}
+                              <span>Since {getYearFromDate(member.joinDate)}</span>
                             </div>
                           </div>
                         </div>
@@ -610,8 +648,8 @@ export default function TeamPage() {
                         </motion.div>
                       </div>
 
-                      <CardContent className="p-3 md:p-6 flex flex-col flex-grow">
-                        <div className="mb-2 md:mb-4">
+                      <CardContent className="p-4 md:p-6 flex flex-col flex-grow">
+                        <div className="mb-2">
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-sm md:text-xl font-bold">{member.name}</h3>
                             {member.linkedin_url && (
@@ -632,24 +670,24 @@ export default function TeamPage() {
                             )}
                           </div>
                           <p className="text-primary font-semibold text-xs md:text-sm">{member.role}</p>
-                          <div className="flex items-center gap-2 md:gap-4 mt-1 md:mt-2 text-xs text-muted-foreground">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mt-1.5 text-[10px] md:text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
-                              <MapPin className="w-2 h-2 md:w-3 md:h-3" />
-                              {member.location}
+                              <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3 flex-shrink-0" />
+                              <span className="truncate max-w-[100px] sm:max-w-none">{member.location}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                              <Calendar className="w-2 h-2 md:w-3 md:h-3" />
-                              {getYearFromDate(member.joinDate)}
+                              <Calendar className="w-2.5 h-2.5 md:w-3 md:h-3 flex-shrink-0" />
+                              <span>Since {getYearFromDate(member.joinDate)}</span>
                             </div>
                           </div>
                         </div>
 
-                        <p className="text-muted-foreground mb-4 leading-relaxed text-sm line-clamp-2">
+                        <p className="text-muted-foreground mb-2 leading-relaxed text-sm line-clamp-2">
                           <span className="font-medium"></span> {member.education || "Not specified"}
                         </p>
 
                         {/* Skills */}
-                        <div className="flex flex-wrap gap-1 mb-2 md:mb-4">
+                        <div className="flex flex-wrap gap-1 mb-2">
                           {member.skills?.slice(0, 2).map((skill: string, idx: number) => (
                             <Badge key={idx} variant="outline" className="text-xs">
                               {skill}
@@ -788,8 +826,8 @@ export default function TeamPage() {
                           </div>
                           <p className="text-primary font-semibold text-xs md:text-sm">{member.role}</p>
                           <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-                            <MapPin className="w-2 h-2 md:w-3 md:h-3" />
-                            {member.location}
+                            <MapPin className="w-2.5 h-2.5 md:w-3 md:h-3 flex-shrink-0" />
+                            <span className="truncate max-w-[120px] md:max-w-none">{member.location}</span>
                           </div>
                         </div>
 

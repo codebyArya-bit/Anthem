@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowLeft, ChevronRight, CircleCheck, Phone, Sparkles } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
+import { fallbackGISServices } from "@/lib/fallback-gis";
 
 type UseCase = {
   image: string;
@@ -81,8 +82,8 @@ export default function GISServiceDetailPage() {
     const cleaned = sanitizeRemoteUrl(imagePath);
     if (!cleaned) return fallback;
     if (cleaned.startsWith("http")) return cleaned;
-    const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-    return `${API_URL}${normalized}`;
+    if (cleaned.startsWith("/")) return cleaned;
+    return `${API_URL}/${cleaned}`;
   };
 
   useEffect(() => {
@@ -93,7 +94,10 @@ export default function GISServiceDetailPage() {
       try {
         const response = await fetch(`${API_URL}/api/gis-services/${serviceId}/`, { cache: "no-store" });
         if (!response.ok) {
-          if (!cancelled) setService(null);
+          if (!cancelled) {
+            const fb = fallbackGISServices.find(s => s.slug === serviceId || s.id === serviceId);
+            setService(fb || null);
+          }
           return;
         }
         const data: GISService = await response.json();
@@ -113,7 +117,10 @@ export default function GISServiceDetailPage() {
         }
       } catch (error) {
         console.error("Error fetching GIS service:", error);
-        if (!cancelled) setService(null);
+        if (!cancelled) {
+          const fb = fallbackGISServices.find(s => s.slug === serviceId || s.id === serviceId);
+          setService(fb || null);
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }

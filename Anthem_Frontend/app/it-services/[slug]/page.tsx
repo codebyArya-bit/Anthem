@@ -18,6 +18,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { fallbackITServices } from "@/lib/fallback-it-services";
 
 type ExploreSubsection = {
   slug: string;
@@ -75,6 +76,8 @@ const LIDAR_SUBSECTIONS = [
   { slug: "bathymetry-mapping", title: "Bathymetry Mapping" },
 ];
 
+// Fallback services moved to lib/fallback-it-services.ts
+
 export default function ServiceDetailPage({
   params,
 }: {
@@ -87,8 +90,7 @@ export default function ServiceDetailPage({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
-
-  // ... (rest of the state and handlers remain the same)
+  const [imageError, setImageError] = useState(false);
 
   // Check if current service is LiDAR
   const isLidarService = service?.title.toLowerCase().includes("lidar");
@@ -124,6 +126,9 @@ export default function ServiceDetailPage({
     const cleaned = imagePath.trim().replace(/^`+/, "").replace(/`+$/, "").trim();
     if (!cleaned) return fallback;
     if (cleaned.startsWith("http")) return cleaned;
+    if (cleaned.startsWith("/") && (cleaned.startsWith("/images/") || cleaned.startsWith("/anthemgt-media/") || cleaned.startsWith("/certifications/") || cleaned.startsWith("/office_images/") || cleaned.startsWith("/placeholder"))) {
+      return cleaned;
+    }
     const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
     return `${API_URL}${normalized}`;
   };
@@ -158,10 +163,16 @@ export default function ServiceDetailPage({
 
         const allServicesResponse = await fetch(`${API_URL}/api/services/`, {
           cache: "no-store",
-        });
-        const allServices: Service[] = allServicesResponse.ok
-          ? await allServicesResponse.json()
-          : [];
+        }).catch(() => null);
+        
+        let allServices: Service[] = [];
+        if (allServicesResponse && allServicesResponse.ok) {
+          allServices = await allServicesResponse.json();
+        }
+
+        if (allServices.length === 0) {
+          allServices = fallbackITServices;
+        }
 
         const matched = findServiceBySlug(allServices, params.slug);
         const idCandidates = matched
@@ -171,17 +182,11 @@ export default function ServiceDetailPage({
         let serviceData: Service | null = null;
 
         for (const candidateId of idCandidates) {
-          const res = await fetch(`${API_URL}/api/services/${candidateId}/`, {
-            cache: "no-store",
-          });
-
-          if (res.ok) {
-            serviceData = await res.json();
+          // Attempt to match from allServices (which includes fallbacks)
+          const localMatch = allServices.find(s => s.id === candidateId || s.slug === candidateId);
+          if (localMatch) {
+            serviceData = localMatch;
             break;
-          }
-
-          if (res.status !== 404) {
-            throw new Error(`HTTP error! status: ${res.status}`);
           }
         }
 
@@ -190,40 +195,11 @@ export default function ServiceDetailPage({
         }
 
         if (cancelled) return;
-        if (!serviceData) {
-          if (!cancelled) {
-            setService(null);
-            setDevelopers([]);
-            setRelatedServices([]);
-          }
-          return;
-        }
-
-        const resolvedServiceData = serviceData;
-
-        setService(resolvedServiceData);
-
-        // Fetch all team members to get developer details
-        if (
-          resolvedServiceData.developers &&
-          resolvedServiceData.developers.length > 0
-        ) {
-          const teamResponse = await fetch(`${API_URL}/api/team/`, {
-            cache: "no-store",
-          });
-          if (teamResponse.ok) {
-            const teamData: TeamMember[] = await teamResponse.json();
-            const serviceDevelopers = teamData.filter((member) =>
-              resolvedServiceData.developers.includes(member.id)
-            );
-            if (!cancelled) setDevelopers(serviceDevelopers);
-          }
-        } else {
-          setDevelopers([]);
-        }
+        setService(serviceData);
+        setDevelopers([]);
 
         const related = allServices
-          .filter((s) => s.status === "active" && s.id !== resolvedServiceData.id)
+          .filter((s) => s.status === "active" && s.id !== serviceData.id)
           .sort((a, b) => a.sort_order - b.sort_order)
           .slice(0, 3);
 
@@ -330,13 +306,26 @@ export default function ServiceDetailPage({
             </div>
 
             <div className="relative">
-              <div className="relative h-64 md:h-96 overflow-hidden rounded-2xl shadow-2xl">
-                <img
-                  src={getImageUrl(service.image, "/placeholder.svg")}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="relative h-64 md:h-96 overflow-hidden rounded-2xl shadow-2xl bg-slate-50">
+                {imageError ? (
+                  <div className="w-full h-full bg-gradient-to-br from-[#017ACA]/10 via-[#F4FAFF] to-[#017ACA]/5 flex flex-col items-center justify-center border border-[#017ACA]/10 p-6 text-center select-none">
+                    <div className="size-16 rounded-full bg-white shadow-md border border-[#017ACA]/10 flex items-center justify-center mb-4">
+                      <span className="text-2xl">💻</span>
+                    </div>
+                    <h4 className="font-bold text-[#003B66] text-lg mb-1">{service.title}</h4>
+                    <p className="text-xs text-slate-500 max-w-xs">{service.description}</p>
+                  </div>
+                ) : (
+                  <>
+                    <img
+                      src={getImageUrl(service.image, "/placeholder.svg")}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                      onError={() => setImageError(true)}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  </>
+                )}
               </div>
             </div>
           </div>

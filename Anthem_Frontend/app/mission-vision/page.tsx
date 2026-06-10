@@ -155,7 +155,7 @@ export default function MissionVisionPage() {
         <SectionWatermark className="bottom-[15%] left-[2%] opacity-[0.02]" size={360} />
 
         <section
-          className="group relative mb-14 overflow-hidden rounded-[2rem] border border-anthem-blue/10 bg-[#003B66] shadow-[0_24px_80px_rgba(0,59,102,0.12)]"
+          className="group relative mb-14 overflow-hidden rounded-[2rem] border border-[#017ACA]/10 bg-gradient-to-b from-[#F4FAFF] via-white to-[#EAF6FD] shadow-[0_24px_70px_rgba(0,59,102,0.06)]"
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect()
             const x = ((e.clientX - rect.left) / rect.width) * 100
@@ -164,28 +164,18 @@ export default function MissionVisionPage() {
           }}
           onMouseLeave={() => setCursor({ x: 50, y: 35 })}
         >
-          <div className="absolute inset-0 opacity-90">
-            <SoftAurora
-              speed={0.45}
-              scale={1.65}
-              brightness={0.9}
-              color1="#017ACA"
-              color2="#003B66"
-              noiseFrequency={1.8}
-              noiseAmplitude={1.05}
-              bandHeight={0.44}
-              bandSpread={0.9}
-              octaveDecay={0.42}
-              colorSpeed={0.8}
-              mouseInfluence={0.18}
-            />
+          {/* Lighter grid and premium mesh gradient from the Anthem palette */}
+          <div className="absolute inset-0 pointer-events-none -z-10 select-none overflow-hidden">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.045)_1px,transparent_1px)] bg-[size:36px_36px]" />
+            <div className="absolute left-[-12%] top-[-25%] h-[420px] w-[420px] rounded-full bg-[#017ACA]/10 blur-[100px] animate-blob opacity-80" />
+            <div className="absolute right-[-10%] top-[10%] h-[360px] w-[360px] rounded-full bg-[#FDCD02]/12 blur-[110px] animate-blob animation-delay-2000 opacity-70" />
+            <div className="absolute bottom-[-20%] left-[20%] h-[380px] w-[380px] rounded-full bg-[#017ACA]/7 blur-[120px] animate-blob animation-delay-4000 opacity-60" />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#003B66]/95 via-[#003B66]/72 to-[#003B66]/25" />
           <motion.div
             aria-hidden="true"
             animate={{ left: `${cursor.x}%`, top: `${cursor.y}%` }}
             transition={{ type: "spring", stiffness: 60, damping: 18 }}
-            className="pointer-events-none absolute h-72 w-72 rounded-full bg-anthem-blue/12 blur-3xl"
+            className="pointer-events-none absolute h-72 w-72 rounded-full bg-[#017ACA]/5 blur-3xl"
             style={{ transform: "translate(-50%, -50%)" }}
           />
           <div className="relative grid gap-8 lg:grid-cols-[1.08fr_0.92fr] items-center p-6 md:p-10 xl:p-14">
@@ -195,14 +185,14 @@ export default function MissionVisionPage() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="max-w-3xl"
             >
-              <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.26em] text-anthem-yellow">
-                <span className="h-px w-12 bg-anthem-yellow" />
+              <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.26em] text-[#017ACA]">
+                <span className="h-px w-12 bg-[#017ACA]" />
                 Vision & Mission
               </div>
-              <h1 className="text-4xl font-black tracking-tight text-[#FFFFFF] md:text-6xl lg:text-7xl">
+              <h1 className="text-4xl font-black tracking-tight text-[#003B66] md:text-6xl lg:text-7xl">
                 Systems that protect records and move public work forward.
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-[#E2E8F0] md:text-lg lg:text-xl">
+              <p className="mt-6 max-w-2xl text-base leading-8 text-[#475569] md:text-lg lg:text-xl">
                 Anthem Global builds secure, dependable digital systems for records, services, and institutional workflows. The focus is practical delivery, clear outcomes, and work that holds up in the real world.
               </p>
 
@@ -211,7 +201,7 @@ export default function MissionVisionPage() {
                   <a
                     key={item.href}
                     href={item.href}
-                    className="rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur-md transition-all hover:border-anthem-blue/40 hover:bg-white/14 hover:text-white"
+                    className="rounded-full border border-[#017ACA]/15 bg-white/80 px-4 py-2 text-sm font-semibold text-[#017ACA] backdrop-blur-md transition-all hover:bg-[#017ACA] hover:text-white hover:shadow-sm"
                   >
                     {item.label}
                   </a>
@@ -223,7 +213,7 @@ export default function MissionVisionPage() {
                   href="#values"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="rounded-xl bg-anthem-yellow px-5 py-3 text-sm font-bold text-[#003B66] shadow-lg shadow-anthem-yellow/20 transition-colors hover:bg-anthem-yellow/90"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#017ACA] px-5 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#005B99] hover:text-white hover:shadow-lg hover:shadow-[#017ACA]/25 active:scale-95"
                 >
                   Explore Values
                 </motion.a>
@@ -231,7 +221,7 @@ export default function MissionVisionPage() {
                   href="/contact"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white backdrop-blur-md transition-colors hover:bg-white/12"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#017ACA]/30 bg-[#F4FAFF] px-5 py-3 text-sm font-semibold text-[#017ACA] transition-all duration-300 hover:bg-[#017ACA] hover:text-white hover:shadow-lg hover:shadow-[#017ACA]/25 active:scale-95"
                 >
                   Partner With Us
                 </motion.a>
@@ -249,10 +239,10 @@ export default function MissionVisionPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: 0.35 + idx * 0.08 }}
                     whileHover={{ y: -4 }}
-                    className="rounded-2xl border border-white/10 bg-white/8 p-4 backdrop-blur-md"
+                    className="rounded-2xl border border-[#017ACA]/15 bg-white/80 p-4 shadow-sm"
                   >
-                    <div className="text-2xl font-black text-anthem-yellow md:text-3xl">{stat.value}</div>
-                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-300">{stat.label}</div>
+                    <div className="text-2xl font-black text-[#003B66] md:text-3xl">{stat.value}</div>
+                    <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-[#64748B]">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -267,9 +257,9 @@ export default function MissionVisionPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <motion.div
                   whileHover={{ y: -6, rotate: -1 }}
-                  className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/8 shadow-2xl backdrop-blur-md sm:col-span-2"
+                  className="relative overflow-hidden rounded-[1.75rem] border border-[#017ACA]/15 bg-white/80 shadow-[0_12px_35px_rgba(0,59,102,0.08)] backdrop-blur sm:col-span-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/8 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent" />
                   <Image
                     src="/Anthem Assests/images_ban-mission-vision.jpg"
                     alt="Mission and vision banner"
@@ -280,10 +270,10 @@ export default function MissionVisionPage() {
                   />
                   <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
                     <div>
-                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-anthem-yellow">Highlighted Focus</div>
-                      <div className="mt-1 text-lg font-black text-white md:text-xl">Secure delivery with public value</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#017ACA]">Highlighted Focus</div>
+                      <div className="mt-1 text-lg font-black text-[#003B66] md:text-xl">Secure delivery with public value</div>
                     </div>
-                    <div className="rounded-full bg-anthem-yellow px-3 py-1.5 text-xs font-bold text-[#003B66] shadow-lg">
+                    <div className="rounded-full bg-[#017ACA] px-3 py-1.5 text-xs font-bold text-white shadow-lg">
                       Live Strategy
                     </div>
                   </div>
@@ -296,7 +286,7 @@ export default function MissionVisionPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 + idx * 0.08 }}
                     whileHover={{ y: -5, scale: 1.01 }}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/8 shadow-xl backdrop-blur-md"
+                    className="group relative overflow-hidden rounded-2xl border border-[#017ACA]/15 bg-white/80 shadow-[0_12px_35px_rgba(0,59,102,0.06)] backdrop-blur"
                   >
                     <Image
                       src={image.src}
@@ -305,9 +295,9 @@ export default function MissionVisionPage() {
                       height={650}
                       className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#00232A]/80 via-[#00232A]/16 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
-                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-anthem-yellow">{image.title}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FDCD02]">{image.title}</div>
                     </div>
                   </motion.div>
                 ))}
@@ -515,9 +505,9 @@ export default function MissionVisionPage() {
                     className="relative z-10 flex flex-col items-center focus:outline-none group"
                   >
                     <motion.div
-                      className={`px-3 py-1.5 rounded-full border-2 flex items-center justify-center font-bold text-[10px] whitespace-nowrap shadow-md transition-all ${activeMilestone === idx
-                        ? "bg-[#003B66] border-anthem-blue text-[#FFFFFF]"
-                        : "bg-white border-slate-300 text-slate-600 hover:border-[#017ACA]"
+                      className={`px-3 py-1.5 rounded-full border flex items-center justify-center font-bold text-[10px] whitespace-nowrap transition-all duration-300 ${activeMilestone === idx
+                        ? "border-[#017ACA] bg-[#017ACA] text-white shadow-[0_10px_24px_rgba(1,122,202,0.20)]"
+                        : "border-[#017ACA]/15 bg-white text-[#475569] hover:border-[#017ACA]/35 hover:bg-[#F4FAFF] hover:text-[#017ACA]"
                         }`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -545,7 +535,7 @@ export default function MissionVisionPage() {
                     <Card className="border border-slate-200 shadow-md bg-white relative overflow-hidden rounded-2xl">
                       <CardCornerMark position="top-right" />
                       <CardContent className="p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        <div className="px-4 py-3 min-w-[90px] rounded-2xl bg-gradient-to-br from-[#003B66] to-[#017ACA] text-[#FFFFFF] font-black text-sm flex items-center justify-center text-center shadow shrink-0">
+                        <div className="px-4 py-3 min-w-[90px] rounded-2xl bg-[#EAF6FD] border border-[#017ACA]/20 text-[#003B66] font-black text-sm flex items-center justify-center text-center shadow-sm shrink-0">
                           {journeyEvents[activeMilestone].year}
                         </div>
                         <div className="space-y-2">

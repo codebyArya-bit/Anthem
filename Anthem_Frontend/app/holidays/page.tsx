@@ -477,7 +477,7 @@ export default function HolidaysPage() {
                               <div className="text-white">
                                 {holiday.icon}
                               </div>
-                              <Badge className="bg-white/20 text-white backdrop-blur-sm">
+                              <Badge variant="outline" className="bg-white/20 hover:bg-white/35 text-white border-transparent backdrop-blur-sm transition-colors cursor-default">
                                 {holiday.date}
                               </Badge>
                             </div>
@@ -582,7 +582,7 @@ export default function HolidaysPage() {
                               <div className="text-white">
                                 {holiday.icon}
                               </div>
-                              <Badge className="bg-white/20 text-white backdrop-blur-sm">
+                              <Badge variant="outline" className="bg-white/20 hover:bg-white/35 text-white border-transparent backdrop-blur-sm transition-colors cursor-default">
                                 {holiday.date}
                               </Badge>
                             </div>

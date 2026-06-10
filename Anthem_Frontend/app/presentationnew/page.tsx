@@ -178,10 +178,10 @@ export default function PresentationNewPage() {
                             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-slate-50 text-[#017ACA]">
                               <Icon className="size-5 shrink-0" />
                             </div>
-                            <Badge variant="anthem" className="rounded-md px-2.5 py-1 border border-anthem-blue/20 bg-slate-50 text-anthem-navy">
+                            <Badge variant="outline" className="group rounded-md border border-[#017ACA]/20 bg-white px-2.5 py-1 text-[#003B66] shadow-sm transition-all duration-300 hover:border-[#017ACA] hover:bg-[#017ACA] hover:text-white hover:shadow-[0_8px_24px_rgba(1,122,202,0.18)]">
                               <span className="flex items-center gap-1 font-bold text-[10px]">
                                 <span>{deck.category.split(" & ")[0]}</span>
-                                <ArrowAccent size={8} direction="right" />
+                                <ArrowAccent size={8} direction="right" className="transition-transform duration-300 group-hover:translate-x-0.5" />
                               </span>
                             </Badge>
                           </div>
@@ -201,13 +201,12 @@ export default function PresentationNewPage() {
                         
                         <Button
                           asChild
-                          className="w-full rounded-xl flex items-center justify-center gap-2 group bg-gradient-to-r from-[#003B66] to-[#017ACA] text-white border-0 text-xs font-bold uppercase tracking-wider hover:from-[#017ACA] hover:to-[#003B66] transition-all"
+                          className="group flex h-10 w-full items-center justify-center gap-2 rounded-full border-0 bg-[#017ACA] px-5 py-2 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(1,122,202,0.22)] transition-all duration-300 hover:bg-[#005B99] hover:text-white hover:shadow-[0_16px_36px_rgba(1,122,202,0.28)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#017ACA]/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
                           size="sm"
                         >
                           <a href={deck.file} download onClick={() => handleDownload(deck.title)}>
-                            <Download className="size-4 group-hover:translate-y-0.5 transition-transform" />
-                            <span>Download Slide Deck</span>
-                            <ArrowAccent size={11} direction="right" className="text-anthem-yellow" />
+                            <Download className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                            <span>Download PPT</span>
                           </a>
                         </Button>
                       </div>

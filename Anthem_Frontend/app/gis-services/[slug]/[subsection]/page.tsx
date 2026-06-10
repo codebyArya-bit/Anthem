@@ -9,6 +9,7 @@ import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { fallbackGISServices } from "@/lib/fallback-gis";
 
 type UseCase = {
   image: string;
@@ -82,8 +83,8 @@ export default function GISExploreSubsectionPage() {
     const cleaned = sanitizeRemoteUrl(imagePath);
     if (!cleaned) return fallback;
     if (cleaned.startsWith("http")) return cleaned;
-    const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-    return `${API_URL}${normalized}`;
+    if (cleaned.startsWith("/")) return cleaned;
+    return `${API_URL}/${cleaned}`;
   };
 
   const [service, setService] = useState<GISService | null>(null);
@@ -102,32 +103,46 @@ export default function GISExploreSubsectionPage() {
         const [subRes, svcRes] = await Promise.all([
           fetch(`${API_URL}/api/gis-services/${serviceSlug}/${subsectionSlug}/`, {
             cache: "no-store",
+          }).catch(err => {
+            console.warn("Failed to fetch GIS subsection API", err);
+            return null;
           }),
           fetch(`${API_URL}/api/gis-services/${serviceSlug}/`, {
             cache: "no-store",
+          }).catch(err => {
+            console.warn("Failed to fetch GIS service API", err);
+            return null;
           }),
         ]);
 
         let subsectionData: ExploreSubsection | null = null;
-        if (subRes.ok) {
+        if (subRes && subRes.ok) {
           const data: SubsectionApiResponse = await subRes.json();
           subsectionData = data?.subsection || null;
-          if (!cancelled) setSubsection(subsectionData);
-        } else if (!cancelled) {
-          setSubsection(null);
+        } else {
+          const fallbackSvc = fallbackGISServices.find(
+            (s) => s.slug === serviceSlug || s.id === serviceSlug
+          );
+          subsectionData = fallbackSvc?.explore?.subsections.find(
+            (sub) => sub.slug === subsectionSlug
+          ) || null;
         }
+        if (!cancelled) setSubsection(subsectionData);
 
-        if (svcRes.ok) {
+        if (svcRes && svcRes.ok) {
           const svc: GISService = await svcRes.json();
           if (!cancelled) setService(svc);
-        } else if (!cancelled) {
-          setService(null);
+        } else {
+          const fallbackSvc = fallbackGISServices.find(
+            (s) => s.slug === serviceSlug || s.id === serviceSlug
+          );
+          if (!cancelled) setService(fallbackSvc || null);
         }
 
         const devIds = Array.isArray(subsectionData?.developers) ? subsectionData!.developers! : [];
         if (devIds.length > 0) {
-          const teamRes = await fetch(`${API_URL}/api/team/`, { cache: "no-store" });
-          if (teamRes.ok) {
+          const teamRes = await fetch(`${API_URL}/api/team/`, { cache: "no-store" }).catch(() => null);
+          if (teamRes && teamRes.ok) {
             const teamData: TeamMember[] = await teamRes.json();
             const filtered = teamData.filter((m) => devIds.includes(m.id));
             if (!cancelled) setTeam(filtered);
@@ -137,6 +152,8 @@ export default function GISExploreSubsectionPage() {
         } else if (!cancelled) {
           setTeam([]);
         }
+      } catch (error) {
+        console.error("Error fetching GIS subsection:", error);
       } finally {
         if (!cancelled) setLoading(false);
       }

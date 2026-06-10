@@ -1,6 +1,7 @@
 "use client";
 
 import { API_URL } from "@/lib/config";
+import { fallbackProjects } from "@/lib/fallback-projects";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -136,15 +137,24 @@ export default function ProjectDetailsPage() {
           throw new Error("Failed to load projects database");
         }
         const data = (await response.json()) as Project[];
-        const foundProject = data.find((p) => String(p.id) === String(id));
+        let foundProject = data.find((p) => String(p.id) === String(id));
+        if (!foundProject) {
+          foundProject = (fallbackProjects as any[]).find((p) => String(p.id) === String(id));
+        }
         if (foundProject) {
           setProject(foundProject);
         } else {
           setError("Project not found");
         }
       } catch (err: any) {
-        console.error("Error fetching project details:", err);
-        setError(err.message || "Failed to load project details");
+        console.error("Error fetching project details, trying fallback data:", err);
+        const foundProject = (fallbackProjects as any[]).find((p) => String(p.id) === String(id));
+        if (foundProject) {
+          setProject(foundProject);
+          setError(null);
+        } else {
+          setError(err.message || "Failed to load project details");
+        }
       } finally {
         setLoading(false);
       }

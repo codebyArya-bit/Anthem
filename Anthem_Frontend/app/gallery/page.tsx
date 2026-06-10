@@ -15,13 +15,38 @@ interface GalleryItem {
   created_at: string;
 }
 
+const fallbackGallery: GalleryItem[] = [
+  {
+    id: "g-1",
+    title: "Team Spirit & Collaboration",
+    description: "Collaborative, open conversations, and deep technical mentorship form the foundation of our execution squads.",
+    category: "office",
+    image: "/Anthem Home Page Photo/A Team Spirit.jpg",
+    created_at: "2025-01-01"
+  },
+  {
+    id: "g-2",
+    title: "Chandaka Campus Workspace",
+    description: "State-of-the-art corporate infrastructure designed to keep our engineers focused and secure.",
+    category: "office",
+    image: "/Anthem Home Page Photo/Comfortable Workspace.jpg",
+    created_at: "2025-01-02"
+  },
+  {
+    id: "g-3",
+    title: "From Ideas to Impact",
+    description: "We brainstorm together, execute with discipline, and celebrate national delivery successes together.",
+    category: "events",
+    image: "/Anthem Home Page Photo/From Ideas to Impact.jpg",
+    created_at: "2025-01-03"
+  }
+];
+
 export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  // const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 
   // Fetch gallery data from API
   useEffect(() => {
@@ -37,8 +62,9 @@ export default function GalleryPage() {
         const data = await response.json()
         setGalleryItems(data)
       } catch (err) {
-        console.error('Error fetching gallery data:', err)
-        setError('Failed to load gallery images')
+        console.error('Error fetching gallery data, using fallback:', err)
+        setGalleryItems(fallbackGallery)
+        setError(null)
       } finally {
         setLoading(false)
       }

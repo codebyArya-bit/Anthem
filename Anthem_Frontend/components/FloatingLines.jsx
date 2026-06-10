@@ -499,7 +499,7 @@ export default function FloatingLines({
   ]);
 
   if (webglError) {
-    return <div className="w-full h-full bg-[#00232A]/20" />;
+    return <div className="w-full h-full bg-[#003B66]/20" />;
   }
 
   return (

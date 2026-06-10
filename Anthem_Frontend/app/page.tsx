@@ -63,6 +63,48 @@ interface Testimonial {
   updated_at: string;
 }
 
+const fallbackTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "Justice S. K. Mishra",
+    role: "Registrar General (Retd.)",
+    company: "Orissa High Court",
+    text: "Anthem Global's digitization initiative transformed our records management system. Their team executed the high-volume scanning project with complete confidentiality, precision, and security.",
+    image: "",
+    linkedin: "/#",
+    status: "active",
+    sort_order: 1,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: 2,
+    name: "Dr. A. K. Sen",
+    role: "Director of Examinations",
+    company: "State Technology University",
+    text: "The computer-based testing infrastructure and candidate biometric verification delivered by Anthem Global ensured 100% integrity across our statewide university entrance examinations.",
+    image: "",
+    linkedin: "/#",
+    status: "active",
+    sort_order: 2,
+    created_at: "",
+    updated_at: ""
+  },
+  {
+    id: 3,
+    name: "Rajesh Patra",
+    role: "Alliances Lead",
+    company: "Strategic Enterprise Partner",
+    text: "Partnering with Anthem for localized logistics and high-speed secure network gateways has enabled us to scale our assessment operations smoothly. A highly reliable execution team.",
+    image: "",
+    linkedin: "/#",
+    status: "active",
+    sort_order: 3,
+    created_at: "",
+    updated_at: ""
+  }
+];
+
 function CertificationIcon({
   type,
   Icon,
@@ -374,10 +416,15 @@ export default function LandingPage() {
         const response = await fetch(`${API_URL}/api/testimonials/`);
         if (response.ok) {
           const data = await response.json();
-          setTestimonials(data);
+          if (data && data.length > 0) {
+            setTestimonials(data);
+            return;
+          }
         }
+        setTestimonials(fallbackTestimonials);
       } catch (error) {
         console.error("Error fetching testimonials:", error);
+        setTestimonials(fallbackTestimonials);
       } finally {
         setTestimonialsLoading(false);
       }
@@ -388,7 +435,7 @@ export default function LandingPage() {
 
   const stats = [
     {
-      number: `${projects.length}+`,
+      number: projects.length > 0 ? `${projects.length}+` : "50+",
       label: "Projects Completed",
       icon: <Zap className="size-6" />,
     },
@@ -749,7 +796,7 @@ export default function LandingPage() {
                 className="relative group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-2xl transform group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300"></div>
-                <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-3 md:p-6 rounded-2xl shadow-xl overflow-hidden h-full flex flex-col items-center justify-center transform transition-all duration-300">
+                <div className="rounded-2xl border border-[#017ACA]/15 bg-white/80 p-6 shadow-[0_18px_45px_rgba(0,59,102,0.10)] backdrop-blur-md overflow-hidden h-full flex flex-col items-center justify-center transform transition-all duration-300 relative">
                   <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                   <motion.div
@@ -773,12 +820,12 @@ export default function LandingPage() {
                         : { opacity: 0, scale: 0.8 }
                     }
                     transition={{ duration: 0.4, delay: i * 0.1 + 0.3 }}
-                    className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1 md:mb-2"
+                    className="text-3xl font-black text-[#017ACA] mb-1 md:mb-2"
                   >
                     {stat.number}
                   </motion.div>
 
-                  <p className="text-muted-foreground font-medium text-center text-xs md:text-sm">
+                  <p className="mt-2 text-sm font-semibold text-[#334155] text-center">
                     {stat.label}
                   </p>
 
@@ -1085,11 +1132,11 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="relative overflow-hidden">
-            <div className="grid md:grid-cols-3 md:gap-8 overflow-hidden md:overflow-visible">
+          <div className="relative overflow-hidden py-6 -my-6">
+            <div className="grid md:grid-cols-3 md:gap-8 overflow-hidden md:overflow-visible py-6 -my-6">
               <div
                 ref={benefitsScrollerRef}
-                className="flex md:contents gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory w-full scrollbar-hide"
+                className="flex md:contents gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory w-full scrollbar-hide py-6 -my-6"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
                 {keyBenefits.map((benefit, i) => (

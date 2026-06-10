@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { API_URL } from "@/lib/config";
 import { generateSlug, getMemberBySlug, resolveSlug } from "@/lib/team";
+import { fallbackTeamMembers } from "@/lib/fallback-team";
 
 export default function TeamMemberPage() {
   const params = useParams();
@@ -45,13 +46,29 @@ export default function TeamMemberPage() {
   useEffect(() => {
     async function fetchMember() {
       try {
-        const response = await fetch(`${API_URL}/api/team/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        setLoading(true);
+        let data = [];
+        try {
+          const response = await fetch(`${API_URL}/api/team/`);
+          if (response.ok) {
+            data = await response.json();
+          } else {
+            console.warn(`Fetch returned status ${response.status}, using local fallback.`);
+          }
+        } catch (e) {
+          console.error("API error, will try fallback team list:", e);
+        }
 
-        const data = await response.json();
+        // Merge API data with fallback data
+        const mergedMembers = [...data];
+        fallbackTeamMembers.forEach(fb => {
+          if (!mergedMembers.some(m => generateSlug(m.name) === generateSlug(fb.name))) {
+            mergedMembers.push(fb);
+          }
+        });
 
         // 🔑 Resolve short or partial slug to canonical form
-        const canonicalSlug = resolveSlug(slug, data);
+        const canonicalSlug = resolveSlug(slug, mergedMembers);
 
         if (!canonicalSlug) {
           setMember(null);
@@ -66,7 +83,7 @@ export default function TeamMemberPage() {
         }
 
         // ✅ Now safe to fetch member with canonical slug
-        const foundMember = getMemberBySlug(canonicalSlug, data);
+        const foundMember = getMemberBySlug(canonicalSlug, mergedMembers);
 
         if (!foundMember) {
           setMember(null);

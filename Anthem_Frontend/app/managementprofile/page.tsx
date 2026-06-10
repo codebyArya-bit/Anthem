@@ -1,14 +1,13 @@
 "use client"
-import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia";
 
+import React from "react"
+import Link from "next/link"
+import { Home, ChevronRight } from "lucide-react"
+import { AnthemRouteMedia } from "@/components/anthemgt/AnthemRouteMedia"
 import { Footer } from "@/components/Footer"
-import { PageHero } from "@/components/corporate/PageHero"
-import { SectionHeading } from "@/components/corporate/SectionHeading"
 import { ProfileCard } from "@/components/corporate/ProfileCard"
 import { TiltedCard } from "@/components/reactbits/TiltedCard"
-import { Users } from "lucide-react"
 import { SectionWatermark } from "@/components/corporate/brand-patterns/SectionWatermark"
-import { DataLineDivider } from "@/components/corporate/brand-patterns/DataLineDivider"
 import { BrandCTA } from "@/components/corporate/brand-patterns/BrandCTA"
 
 const managementTeam = [
@@ -97,31 +96,54 @@ const managementTeam = [
 
 export default function ManagementProfilePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-anthem-bg text-slate-800 relative overflow-hidden">
-      <PageHero
-        title="Management Profile"
-        description="Anthem Global is steered by visionary leaders and technical pioneers who combine decades of national and international experience in software systems, e-governance, and enterprise project execution."
-        image="/Anthem Assests/images_ban-managprofile.jpg"
-        icon={Users}
-        stats={[
-          { value: "46+ Yrs", label: "Consulting expertise" },
-          { value: "45+", label: "STPI centers managed" },
-        ]}
-        darkTheme={true}
-      />
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-[#F4FAFF] via-white to-[#EAF6FD] text-slate-800 relative overflow-hidden">
+      
+      {/* Custom Redesigned Premium Light Executive Hero Section */}
+      <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24 border-b border-[#017ACA]/10">
+        {/* Soft background grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
+        {/* Soft blue glow */}
+        <div className="absolute left-[-10%] top-[-25%] h-[500px] w-[500px] rounded-full bg-[#017ACA]/5 blur-[110px] pointer-events-none" />
+
+        {/* Soft yellow glow */}
+        <div className="absolute right-[-10%] bottom-[-20%] h-[500px] w-[500px] rounded-full bg-[#FDCD02]/7 blur-[110px] pointer-events-none" />
+
+        <div className="container relative mx-auto px-4 md:px-6 z-10">
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-2 text-xs md:text-sm text-slate-500 mb-8 max-w-5xl mx-auto">
+            <Link href="/" className="hover:text-[#017ACA] transition-colors flex items-center gap-1">
+              <Home className="size-3.5" /> Home
+            </Link>
+            <ChevronRight className="size-3.5 opacity-50" />
+            <span className="opacity-80">Who We Are</span>
+            <ChevronRight className="size-3.5 opacity-50" />
+            <span className="text-[#017ACA] font-semibold">Management Profile</span>
+          </div>
+
+          <div className="mx-auto max-w-5xl text-center">
+            <div className="mx-auto mb-6 inline-flex items-center rounded-full border border-[#017ACA]/15 bg-white/95 px-4.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[#017ACA] shadow-sm">
+              Leadership & Governance
+            </div>
+
+            <h1 className="text-4xl font-black tracking-tight text-[#003B66] md:text-6xl leading-tight">
+              Management Profile
+            </h1>
+
+            <div className="mx-auto mt-6 h-[4px] w-20 rounded-full bg-gradient-to-r from-[#FDCD02] via-[#017ACA] to-[#FDCD02]" />
+
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#475569] md:text-lg font-medium">
+              Meet the leadership team guiding Anthem Global with decades of experience, integrity, and a commitment to technology-driven progress.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <main className="container mx-auto px-4 py-16 md:px-6 md:py-20 relative">
-        <SectionWatermark className="top-[20%] right-[3%] opacity-[0.015]" size={420} />
+        <SectionWatermark className="top-[15%] right-[3%] opacity-[0.015]" size={420} />
         <SectionWatermark className="bottom-[25%] left-[2%] opacity-[0.02]" size={380} />
         
-        <SectionHeading
-          eyebrow="Visionary Leadership"
-          title="Steering Anthem's Technological Vision"
-          description="Our leadership combines global software craftsmanship with massive public-sector implementation track records."
-          align="center"
-        />
-
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 max-w-[1400px] mx-auto relative z-10 mt-12 items-stretch">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 max-w-[1400px] mx-auto relative z-10 items-stretch">
           {managementTeam.map((member) => (
             <TiltedCard key={member.name} className="h-full w-full" scale={1.005} maxRotate={1.5}>
               <ProfileCard
@@ -150,9 +172,8 @@ export default function ManagementProfilePage() {
         />
       </main>
 
-      
       <AnthemRouteMedia slug="managementprofile" />
-<Footer />
+      <Footer />
     </div>
   )
 }

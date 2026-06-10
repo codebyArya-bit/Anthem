@@ -11,14 +11,14 @@ export function DataLineDivider({ className = "", accent = "all" }: DataLineDivi
   const getGradient = () => {
     switch (accent) {
       case "cyan":
-        return "from-transparent via-[#00FFE4]/40 to-transparent"
+        return "from-transparent via-[#017ACA]/40 to-transparent"
       case "yellow":
         return "from-transparent via-[#FDCD03]/40 to-transparent"
       case "blue":
         return "from-transparent via-[#017ACA]/40 to-transparent"
       case "all":
       default:
-        return "from-transparent via-[#00FFE4]/20 via-[#017ACA]/30 via-[#FDCD03]/30 to-transparent"
+        return "from-transparent via-[#017ACA]/20 via-[#017ACA]/30 via-[#FDCD03]/30 to-transparent"
     }
   }
 

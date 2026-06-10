@@ -159,7 +159,7 @@ export function AnthemThreeCanvas({ className = "", color = "#017ACA" }: Props) 
         Math.min(width, height) * 0.6
       );
       bgGrad.addColorStop(0, "rgba(1, 122, 202, 0.08)");
-      bgGrad.addColorStop(0.5, "rgba(0, 35, 42, 0.02)");
+      bgGrad.addColorStop(0.5, "rgba(244, 250, 255, 0.45)");
       bgGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
@@ -294,7 +294,7 @@ export function AnthemThreeCanvas({ className = "", color = "#017ACA" }: Props) 
   return (
     <div
       ref={hostRef}
-      className={`relative aspect-square min-h-[280px] w-full overflow-hidden rounded-2xl bg-slate-950/90 ${className}`}
+      className={`relative aspect-square min-h-[280px] w-full overflow-hidden rounded-3xl bg-white/20 ${className}`}
       aria-label="Interactive technology visual"
     />
   );

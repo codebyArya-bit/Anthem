@@ -178,7 +178,7 @@ export default function TeamModal({ member, isOpen, onClose }) {
                     {member.department}
                   </Badge>
                   {member.achievements && member.achievements.slice(0, 2).map((achievement, idx) => (
-                    <Badge key={idx} variant="secondary" className="bg-white/20 text-white backdrop-blur-sm">
+                    <Badge key={idx} variant="outline" className="bg-white/20 hover:bg-white/35 text-white border-transparent backdrop-blur-sm transition-colors cursor-default">
                       <Award className="w-3 h-3 mr-1" />
                       {achievement}
                     </Badge>

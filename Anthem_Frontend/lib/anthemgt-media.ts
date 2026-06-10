@@ -78,6 +78,21 @@ const assets = {
   ewaste: image("ewaste.jpg", "Responsible electronics lifecycle and e-waste context", stockSources.ewaste),
 };
 
+const whoWeAreImages = [
+  assets.modernOffice,
+  assets.digitalWorkflow,
+  assets.softwareTeam,
+  assets.strategyMeeting,
+  assets.officeBuilding,
+  assets.mobileDevelopment,
+  assets.ecommerce,
+  assets.documentProcessing,
+  assets.biometricSecurity,
+  assets.vehicleTracking,
+  assets.careerTeam,
+  assets.ewaste,
+];
+
 const sharedVideo: AnthemVideoAsset = {
   src: `${mediaBase}/business-meeting.mp4`,
   poster: assets.strategyMeeting.src,
@@ -94,20 +109,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "A visual layer for Anthem's direction, values, and technology-first operating model.",
     effect: "strategy",
     hero: assets.strategyMeeting,
-    images: [
-      assets.modernOffice,
-      assets.digitalWorkflow,
-      assets.softwareTeam,
-      assets.strategyMeeting,
-      assets.officeBuilding,
-      assets.mobileDevelopment,
-      assets.ecommerce,
-      assets.documentProcessing,
-      assets.biometricSecurity,
-      assets.vehicleTracking,
-      assets.careerTeam,
-      assets.ewaste
-    ],
+    images: whoWeAreImages,
     video: sharedVideo,
   },
   {
@@ -117,7 +119,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "Animated proof points highlight turnaround, quality, reusable methods, and competitive execution.",
     effect: "operations",
     hero: assets.softwareTeam,
-    images: [assets.strategyMeeting, assets.digitalWorkflow, assets.modernOffice],
+    images: whoWeAreImages,
     video: sharedVideo,
   },
   {
@@ -127,7 +129,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "Leadership visuals support the management profile without replacing preserved scraped content.",
     effect: "strategy",
     hero: assets.modernOffice,
-    images: [assets.officeBuilding, assets.strategyMeeting, assets.careerTeam],
+    images: whoWeAreImages,
   },
   {
     slug: "sister-concern-company",
@@ -136,7 +138,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "Partner-style media cards give the page a more modern organizational presentation.",
     effect: "gallery",
     hero: assets.officeBuilding,
-    images: [assets.modernOffice, assets.softwareTeam, assets.digitalWorkflow],
+    images: whoWeAreImages,
   },
   {
     slug: "presentationnew",
@@ -145,7 +147,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "Media panels and gallery motion modernize the preserved presentation downloads.",
     effect: "motion",
     hero: assets.strategyMeeting,
-    images: [assets.digitalWorkflow, assets.officeBuilding, assets.ecommerce],
+    images: whoWeAreImages,
   },
   {
     slug: "career",
@@ -154,7 +156,7 @@ const profiles: AnthemMediaProfile[] = [
     summary: "Team imagery and video motion make career content feel active and current.",
     effect: "gallery",
     hero: assets.careerTeam,
-    images: [assets.softwareTeam, assets.modernOffice, assets.strategyMeeting],
+    images: whoWeAreImages,
     video: sharedVideo,
   },
   {
@@ -186,7 +188,7 @@ const profiles: AnthemMediaProfile[] = [
     images: [assets.softwareTeam, assets.modernOffice, assets.strategyMeeting],
   },
   {
-    slug: "costom-software",
+    slug: "custom-software",
     eyebrow: "Custom Software Development",
     headline: "Business software shaped around real workflows",
     summary: "Software delivery visuals support custom applications, inventory, reporting, and automation.",

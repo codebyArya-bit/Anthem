@@ -134,9 +134,9 @@ export default function SisterOrganizationsPage() {
             align="center"
           />
 
-          <div className="relative h-64 md:h-80 bg-[#003B66] rounded-2xl border border-anthem-blue/15 flex items-center justify-center overflow-hidden shadow-lg">
+          <div className="relative h-64 md:h-80 rounded-2xl border border-[#017ACA]/12 bg-gradient-to-br from-white via-[#F4FAFF] to-[#EAF6FD] flex items-center justify-center overflow-hidden shadow-[0_24px_70px_rgba(0,59,102,0.10)]">
             {/* Pulsing grid background */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
               {/* Pulsing connection lines */}
@@ -178,58 +178,66 @@ export default function SisterOrganizationsPage() {
             </svg>
 
             {/* Nodes */}
-            <div className="absolute inset-0 flex items-center justify-between px-8 md:px-16 text-center select-none text-xs font-black">
+            <div className="absolute inset-0 flex items-center justify-between px-3 text-center select-none text-xs font-black sm:px-6 md:px-16">
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-blue text-anthem-blue flex items-center justify-center shadow-md">
-                  <Globe className="size-5" />
+                <div className="size-10 rounded-xl bg-white/85 border border-[#017ACA]/18 text-[#017ACA] flex items-center justify-center shadow-[0_12px_32px_rgba(0,59,102,0.10)] backdrop-blur-md sm:size-12">
+                  <Globe className="size-4 sm:size-5" />
                 </div>
-                <span className="text-white mt-2 block text-[10px]">Global GIS</span>
+                <span className="mt-2 block text-[9px] font-bold tracking-wide text-[#475569] sm:text-[10px]">Global GIS</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-yellow text-anthem-yellow flex items-center justify-center shadow-md">
-                  <GraduationCap className="size-5" />
+                <div className="size-10 rounded-xl bg-[#FFF8D8]/80 border border-[#FDCD02]/35 text-[#B58A00] flex items-center justify-center shadow-[0_12px_32px_rgba(0,59,102,0.10)] backdrop-blur-md sm:size-12">
+                  <GraduationCap className="size-4 sm:size-5" />
                 </div>
-                <span className="text-white mt-2 block text-[10px]">CBT Exams</span>
+                <span className="mt-2 block text-[9px] font-bold tracking-wide text-[#475569] sm:text-[10px]">CBT Exams</span>
               </div>
 
               {/* Central HQ Hub */}
               <div className="flex flex-col items-center relative">
-                <div className="size-16 rounded-2xl bg-gradient-to-br from-[#003B66] to-[#017ACA] border-2 border-anthem-blue text-white flex items-center justify-center shadow-lg relative group">
-                  <div className="absolute inset-0 rounded-2xl bg-anthem-blue/10 animate-ping pointer-events-none" />
-                  <Building2 className="size-7" />
+                <div className="size-14 rounded-2xl bg-gradient-to-br from-[#017ACA] to-[#005B99] border border-[#017ACA]/20 text-white flex items-center justify-center shadow-[0_16px_36px_rgba(1,122,202,0.22)] relative group sm:size-16">
+                  <div className="absolute inset-0 rounded-2xl bg-[#017ACA]/10 animate-ping pointer-events-none" />
+                  <Building2 className="size-6 sm:size-7" />
                 </div>
-                <span className="text-white mt-2 block font-extrabold text-[11px] tracking-wide">Anthem HQ</span>
+                <span className="mt-2 block text-[11px] font-extrabold tracking-wide text-[#003B66]">Anthem HQ</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-blue text-anthem-blue flex items-center justify-center shadow-md">
-                  <Users className="size-5" />
+                <div className="size-10 rounded-xl bg-white/85 border border-[#017ACA]/18 text-[#017ACA] flex items-center justify-center shadow-[0_12px_32px_rgba(0,59,102,0.10)] backdrop-blur-md sm:size-12">
+                  <Users className="size-4 sm:size-5" />
                 </div>
-                <span className="text-white mt-2 block text-[10px]">CSR Training</span>
+                <span className="mt-2 block text-[9px] font-bold tracking-wide text-[#475569] sm:text-[10px]">CSR Training</span>
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="size-12 rounded-xl bg-slate-900 border border-anthem-yellow text-anthem-yellow flex items-center justify-center shadow-md">
-                  <Network className="size-5" />
+                <div className="size-10 rounded-xl bg-[#FFF8D8]/80 border border-[#FDCD02]/35 text-[#B58A00] flex items-center justify-center shadow-[0_12px_32px_rgba(0,59,102,0.10)] backdrop-blur-md sm:size-12">
+                  <Network className="size-4 sm:size-5" />
                 </div>
-                <span className="text-white mt-2 block text-[10px]">CSI Chapter</span>
+                <span className="mt-2 block text-[9px] font-bold tracking-wide text-[#475569] sm:text-[10px]">CSI Chapter</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Deep navy section header band wrapper */}
-        <div className="bg-[#003B66] rounded-2xl p-8 border border-anthem-blue/15 mb-12 shadow-md relative overflow-hidden">
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-[linear-gradient(to_left,rgba(1,122,202,0.02)_1px,transparent_1px)] pointer-events-none" />
-          <SectionHeading
-            eyebrow="Anthem Group Ecosystem"
-            title="Ecosystem of Collaborative Companies"
-            description="Our sister concerns and professional affiliations extend our capabilities from local skill training to high-end global spatial engineering."
-            align="center"
-            darkTheme={true}
-            className="mb-0"
-          />
+        {/* Light premium ecosystem section header */}
+        <div className="relative mb-12 overflow-hidden rounded-2xl border border-[#017ACA]/12 bg-gradient-to-br from-white via-[#F4FAFF] to-[#EAF6FD] p-8 shadow-[0_24px_70px_rgba(0,59,102,0.10)]">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(1,122,202,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(1,122,202,0.045)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
+          <div className="relative mx-auto max-w-3xl text-center">
+            <div className="mb-3 flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#017ACA]">
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#FDCD02]" />
+              Anthem Group Ecosystem
+              <span className="h-px w-10 bg-gradient-to-r from-[#FDCD02] to-transparent" />
+            </div>
+
+            <h2 className="text-3xl font-black tracking-tight text-[#003B66] md:text-4xl">
+              Ecosystem of Collaborative Companies
+            </h2>
+
+            <p className="mt-4 text-base leading-7 text-[#475569] md:text-lg">
+              Our sister concerns and professional affiliations extend our capabilities from local skill training to high-end global spatial engineering.
+            </p>
+          </div>
         </div>
 
         {/* Entities Grid with clean corporate light cards */}
@@ -297,7 +305,7 @@ export default function SisterOrganizationsPage() {
             
             {/* Modal body */}
             <motion.div 
-              className="relative bg-white border border-slate-200 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl z-10 flex flex-col"
+              className="relative bg-white border border-[#017ACA]/15 rounded-3xl w-full max-w-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.28)] z-10 flex flex-col"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -342,24 +350,24 @@ export default function SisterOrganizationsPage() {
                   </div>
                 </div>
 
-                <p className="text-xs uppercase tracking-wider font-extrabold text-anthem-yellow bg-[#003B66] px-3 py-1.5 rounded w-fit border border-anthem-blue/10">
+                <p className="text-xs uppercase tracking-wider font-bold text-[#003B66] bg-[#EAF6FD] border border-[#017ACA]/20 px-3 py-1.5 rounded-full w-fit">
                   {selectedOrg.label}
                 </p>
 
                 <p className="text-sm leading-relaxed text-slate-600 font-medium">
                   {selectedOrg.longDescription}
                 </p>
+              </div>
 
-                {/* Capabilities Badges */}
-                <div className="space-y-2 pt-2">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Division Capabilities</span>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedOrg.capabilities.map((cap) => (
-                      <span key={cap} className="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 shadow-sm">
-                        {cap}
-                      </span>
-                    ))}
-                  </div>
+              {/* Capabilities area with premium gradient and border-t */}
+              <div className="border-t border-[#017ACA]/10 bg-gradient-to-br from-white via-[#F4FAFF] to-[#EAF6FD] p-6 md:p-8 space-y-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Division Capabilities</span>
+                <div className="flex flex-wrap gap-2">
+                  {selectedOrg.capabilities.map((cap) => (
+                    <span key={cap} className="text-xs font-bold text-[#003B66] bg-white px-3 py-1 rounded-full border border-[#017ACA]/15 shadow-sm">
+                      {cap}
+                    </span>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -367,10 +375,8 @@ export default function SisterOrganizationsPage() {
         ) : null}
       </AnimatePresence>
 
-      
       <AnthemRouteMedia slug="sister-concern-company" />
-<Footer />
+      <Footer />
     </div>
   )
 }
-
