@@ -522,8 +522,10 @@ function HeaderInner() {
   const isHomePage = pathname === "/";
   const headerBg =
     isScrolled || !isHomePage
-      ? "bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30"
-      : "bg-transparent";
+      ? (mounted && theme === "dark"
+        ? "bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30"
+        : "bg-white/95 border-b border-[#017ACA]/10 shadow-sm")
+      : "border-b border-white/12 bg-[#003B66]/22 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,59,102,0.12)]";
   const textStyle =
     !isScrolled && isHomePage
       ? "text-white/90 hover:text-white hover:bg-white/10"
@@ -556,7 +558,7 @@ function HeaderInner() {
 
   return (
     <header className={`fixed top-0 z-40 w-full transition-all duration-500 ease-out ${headerBg}`}>
-      <div className="w-full px-4 md:px-6 lg:px-8 mx-auto">
+      <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-10 xl:px-12">
         <div className="flex h-16 md:h-20 items-center justify-between relative z-50">
           {/* LOGO */}
           <motion.div
@@ -565,7 +567,7 @@ function HeaderInner() {
             className="flex-shrink-0"
           >
             <Link href="/" className="flex items-center gap-1.5 p-1 md:p-2">
-              <div className="relative w-14 h-14 md:w-20 md:h-20">
+              <div className="relative w-14 h-14 md:w-16 md:h-16">
                 <Image
                   src="/Anthem-Logo-transparent.png"
                   alt="Anthem Global Logo"
@@ -575,25 +577,25 @@ function HeaderInner() {
               </div>
               <div className="flex flex-col">
                 <span
-                  className={`text-base md:text-xl font-bold leading-tight transition-all duration-300 ${!isScrolled && isHomePage
-                    ? "text-white drop-shadow-lg"
+                  className={`text-base md:text-lg font-bold tracking-tight leading-tight transition-all duration-300 ${!isScrolled && isHomePage
+                    ? "text-white/95 drop-shadow-[0_2px_8px_rgba(0,59,102,0.45)]"
                     : "text-foreground"
                     }`}
                 >
                   Anthem Global
                 </span>
                 <span
-                  className={`text-[11px] md:text-sm font-semibold leading-tight -mt-1 transition-all duration-300 ${!isScrolled && isHomePage
-                    ? "text-white/90"
+                  className={`text-[10px] md:text-sm font-semibold leading-tight -mt-1 transition-all duration-300 ${!isScrolled && isHomePage
+                    ? "text-white/88 drop-shadow-[0_2px_8px_rgba(0,59,102,0.45)]"
                     : "text-muted-foreground"
                     }`}
                 >
                   Technology Pvt Ltd
                 </span>
                 <span
-                  className={`text-[9px] md:text-xs font-medium leading-tight transition-all duration-300 ${!isScrolled && isHomePage
-                    ? "text-white/70"
-                    : "text-muted-foreground/80"
+                  className={`transition-all duration-300 mt-0.5 leading-tight ${!isScrolled && isHomePage
+                    ? "text-[8px] md:text-[11px] font-bold text-white drop-shadow-[0_3px_12px_rgba(0,59,102,0.75)]"
+                    : "text-[8px] md:text-xs font-medium text-muted-foreground/80"
                     }`}
                 >
                   An ISO 9001:2008 Certified Company
@@ -1068,7 +1070,7 @@ function HeaderInner() {
           </nav>
 
           {/* DESKTOP ACTION BUTTONS - compact & always visible */}
-          <div className="hidden md:flex gap-2 items-center flex-shrink-0">
+          <div className="hidden flex-shrink-0 items-center gap-2 pr-2 md:flex lg:pr-4">
             <Button
               variant="ghost"
               size="icon"

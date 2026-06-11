@@ -613,7 +613,7 @@ export default function LandingPage() {
           {mounted ? (
             <motion.div
               style={{ y: yRange }}
-              className="container mx-auto px-4 md:px-6"
+              className="container mx-auto px-6 md:px-10 lg:px-16 xl:px-20"
             >
               <motion.div
                 className="max-w-4xl pt-16 md:pt-20"
@@ -622,23 +622,36 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, ease: "easeOut" }}
-                  className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-7xl"
+                  className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-[76px]"
                 >
                   {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}
 
-                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-6xl">
+                  <span className="mt-3 block bg-gradient-to-r from-[#BFEAFF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-[58px] drop-shadow-[0_6px_22px_rgba(0,59,102,0.55)]">
                     {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                   </span>
                 </motion.h1>
 
-                <motion.p
+                 <motion.p
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, delay: 0.15, ease: "easeOut" }}
-                  className="mt-6 max-w-2xl text-base font-medium leading-8 text-white/88 drop-shadow-md md:text-xl"
+                  className="mt-8 max-w-3xl text-base font-semibold leading-9 text-white/90 drop-shadow-[0_4px_18px_rgba(0,59,102,0.65)] md:text-xl lg:text-2xl"
                 >
-                  {siteConfig?.hero_subheading ??
-                    "We help businesses automate, digitize, and grow with smart technology services."}
+                  We help businesses{" "}
+                  <span className="relative inline-block font-black text-[#BFEAFF]">
+                    automate
+                    <span className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-[#017ACA]/75" />
+                  </span>
+                  , digitize, and{" "}
+                  <span className="relative inline-block font-black text-[#FFF1A8]">
+                    grow
+                    <span className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-[#FDCD02]/80" />
+                  </span>{" "}
+                  with{" "}
+                  <span className="font-black text-white">
+                    smart technology services
+                  </span>
+                  .
                 </motion.p>
 
                 <motion.div
@@ -650,7 +663,7 @@ export default function LandingPage() {
                   <Link href="/contact">
                     <Button
                       size="lg"
-                      className="group h-12 sm:h-14 rounded-full bg-white px-7 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
+                      className="group h-12 sm:h-14 rounded-full bg-white px-8 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
                     >
                       Schedule a Free Consultation
                       <Calendar className="size-5 transition-transform duration-300 group-hover:scale-110" />
@@ -662,22 +675,36 @@ export default function LandingPage() {
               </motion.div>
             </motion.div>
           ) : (
-            <div className="container mx-auto px-4 md:px-6">
+            <div className="container mx-auto px-6 md:px-10 lg:px-16 xl:px-20">
               <div className="max-w-4xl pt-16 md:pt-20">
-                <h1 className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-7xl">
+                <h1 className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-[76px]">
                   {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
-                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-6xl">
+                  <span className="mt-3 block bg-gradient-to-r from-[#BFEAFF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-[58px] drop-shadow-[0_6px_22px_rgba(0,59,102,0.55)]">
                     {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                   </span>
                 </h1>
-                <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-white/88 drop-shadow-md md:text-xl">
-                  {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
+                <p className="mt-8 max-w-3xl text-base font-semibold leading-9 text-white/90 drop-shadow-[0_4px_18px_rgba(0,59,102,0.65)] md:text-xl lg:text-2xl">
+                  We help businesses{" "}
+                  <span className="relative inline-block font-black text-[#BFEAFF]">
+                    automate
+                    <span className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-[#017ACA]/75" />
+                  </span>
+                  , digitize, and{" "}
+                  <span className="relative inline-block font-black text-[#FFF1A8]">
+                    grow
+                    <span className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-[#FDCD02]/80" />
+                  </span>{" "}
+                  with{" "}
+                  <span className="font-black text-white">
+                    smart technology services
+                  </span>
+                  .
                 </p>
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <Link href="/contact">
                     <Button
                       size="lg"
-                      className="group h-12 sm:h-14 rounded-full bg-white px-7 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
+                      className="group h-12 sm:h-14 rounded-full bg-white px-8 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
                     >
                       Schedule a Free Consultation
                       <Calendar className="size-5" />
@@ -720,8 +747,8 @@ export default function LandingPage() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-          <div className="flex h-12 w-7 items-start justify-center rounded-full border border-white/45 bg-white/10 p-2 backdrop-blur-sm">
-            <div className="h-2 w-1 rounded-full bg-white/80 animate-bounce" />
+          <div className="flex h-12 w-7 items-start justify-center rounded-full border border-white/45 bg-white/12 p-2 backdrop-blur-md shadow-[0_10px_30px_rgba(0,59,102,0.22)]">
+            <div className="h-2 w-1 rounded-full bg-white/90 animate-bounce" />
           </div>
         </div>
       </section>
