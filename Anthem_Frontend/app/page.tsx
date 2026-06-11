@@ -601,12 +601,13 @@ export default function LandingPage() {
         </div>
 
         {/* Premium readable overlay — replaces black/50 */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#003B66]/76 via-[#003B66]/44 to-[#003B66]/16" />
-        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/20 via-transparent to-[#003B66]/35" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#003B66]/76 via-[#003B66]/44 to-[#003B66]/16" />
+        <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/20 via-transparent to-[#003B66]/35" />
 
         {/* Soft brand tint */}
-        <div className="absolute right-[-10%] top-[18%] z-[3] h-[420px] w-[420px] rounded-full bg-[#017ACA]/18 blur-[120px]" />
-        <div className="absolute bottom-[-18%] right-[8%] z-[3] h-[320px] w-[320px] rounded-full bg-[#FDCD02]/12 blur-[120px]" />
+        <div className="absolute right-[-10%] top-[18%] z-[4] h-[420px] w-[420px] rounded-full bg-[#017ACA]/18 blur-[120px]" />
+        <div className="absolute bottom-[-18%] right-[8%] z-[4] h-[320px] w-[320px] rounded-full bg-[#FDCD02]/12 blur-[120px]" />
 
         {/* Hero content */}
         <div className="relative z-10 flex h-full items-center">

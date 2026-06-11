@@ -586,7 +586,7 @@ function HeaderInner() {
                 </span>
                 <span
                   className={`text-[10px] md:text-sm font-semibold leading-tight -mt-1 transition-all duration-300 ${!isScrolled && isHomePage
-                    ? "text-white/88 drop-shadow-[0_2px_8px_rgba(0,59,102,0.45)]"
+                    ? "text-white drop-shadow-[0_2px_8px_rgba(0,59,102,0.45)]"
                     : "text-muted-foreground"
                     }`}
                 >
