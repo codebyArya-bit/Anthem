@@ -488,7 +488,7 @@ export default function AboutPage() {
       />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <motion.div
@@ -628,7 +628,7 @@ export default function AboutPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: heroInView ? 1 : 0 }}
           transition={{ delay: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

@@ -23,7 +23,6 @@ const readableServiceAliases: Record<string, string> = {
   "biometric solutions": "/it-services/biometric-solution",
   "biometric-solutions": "/it-services/biometric-solution",
   "vehicle tracking system": "/it-services/vehicle-tracking-system",
-  "vehicle-tracking-system": "/it-services/vehicle-tracking-system",
   "outsourcing": "/it-services/outsourcing",
   "e-waste management": "/it-services/ewaste-management",
   "ewaste management": "/it-services/ewaste-management",

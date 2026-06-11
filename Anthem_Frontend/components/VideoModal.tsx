@@ -40,7 +40,7 @@ export default function VideoModal() {
               muted
               onLoadedData={() => setIsLoading(false)}
             >
-              <source src="/Hero Section Video/Anthem Global.mp4" type="video/mp4" />
+              <source src="/Hero Section Video/Anthem Watch Demo Video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <Button

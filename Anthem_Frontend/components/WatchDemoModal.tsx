@@ -25,11 +25,10 @@ export default function WatchDemoModal() {
       <DialogTrigger asChild>
         <Button
           size="lg"
-          variant="anthem"
-          className="rounded-full h-14 px-10 text-lg font-medium shadow-lg"
+          className="group h-12 sm:h-14 rounded-full bg-[#017ACA] px-8 text-base font-semibold text-white shadow-[0_18px_45px_rgba(1,122,202,0.28)] transition-all duration-300 hover:bg-[#005B99] hover:text-white hover:shadow-[0_22px_55px_rgba(1,122,202,0.34)] flex items-center justify-center gap-2"
         >
           Watch Demo
-          <Play className="ml-2 size-5" />
+          <Play className="size-5 transition-transform duration-300 group-hover:translate-x-0.5" />
         </Button>
       </DialogTrigger>
 
@@ -52,7 +51,7 @@ export default function WatchDemoModal() {
           {/* Video */}
           <video
             ref={videoRef}
-            src="/Hero Section Video/Anthem Global.mp4"
+            src="/Hero Section Video/Anthem Watch Demo Video.mp4"
             controls
             autoPlay
             playsInline

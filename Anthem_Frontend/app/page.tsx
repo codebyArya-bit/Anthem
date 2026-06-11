@@ -547,7 +547,7 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
       {/* Hero Section */}
-      <div ref={heroRef} className="relative w-full h-screen overflow-hidden">
+      <section ref={heroRef} className="relative h-screen w-full overflow-hidden border-b border-[#017ACA]/10 bg-[#003B66]">
         <div className="absolute inset-0 z-0">
           {heroVideos.length > 0 ? (
             // ── Multi-video/image slideshow ──────────────────────────────
@@ -584,129 +584,106 @@ export default function LandingPage() {
             <video
               ref={videoRef}
               autoPlay muted loop playsInline preload="metadata"
-              className={`w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? "opacity-100" : "opacity-0"}`}
+              poster="/Anthem Assests/images_ban-mission-vision.jpg"
+              className={`w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? "opacity-100 pointer-events-none" : "opacity-0"}`}
               onLoadedData={() => setVideoLoaded(true)}
             >
               <source
-                src={siteConfig?.hero_video_url ?? "/Hero Section Video/Anthem Global.mp4"}
+                src={siteConfig?.hero_video_url ?? "/Hero Section Video/Anthem AI Hero Section.mp4"}
                 type="video/mp4"
               />
             </video>
           )}
 
           {!videoLoaded && heroVideos.length === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-anthem-blue/30 to-anthem-darkBlue/20" />
+            <div className="absolute inset-0 bg-[#003B66]" />
           )}
-          <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
-        <div className="absolute inset-0 z-5 pointer-events-none overflow-hidden opacity-20">
-          <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
-          <div className="absolute top-40 right-20 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"></div>
-          <div className="absolute bottom-40 left-20 w-24 h-24 bg-anthem-lightBlue/20 rounded-full blur-xl"></div>
-        </div>
+        {/* Premium readable overlay — replaces black/50 */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#003B66]/76 via-[#003B66]/44 to-[#003B66]/16" />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/20 via-transparent to-[#003B66]/35" />
 
-        <div className="relative z-10 h-full flex items-center justify-center">
+        {/* Soft brand tint */}
+        <div className="absolute right-[-10%] top-[18%] z-[3] h-[420px] w-[420px] rounded-full bg-[#017ACA]/18 blur-[120px]" />
+        <div className="absolute bottom-[-18%] right-[8%] z-[3] h-[320px] w-[320px] rounded-full bg-[#FDCD02]/12 blur-[120px]" />
+
+        {/* Hero content */}
+        <div className="relative z-10 flex h-full items-center">
           {mounted ? (
             <motion.div
               style={{ y: yRange }}
-              className="container px-4 md:px-6"
+              className="container mx-auto px-4 md:px-6"
             >
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-center max-w-4xl mx-auto"
+                className="max-w-4xl pt-16 md:pt-20"
               >
                 <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl"
+                  transition={{ duration: 0.75, ease: "easeOut" }}
+                  className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-7xl"
                 >
-                  {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="block bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent mt-2 sm:mt-3 text-[0.8em] sm:text-[0.9em]"
-                  >
+                  {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}
+
+                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-6xl">
                     {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
-                  </motion.span>
+                  </span>
                 </motion.h1>
 
                 <motion.p
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto drop-shadow-lg"
+                  transition={{ duration: 0.75, delay: 0.15, ease: "easeOut" }}
+                  className="mt-6 max-w-2xl text-base font-medium leading-8 text-white/88 drop-shadow-md md:text-xl"
                 >
-                  {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
+                  {siteConfig?.hero_subheading ??
+                    "We help businesses automate, digitize, and grow with smart technology services."}
                 </motion.p>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                  transition={{ duration: 0.75, delay: 0.3, ease: "easeOut" }}
+                  className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
                 >
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Link href="/contact">
-                      <Button
-                        size="lg"
-                        className="rounded-full h-12 sm:h-14 px-6 sm:px-10 text-sm sm:text-lg bg-white/95 text-primary hover:bg-white backdrop-blur-sm shadow-2xl group transition-all duration-300 w-full sm:w-auto"
-                      >
-                        <span className="flex items-center gap-2">
-                          <span className="hidden sm:inline">
-                            Schedule a Free Consultation
-                          </span>
-                          <span className="sm:hidden">Free Consultation</span>
-                          <Calendar className="size-4 sm:size-5 transition-transform group-hover:scale-110" />
-                        </span>
-                      </Button>
-                    </Link>
-                    <WatchDemoModal />
-                  </div>
+                  <Link href="/contact">
+                    <Button
+                      size="lg"
+                      className="group h-12 sm:h-14 rounded-full bg-white px-7 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
+                    >
+                      Schedule a Free Consultation
+                      <Calendar className="size-5 transition-transform duration-300 group-hover:scale-110" />
+                    </Button>
+                  </Link>
+
+                  <WatchDemoModal />
                 </motion.div>
               </motion.div>
             </motion.div>
           ) : (
-            <div className="container px-4 md:px-6 text-center max-w-4xl mx-auto">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-white drop-shadow-2xl">
-                {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
-                <span className="block bg-gradient-to-r from-sky-400 to-anthem-yellow bg-clip-text text-transparent mt-2 sm:mt-3 text-[0.8em] sm:text-[0.9em]">
-                  {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto drop-shadow-lg">
-                {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <div className="flex flex-col sm:flex-row gap-4">
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="max-w-4xl pt-16 md:pt-20">
+                <h1 className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-7xl">
+                  {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
+                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-6xl">
+                    {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
+                  </span>
+                </h1>
+                <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-white/88 drop-shadow-md md:text-xl">
+                  {siteConfig?.hero_subheading ?? "We help businesses automate, digitize, and grow with smart technology services."}
+                </p>
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <Link href="/contact">
                     <Button
                       size="lg"
-                      className="rounded-full h-12 sm:h-14 px-6 sm:px-10 text-sm sm:text-lg bg-white/95 text-primary hover:bg-white backdrop-blur-sm shadow-2xl group transition-all duration-300 w-full sm:w-auto"
+                      className="group h-12 sm:h-14 rounded-full bg-white px-7 text-base font-semibold text-[#017ACA] shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-[#F4FAFF] hover:text-[#005B99] hover:shadow-[0_22px_55px_rgba(0,0,0,0.28)] flex items-center justify-center gap-2"
                     >
-                      <span className="flex items-center gap-2">
-                        <span className="hidden sm:inline">
-                          Schedule a Free Consultation
-                        </span>
-                        <span className="sm:hidden">Free Consultation</span>
-                        <Calendar className="size-4 sm:size-5" />
-                      </span>
+                      Schedule a Free Consultation
+                      <Calendar className="size-5" />
                     </Button>
                   </Link>
-
-                  <Link href="/contact">
-                    <Button
-                      size="lg"
-                      className="rounded-full h-14 px-10 text-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-300"
-                    >
-                      Watch Demo
-                      <Play className="ml-2 size-5" />
-                    </Button>
-                  </Link>
+                  <WatchDemoModal />
                 </div>
               </div>
             </div>
@@ -719,7 +696,7 @@ export default function LandingPage() {
             {/* Progress bar */}
             <div className="absolute bottom-0 left-0 right-0 z-20 h-1 bg-white/20">
               <div
-                className="h-full bg-gradient-to-r from-sky-400 to-anthem-yellow transition-none"
+                className="h-full bg-gradient-to-r from-[#8ED8FF] to-[#FDCD02] transition-none"
                 style={{ width: `${slideProgress}%` }}
               />
             </div>
@@ -741,17 +718,13 @@ export default function LandingPage() {
           </>
         )}
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center animate-bounce">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+          <div className="flex h-12 w-7 items-start justify-center rounded-full border border-white/45 bg-white/10 p-2 backdrop-blur-sm">
+            <div className="h-2 w-1 rounded-full bg-white/80 animate-bounce" />
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
       <section
