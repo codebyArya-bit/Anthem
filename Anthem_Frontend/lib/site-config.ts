@@ -34,7 +34,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   hero_heading: "AI-Powered IT Solutions",
   hero_highlight: "Built to Transform Your Business",
   hero_subheading: "We help businesses automate, digitize, and grow with smart technology services.",
-  hero_video_url: "/Hero Section Video/Anthem AI Hero Section.mp4",
+  hero_video_url: "/Hero Section Video/anthem-people-tech-hero.mp4",
 };
 
 const STORAGE_KEY = "anthem_site_config_v4";

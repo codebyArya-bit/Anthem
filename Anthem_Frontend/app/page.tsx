@@ -583,16 +583,23 @@ export default function LandingPage() {
             // ── Fallback single video ──────────────────────────────
             <video
               ref={videoRef}
-              autoPlay muted loop playsInline preload="metadata"
-              poster="/Anthem Assests/images_ban-mission-vision.jpg"
+              src={
+                siteConfig?.hero_video_url && 
+                !siteConfig.hero_video_url.includes("Anthem AI Hero Section.mp4") && 
+                !siteConfig.hero_video_url.includes("Anthem Hero Section.mp4") &&
+                !siteConfig.hero_video_url.includes("anthem-people-tech-hero.mp4")
+                  ? siteConfig.hero_video_url
+                  : "/Hero Section Video/anthem-people-tech-hero.mp4"
+              }
+              poster="/Hero Section Video/anthem-people-tech-poster.jpg"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
               className={`w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? "opacity-100 pointer-events-none" : "opacity-0"}`}
               onLoadedData={() => setVideoLoaded(true)}
-            >
-              <source
-                src={siteConfig?.hero_video_url ?? "/Hero Section Video/Anthem AI Hero Section.mp4"}
-                type="video/mp4"
-              />
-            </video>
+            />
           )}
 
           {!videoLoaded && heroVideos.length === 0 && (
@@ -600,14 +607,13 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Premium readable overlay — replaces black/50 */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
-        <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#003B66]/76 via-[#003B66]/44 to-[#003B66]/16" />
-        <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/20 via-transparent to-[#003B66]/35" />
+        {/* Dark premium readability overlays */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#001A2E]/92 via-[#003B66]/62 to-[#003B66]/18" />
+        <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/35 via-transparent to-[#001A2E]/55" />
 
-        {/* Soft brand tint */}
-        <div className="absolute right-[-10%] top-[18%] z-[4] h-[420px] w-[420px] rounded-full bg-[#017ACA]/18 blur-[120px]" />
-        <div className="absolute bottom-[-18%] right-[8%] z-[4] h-[320px] w-[320px] rounded-full bg-[#FDCD02]/12 blur-[120px]" />
+        {/* Brand glows */}
+        <div className="absolute right-[-10%] top-[18%] z-[3] h-[460px] w-[460px] rounded-full bg-[#017ACA]/20 blur-[130px]" />
+        <div className="absolute bottom-[-18%] right-[8%] z-[3] h-[340px] w-[340px] rounded-full bg-[#FDCD02]/12 blur-[130px]" />
 
         {/* Hero content */}
         <div className="relative z-10 flex h-full items-center">
@@ -623,11 +629,11 @@ export default function LandingPage() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, ease: "easeOut" }}
-                  className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-[76px]"
+                  className="max-w-4xl text-3xl font-black tracking-tight text-white drop-shadow-[0_10px_35px_rgba(0,0,0,0.45)] md:text-5xl lg:text-6xl"
                 >
                   {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}
 
-                  <span className="mt-3 block bg-gradient-to-r from-[#BFEAFF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-[58px] drop-shadow-[0_6px_22px_rgba(0,59,102,0.55)]">
+                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-2xl text-transparent md:text-4xl lg:text-5xl">
                     {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                   </span>
                 </motion.h1>
@@ -678,9 +684,9 @@ export default function LandingPage() {
           ) : (
             <div className="container mx-auto px-6 md:px-10 lg:px-16 xl:px-20">
               <div className="max-w-4xl pt-16 md:pt-20">
-                <h1 className="max-w-4xl text-4xl font-black tracking-tight text-white drop-shadow-[0_8px_28px_rgba(0,0,0,0.35)] md:text-6xl lg:text-[76px]">
+                <h1 className="max-w-4xl text-3xl font-black tracking-tight text-white drop-shadow-[0_10px_35px_rgba(0,0,0,0.45)] md:text-5xl lg:text-6xl">
                   {siteConfig?.hero_heading ?? "AI-Powered IT Solutions"}{" "}
-                  <span className="mt-3 block bg-gradient-to-r from-[#BFEAFF] via-white to-[#FDCD02] bg-clip-text text-3xl text-transparent md:text-5xl lg:text-[58px] drop-shadow-[0_6px_22px_rgba(0,59,102,0.55)]">
+                  <span className="mt-3 block bg-gradient-to-r from-[#8ED8FF] via-white to-[#FDCD02] bg-clip-text text-2xl text-transparent md:text-4xl lg:text-5xl">
                     {siteConfig?.hero_highlight ?? "Built to Transform Your Business"}
                   </span>
                 </h1>

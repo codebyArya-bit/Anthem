@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
+import { ChevronRight, Menu, X, Moon, Sun, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import useAuth from "@/hooks/useAuth";
@@ -198,7 +198,6 @@ function HeaderInner() {
 
   const [services, setServices] = useState<Service[]>([]);
   const [servicesLoading, setServicesLoading] = useState(true);
-  const servicesToShow = services && services.length > 0 ? services : fallbackServices;
   const [itExploreCache, setItExploreCache] = useState<Record<string, ExploreSection | null>>({});
   const [itExploreLoading, setItExploreLoading] = useState<Record<string, boolean>>({});
 
@@ -298,7 +297,7 @@ function HeaderInner() {
         setServicesLoading(true);
         const res = await fetch(`${API_URL}/api/services/`);
         if (!res.ok) {
-          setServices([]);
+          setServices(fallbackServices);
           return;
         }
 
@@ -331,8 +330,8 @@ function HeaderInner() {
         );
         setServices(active.sort((a, b) => a.sort_order - b.sort_order));
       } catch (error) {
-        console.error("Error fetching IT services:", error);
-        setServices([]);
+        console.error("Error fetching IT services, loading fallbacks:", error);
+        setServices(fallbackServices);
       } finally {
         setServicesLoading(false);
       }
@@ -525,7 +524,7 @@ function HeaderInner() {
       ? (mounted && theme === "dark"
         ? "bg-background/80 backdrop-blur-xl shadow-lg border-b border-border/30"
         : "bg-white/95 border-b border-[#017ACA]/10 shadow-sm")
-      : "border-b border-white/12 bg-[#003B66]/22 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,59,102,0.12)]";
+      : "border-b border-transparent bg-[#001A2E]/42 backdrop-blur-xl shadow-[0_14px_44px_rgba(0,0,0,0.18)]";
   const textStyle =
     !isScrolled && isHomePage
       ? "text-white/90 hover:text-white hover:bg-white/10"
@@ -693,168 +692,183 @@ function HeaderInner() {
                 />
               </Link>
               <AnimatePresence>
-                {activeDropdown === "services" && servicesToShow.length > 0 && (
+                {activeDropdown === "services" && (
                   <motion.div
                     ref={servicesMenuRef}
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute top-full max-[1300px]:right-1 min-[1300px]:-left-40 mt-2 w-[600px] rounded-xl shadow-2xl z-40 border overflow-visible"
+                    className={`absolute top-full max-[1300px]:right-1 min-[1300px]:-left-40 mt-2 rounded-xl shadow-2xl z-40 border overflow-visible transition-all duration-300 ${
+                      servicesLoading || services.length === 0 ? "w-64" : "w-[600px]"
+                    }`}
                     style={{ background: dropdownBg, borderColor: dropdownBorder }}
                   >
                     <div className="p-4 overflow-y-auto max-h-[500px] custom-scrollbar overflow-x-visible">
-                      <div className="grid grid-cols-2 gap-3">
-                        {servicesToShow.map((service) => {
-                          const isSpecial =
-                            String(service.id) === "14" ||
-                            ["gis", "photogrammetry", "bim"].some((term) =>
-                              service.title.toLowerCase().includes(term)
-                            );
-                          const baseSlug =
-                            service.slug || generateServiceSlug(service.id, service.title);
-                          const cacheKey = baseSlug;
-                          const resolvedExplore =
-                            itExploreCache[cacheKey] !== undefined
-                              ? itExploreCache[cacheKey] ?? undefined
-                              : service.explore;
-                          const hasSecondDropdown =
-                            (resolvedExplore?.subsections?.length ?? 0) > 0 ||
-                            String(service.id) === "14";
-
-                          const colIndex = servicesToShow.indexOf(service) % 2;
-                          const arrowPointsLeft =
-                            hoveredServiceId === service.id ? flyoutPos.openLeft : colIndex === 0;
-
-                          return (
-                            <div
-                              key={service.id}
-                              className="relative group"
-                              onMouseEnter={(e) => {
-                                if (itHoverTimeoutRef.current) clearTimeout(itHoverTimeoutRef.current);
-                                const el = e.currentTarget as HTMLElement;
-                                const rect = el.getBoundingClientRect();
-                                const flyoutWidth = 280;
-                                const menuRect = servicesMenuRef.current?.getBoundingClientRect();
-                                const menuMid = menuRect
-                                  ? menuRect.left + menuRect.width / 2
-                                  : window.innerWidth / 2;
-                                const preferLeft = rect.left < menuMid;
-                                const leftAvail = rect.left;
-                                const rightAvail = window.innerWidth - rect.right;
-                                const canOpenLeft = leftAvail >= flyoutWidth + 12;
-                                const canOpenRight = rightAvail >= flyoutWidth + 12;
-                                const openLeft = preferLeft ? canOpenLeft : !canOpenRight && canOpenLeft;
-                                const desiredLeft = openLeft
-                                  ? rect.left - flyoutWidth - 10
-                                  : rect.right + 10;
-                                const left = Math.min(
-                                  Math.max(12, desiredLeft),
-                                  window.innerWidth - flyoutWidth - 12
+                      {servicesLoading ? (
+                        <div className="py-6 text-center text-sm font-medium flex items-center justify-center gap-2">
+                          <Loader2 className="size-4 animate-spin text-primary" />
+                          <span>Loading...</span>
+                        </div>
+                      ) : services.length === 0 ? (
+                        <div className="py-6 text-center text-sm font-medium text-muted-foreground">
+                          No services available
+                        </div>
+                      ) : (
+                        <>
+                          <div className="grid grid-cols-2 gap-3">
+                            {services.map((service) => {
+                              const isSpecial =
+                                String(service.id) === "14" ||
+                                ["gis", "photogrammetry", "bim"].some((term) =>
+                                  service.title.toLowerCase().includes(term)
                                 );
-                                setFlyoutPos({ top: rect.top, left, openLeft });
-                                setHoveredServiceId(null);
-                                requestAnimationFrame(() => {
-                                  setHoveredServiceId(service.id);
-                                  const baseSlug =
-                                    service.slug || generateServiceSlug(service.id, service.title);
-                                  setHoveredServiceSlug(baseSlug);
-                                  if (!resolvedExplore?.subsections?.length) {
-                                    const numericPrefix = baseSlug.match(/^(\d+)-/)?.[1] || "";
-                                    const candidates = Array.from(
-                                      new Set([service.slug || "", service.id || "", baseSlug, numericPrefix])
-                                    ).filter(Boolean);
-                                    void ensureItExplore(cacheKey, candidates);
-                                  }
-                                });
-                              }}
-                              onMouseLeave={() => {
-                                itHoverTimeoutRef.current = setTimeout(() => {
-                                  setHoveredServiceId(null);
-                                  setHoveredServiceSlug(null);
-                                }, 500);
-                              }}
-                            >
-                              <Link
-                                href={`/it-services/${baseSlug}`}
-                                className={`block p-3 rounded-lg transition-all duration-300 relative overflow-hidden ${isSpecial
-                                  ? !isScrolled && isHomePage
-                                    ? "bg-blue-500/10 hover:bg-blue-500/20"
-                                    : "bg-blue-100 border border-blue-200 hover:bg-blue-200"
-                                  : !isScrolled && isHomePage
-                                    ? "hover:bg-white/10"
-                                    : "hover:bg-muted/50"
-                                  } ${hoveredServiceId === service.id
-                                    ? isSpecial && (isScrolled || !isHomePage)
-                                      ? "bg-blue-200"
+                              const baseSlug =
+                                service.slug || generateServiceSlug(service.id, service.title);
+                              const cacheKey = baseSlug;
+                              const resolvedExplore =
+                                itExploreCache[cacheKey] !== undefined
+                                  ? itExploreCache[cacheKey] ?? undefined
+                                  : service.explore;
+                              const hasSecondDropdown =
+                                (resolvedExplore?.subsections?.length ?? 0) > 0 ||
+                                String(service.id) === "14";
+
+                              const colIndex = services.indexOf(service) % 2;
+                              const arrowPointsLeft =
+                                hoveredServiceId === service.id ? flyoutPos.openLeft : colIndex === 0;
+
+                              return (
+                                <div
+                                  key={service.id}
+                                  className="relative group"
+                                  onMouseEnter={(e) => {
+                                    if (itHoverTimeoutRef.current) clearTimeout(itHoverTimeoutRef.current);
+                                    const el = e.currentTarget as HTMLElement;
+                                    const rect = el.getBoundingClientRect();
+                                    const flyoutWidth = 280;
+                                    const menuRect = servicesMenuRef.current?.getBoundingClientRect();
+                                    const menuMid = menuRect
+                                      ? menuRect.left + menuRect.width / 2
+                                      : window.innerWidth / 2;
+                                    const preferLeft = rect.left < menuMid;
+                                    const leftAvail = rect.left;
+                                    const rightAvail = window.innerWidth - rect.right;
+                                    const canOpenLeft = leftAvail >= flyoutWidth + 12;
+                                    const canOpenRight = rightAvail >= flyoutWidth + 12;
+                                    const openLeft = preferLeft ? canOpenLeft : !canOpenRight && canOpenLeft;
+                                    const desiredLeft = openLeft
+                                      ? rect.left - flyoutWidth - 10
+                                      : rect.right + 10;
+                                    const left = Math.min(
+                                      Math.max(12, desiredLeft),
+                                      window.innerWidth - flyoutWidth - 12
+                                    );
+                                    setFlyoutPos({ top: rect.top, left, openLeft });
+                                    setHoveredServiceId(null);
+                                    requestAnimationFrame(() => {
+                                      setHoveredServiceId(service.id);
+                                      const baseSlug =
+                                        service.slug || generateServiceSlug(service.id, service.title);
+                                      setHoveredServiceSlug(baseSlug);
+                                      if (!resolvedExplore?.subsections?.length) {
+                                        const numericPrefix = baseSlug.match(/^(\d+)-/)?.[1] || "";
+                                        const candidates = Array.from(
+                                          new Set([service.slug || "", service.id || "", baseSlug, numericPrefix])
+                                        ).filter(Boolean);
+                                        void ensureItExplore(cacheKey, candidates);
+                                      }
+                                    });
+                                  }}
+                                  onMouseLeave={() => {
+                                    itHoverTimeoutRef.current = setTimeout(() => {
+                                      setHoveredServiceId(null);
+                                      setHoveredServiceSlug(null);
+                                    }, 500);
+                                  }}
+                                >
+                                  <Link
+                                    href={`/it-services/${baseSlug}`}
+                                    className={`block p-3 rounded-lg transition-all duration-300 relative overflow-hidden ${isSpecial
+                                      ? !isScrolled && isHomePage
+                                        ? "bg-blue-500/10 hover:bg-blue-500/20"
+                                        : "bg-blue-100 border border-blue-200 hover:bg-blue-200"
                                       : !isScrolled && isHomePage
-                                        ? "bg-white/10"
-                                        : "bg-muted/50"
-                                    : ""
-                                  }`}
-                                onClick={() => {
-                                  setActiveDropdown(null);
-                                  setHoveredServiceId(null);
-                                  setHoveredServiceSlug(null);
-                                }}
-                              >
-                                <div className="flex items-start gap-3">
-                                  <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-muted/30">
-                                    <img
-                                      src={getImageUrl(service.image, "/placeholder.svg")}
-                                      alt={service.title}
-                                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                    />
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <h4
-                                      className={`font-semibold text-sm mb-1 transition-colors ${!isScrolled && isHomePage
-                                        ? "text-white group-hover:text-blue-400"
-                                        : "text-foreground group-hover:text-primary"
-                                        }`}
-                                    >
-                                      {service.title}
-                                    </h4>
-                                    <p
-                                      className={`text-xs line-clamp-2 ${!isScrolled && isHomePage ? "text-white/70" : "text-muted-foreground"
-                                        }`}
-                                    >
-                                      {service.description}
-                                    </p>
-                                  </div>
-                                </div>
-                                {hasSecondDropdown && (
-                                  <div
-                                    className={`absolute top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-all duration-300 ${arrowPointsLeft
-                                      ? "left-1.5 group-hover:-translate-x-0.5"
-                                      : "right-1.5 group-hover:translate-x-0.5"
-                                      } ${!isScrolled && isHomePage ? "text-blue-400" : "text-primary"
+                                        ? "hover:bg-white/10"
+                                        : "hover:bg-muted/50"
+                                      } ${hoveredServiceId === service.id
+                                        ? isSpecial && (isScrolled || !isHomePage)
+                                          ? "bg-blue-200"
+                                          : !isScrolled && isHomePage
+                                            ? "bg-white/10"
+                                            : "bg-muted/50"
+                                          : ""
                                       }`}
+                                    onClick={() => {
+                                      setActiveDropdown(null);
+                                      setHoveredServiceId(null);
+                                      setHoveredServiceSlug(null);
+                                    }}
                                   >
-                                    {arrowPointsLeft ? (
-                                      <ChevronRight className="size-4 rotate-180" />
-                                    ) : (
-                                      <ChevronRight className="size-4" />
+                                    <div className="flex items-start gap-3">
+                                      <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-muted/30">
+                                        <img
+                                          src={getImageUrl(service.image, "/placeholder.svg")}
+                                          alt={service.title}
+                                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                        />
+                                      </div>
+                                      <div className="flex-1 min-w-0">
+                                        <h4
+                                          className={`font-semibold text-sm mb-1 transition-colors ${!isScrolled && isHomePage
+                                            ? "text-white group-hover:text-blue-400"
+                                            : "text-foreground group-hover:text-primary"
+                                            }`}
+                                        >
+                                          {service.title}
+                                        </h4>
+                                        <p
+                                          className={`text-xs line-clamp-2 ${!isScrolled && isHomePage ? "text-white/70" : "text-muted-foreground"
+                                            }`}
+                                        >
+                                          {service.description}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    {hasSecondDropdown && (
+                                      <div
+                                        className={`absolute top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-all duration-300 ${arrowPointsLeft
+                                          ? "left-1.5 group-hover:-translate-x-0.5"
+                                          : "right-1.5 group-hover:translate-x-0.5"
+                                          } ${!isScrolled && isHomePage ? "text-blue-400" : "text-primary"
+                                          }`}
+                                      >
+                                        {arrowPointsLeft ? (
+                                          <ChevronRight className="size-4 rotate-180" />
+                                        ) : (
+                                          <ChevronRight className="size-4" />
+                                        )}
+                                      </div>
                                     )}
-                                  </div>
-                                )}
-                              </Link>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-border/30">
-                        <Link
-                          href="/it-services"
-                          className={`block text-center py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${!isScrolled && isHomePage
-                            ? "text-white hover:bg-white/10"
-                            : "text-primary hover:bg-primary/10"
-                            }`}
-                          onClick={() => setActiveDropdown(null)}
-                        >
-                          View All Services →
-                        </Link>
-                      </div>
+                                  </Link>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <div className="mt-4 pt-4 border-t border-border/30">
+                            <Link
+                              href="/it-services"
+                              className={`block text-center py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${!isScrolled && isHomePage
+                                ? "text-white hover:bg-white/10"
+                                : "text-primary hover:bg-primary/10"
+                                }`}
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              View All Services →
+                            </Link>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -1253,47 +1267,58 @@ function HeaderInner() {
                         exit={{ opacity: 0, height: 0 }}
                         className="pl-4 space-y-1 overflow-hidden"
                       >
-                        {servicesToShow.map((service) => {
-                          const baseSlug = service.slug || generateServiceSlug(service.id, service.title);
-                          const subsections = Array.isArray(service.explore?.subsections)
-                            ? service.explore!.subsections
-                            : [];
-                          const fallbackSubs =
-                            String(service.id) === "14" && subsections.length === 0
-                              ? LIDAR_SUBSECTIONS.map((t) => ({
-                                title: t,
-                                slug: t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
-                              }))
+                        {servicesLoading ? (
+                          <div className="px-4 py-3 text-sm text-muted-foreground flex items-center gap-2">
+                            <Loader2 className="size-4 animate-spin text-primary" />
+                            <span>Loading...</span>
+                          </div>
+                        ) : services.length === 0 ? (
+                          <div className="px-4 py-3 text-sm text-muted-foreground">
+                            No services available
+                          </div>
+                        ) : (
+                          services.map((service) => {
+                            const baseSlug = service.slug || generateServiceSlug(service.id, service.title);
+                            const subsections = Array.isArray(service.explore?.subsections)
+                              ? service.explore!.subsections
                               : [];
-                          const effectiveSubs = subsections.length > 0 ? subsections : fallbackSubs;
-                          return (
-                            <div key={service.id} className="space-y-1">
-                              <Link
-                                href={`/it-services/${baseSlug}`}
-                                className={`block px-4 py-2.5 text-sm font-medium rounded-lg ${!isScrolled && isHomePage ? "text-white/80 hover:bg-white/10" : "text-foreground/80 hover:bg-muted/50"
-                                  }`}
-                                onClick={() => setMobileMenuOpen(false)}
-                              >
-                                {service.title}
-                              </Link>
-                              {effectiveSubs.length > 0 && (
-                                <div className="pl-4 space-y-1">
-                                  {effectiveSubs.map((sub, idx) => (
-                                    <Link
-                                      key={`${sub.slug}-${idx}`}
-                                      href={`/it-services/${baseSlug}/${sub.slug}`}
-                                      className={`block px-4 py-2 text-xs font-medium rounded-lg ${!isScrolled && isHomePage ? "text-white/70 hover:bg-white/10" : "text-foreground/70 hover:bg-muted/50"
-                                        }`}
-                                      onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                      {sub.title}
-                                    </Link>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
+                            const fallbackSubs =
+                              String(service.id) === "14" && subsections.length === 0
+                                ? LIDAR_SUBSECTIONS.map((t) => ({
+                                  title: t,
+                                  slug: t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+                                }))
+                                : [];
+                            const effectiveSubs = subsections.length > 0 ? subsections : fallbackSubs;
+                            return (
+                              <div key={service.id} className="space-y-1">
+                                <Link
+                                  href={`/it-services/${baseSlug}`}
+                                  className={`block px-4 py-2.5 text-sm font-medium rounded-lg ${!isScrolled && isHomePage ? "text-white/80 hover:bg-white/10" : "text-foreground/80 hover:bg-muted/50"
+                                    }`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  {service.title}
+                                </Link>
+                                {effectiveSubs.length > 0 && (
+                                  <div className="pl-4 space-y-1">
+                                    {effectiveSubs.map((sub, idx) => (
+                                      <Link
+                                        key={`${sub.slug}-${idx}`}
+                                        href={`/it-services/${baseSlug}/${sub.slug}`}
+                                        className={`block px-4 py-2 text-xs font-medium rounded-lg ${!isScrolled && isHomePage ? "text-white/70 hover:bg-white/10" : "text-foreground/70 hover:bg-muted/50"
+                                          }`}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                      >
+                                        {sub.title}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })
+                        )}
                         <Link
                           href="/it-services"
                           className={`block px-4 py-2.5 text-sm font-medium rounded-lg ${!isScrolled && isHomePage ? "text-white/80 hover:bg-white/10" : "text-foreground/80 hover:bg-muted/50"

@@ -9,4 +9,6 @@ DATABASES = {
 }
 
 DEBUG = True
+ALWAYS_UPLOAD_FILES_TO_AWS = config('ALWAYS_UPLOAD_FILES_TO_AWS', default=True, cast=bool)
 print('Using SQLite database for Anthem local development')
+

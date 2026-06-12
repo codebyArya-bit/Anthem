@@ -183,13 +183,19 @@ ALWAYS_UPLOAD_FILES_TO_AWS = config('ALWAYS_UPLOAD_FILES_TO_AWS', default=True, 
 if ALWAYS_UPLOAD_FILES_TO_AWS:
    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
-   AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='')
+   AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME', default='edrspace')
    AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL', default='https://sgp1.digitaloceanspaces.com')
    AWS_S3_OBJECT_PARAMETERS = {
       'CacheControl': 'max-age=86400',
    }
    AWS_LOCATION = config('AWS_LOCATION', default='anthem-media')
-   STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
+   AWS_QUERYSTRING_AUTH = False
+   AWS_DEFAULT_ACL = 'public-read'
+   
+   # Use custom domain for clean virtual host style URLs (crucial for DO Spaces public URLs)
+   AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN', default=f'{AWS_STORAGE_BUCKET_NAME}.sgp1.digitaloceanspaces.com')
+   
+   STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
