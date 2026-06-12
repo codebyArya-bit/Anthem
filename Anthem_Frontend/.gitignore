@@ -24,7 +24,7 @@ node_modules
 .next
 .env
 .env.local
-.env.production
+!.env.production
 .env.development
 .DS_Store
 
